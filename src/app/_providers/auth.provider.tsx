@@ -4,7 +4,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserLogin } from "@/lib/zod/user.zod";
 import { User } from "@/types";
-import { login } from "../api/auth/login/route";
+import { login } from "../api/auth/login";
 
 type AuthContextType = {
   authToken?: string | null;
