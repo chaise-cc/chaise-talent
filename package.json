@@ -19,6 +19,7 @@
     "iconsax-react": "^0.0.8",
     "lucide-react": "^0.468.0",
     "next": "15.1.0",
+    "next-auth": "^4.24.11",
     "next-transition-router": "^0.2.6",
     "nextjs-toploader": "^3.7.15",
     "react": "^19.0.0",
