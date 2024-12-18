@@ -6,9 +6,9 @@ export default function WebsiteLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="">
+    <>
       <Header />
       {children}
-    </div>
+    </>
   );
 }

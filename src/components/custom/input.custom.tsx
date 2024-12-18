@@ -39,7 +39,7 @@ export const CustomInputField = <T extends FieldValues>({
             {type !== "password" ? (
               type !== "bio" ? (
                 <Input
-                  className="text-base"
+                  className="text-base py-6"
                   {...field}
                   type={type || "text"}
                   placeholder={placeholder}

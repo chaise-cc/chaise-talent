@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "@/styles/globals.scss";
 import NextTopLoader from "nextjs-toploader";
 import { LayoutTransition } from "@/LayoutTransition";
+import AuthProvider from "../_providers/auth.provider";
 
 const varela_round = localFont({
   src: "../../fonts/varela-round.woff2",
@@ -78,15 +79,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="">
       <body className={`${varela_round.variable} ${sora.variable} antialiased`}>
-        <NextTopLoader />
+        <AuthProvider>
+          <NextTopLoader />
 
-        <LayoutTransition
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          {children}
-        </LayoutTransition>
+          <LayoutTransition
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {children}
+          </LayoutTransition>
+        </AuthProvider>
       </body>
     </html>
   );

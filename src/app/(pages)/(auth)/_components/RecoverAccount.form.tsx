@@ -8,6 +8,7 @@ import { Form } from "@/components/ui/form";
 
 import { ForgotPasswordType, zodValidator } from "@/lib/validators";
 import { CustomInputField } from "@/components/custom/input.custom";
+import { ArrowRight } from "iconsax-react";
 
 const RecoverAccountForm = () => {
   const form = useForm<ForgotPasswordType>({
@@ -38,9 +39,9 @@ const RecoverAccountForm = () => {
 
         <Button
           type="submit"
-          className="w-full text-base bg-main-color-500 border  hover:bg-transparent border-transparent transition hover:border-main-color-500  text-gray-900"
+          className="w-full py-6 font-semibold text-base bg-main-color-500 border  hover:bg-transparent border-transparent transition hover:border-main-color-500  text-gray-900"
         >
-          Recover my account
+          Recover my account <ArrowRight size={20} color="black" />
         </Button>
       </form>
     </Form>

@@ -15,11 +15,13 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { PasswordInput } from "../../../../components/custom/PasswordInput";
-import { useRouter } from "next/navigation";
+
+import { ArrowRight } from "iconsax-react";
+import { useAuth } from "@/app/_providers/auth.provider";
+import { Loader2 } from "lucide-react";
 
 export default function LoginForm() {
-  const router = useRouter();
-  //   const loginMutation = useLogin();
+  const { loading, handleLogin } = useAuth();
 
   const form = useForm<UserLogin>({
     resolver: zodResolver(userLoginSchema),
@@ -32,7 +34,8 @@ export default function LoginForm() {
 
   async function onSubmit(data: UserLogin) {
     console.log(data, "data");
-    router.push("/dashboard");
+    handleLogin(data);
+    // router.push("/dashboard");
     // try {
     //   await loginMutation.mutateAsync(data, {
     //     onSuccess: (response) => {
@@ -69,12 +72,13 @@ export default function LoginForm() {
               </FormLabel>
               <FormControl>
                 <Input
-                  className="text-base"
+                  className="text-base py-6"
                   {...field}
                   type="email"
                   placeholder="Email address"
                   required
                   minLength={6}
+                  disabled={loading}
                 />
               </FormControl>
             </FormItem>
@@ -91,11 +95,13 @@ export default function LoginForm() {
               <FormControl>
                 <PasswordInput
                   {...field}
-                  className="text-base"
+                  className="text-base py-6"
                   id="password"
                   autoComplete="current-password"
+                  placeholder="Enter Password"
                   required
                   minLength={6}
+                  disabled={loading}
                 />
               </FormControl>
             </FormItem>
@@ -128,10 +134,20 @@ export default function LoginForm() {
 
         <Button
           type="submit"
-          className="text-base w-full text-gray-700 bg-main-color-500"
-          //   disabled={loginMutation.isLoading}
+          className="text-base w-full font-bold border border-transparent hover:border-main-color-500 hover:bg-transparent py-6 text-gray-700 bg-main-color-500"
+          disabled={loading}
         >
-          Login {/* {loginMutation.isLoading ? "Logging in..." : "Login"} */}
+          {loading ? (
+            <>
+              Logging in <Loader2 size={18} className="animate-spin" />
+            </>
+          ) : (
+            <>
+              Login <ArrowRight size={20} color="black" />
+            </>
+          )}
+
+          {/* {loginMutation.isLoading ? "Logging in..." : "Login"} */}
         </Button>
       </form>
     </Form>

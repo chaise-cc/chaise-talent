@@ -37,11 +37,9 @@ export default function AuthenticationLayout({
                 alt="Chasie Authentication Flow Image"
                 height={1080}
                 width={1920}
-                quality={100}
+                loading="lazy"
                 className="object-contain h-full w-auto"
               />
-
-              {/* <AuthLayoutSliders /> */}
             </div>
           </div>
         </div>
