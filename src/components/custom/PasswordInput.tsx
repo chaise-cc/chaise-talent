@@ -2,13 +2,19 @@
 
 import { forwardRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input, InputProps } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
+import type { InputHTMLAttributes } from "react"; // Use this for InputProps
 import { cn } from "@/lib/utils";
 import { Eye, EyeSlash } from "iconsax-react";
+
+// Define InputProps locally, as it may not be exported from the input component
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
 const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
+
+    // Handle disabled state based on props
     const disabled =
       props.value === "" || props.value === undefined || props.disabled;
 
@@ -38,19 +44,20 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           </span>
         </Button>
 
-        {/* hides browsers password toggles */}
-        <style>{`
-					.hide-password-toggle::-ms-reveal,
-					.hide-password-toggle::-ms-clear {
-						visibility: hidden;
-						pointer-events: none;
-						display: none;
-					}
-				`}</style>
+        {/* Hide browser's password toggles */}
+        <style jsx>{`
+          .hide-password-toggle::-ms-reveal,
+          .hide-password-toggle::-ms-clear {
+            visibility: hidden;
+            pointer-events: none;
+            display: none;
+          }
+        `}</style>
       </div>
     );
   }
 );
+
 PasswordInput.displayName = "PasswordInput";
 
 export { PasswordInput };
