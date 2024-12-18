@@ -1,12 +1,69 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import "./_styles/index.scss";
+
 export default function AuthenticationLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <div className="">
-      <h2>Authentication Layout</h2>
-      {children}
+    <div className="w-full h-screen md:overflow-hidden">
+      <div className="h-full flex">
+        <div className="md:w-[50%] h-full bg-main-color-50 hidden md:inline-block">
+          <div className=" mx-auto pt-8 flex flex-col gap-10 h-full">
+            <div className="flex h-full overflow-hidden flex-col items-center gap-2">
+              <Link href={"/"}>
+                <Image
+                  quality={100}
+                  src="/images/chaise-black.png"
+                  alt="Chaise - The Future of Freelancing"
+                  height={48}
+                  width={200}
+                  loading="lazy"
+                  className=" h-8 w-20 object-cover"
+                />
+              </Link>
+
+              <h2 className="text-2xl sm:px-6 md:px-12 md:text-3xl pt-4 mb-4 text-center">
+                Unlock <span className="text-main-color-500">Limitless</span>{" "}
+                <br /> Possibilities with Chaise
+              </h2>
+
+              <Image
+                src={"/images/auth-bg.webp"}
+                alt="Chasie Authentication Flow Image"
+                height={1080}
+                width={1920}
+                quality={100}
+                className="object-contain h-full w-auto"
+              />
+
+              {/* <AuthLayoutSliders /> */}
+            </div>
+          </div>
+        </div>
+
+        <section className="md:w-[50%] w-full">
+          <div className="h-full w-full flex items-center flex-col md:overflow-y-auto no-srollbar p-8 md:p-12">
+            <Link href={"/"} className="block md:hidden">
+              <Image
+                quality={100}
+                src="/images/chaise-black.png"
+                alt="Chaise - The Future of Freelancing"
+                height={48}
+                width={200}
+                loading="lazy"
+                className="mb-3 h-8 w-20 object-cover"
+              />
+            </Link>
+
+            {children}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

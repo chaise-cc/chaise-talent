@@ -1,5 +1,6 @@
 import DashboardHeader from "./_components/header";
 import DesktopSideBar from "./_components/sidebar/desktop.sidebar";
+import "./_styles/index.scss";
 
 export default function DashboardLayout({
   children,

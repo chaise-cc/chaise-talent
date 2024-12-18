@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.scss";
-import Transition from "@/transition";
 import NextTopLoader from "nextjs-toploader";
+import { LayoutTransition } from "@/LayoutTransition";
 
 const varela_round = localFont({
   src: "../../fonts/varela-round.woff2",
@@ -76,11 +76,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="">
       <body className={`${varela_round.variable} ${sora.variable} antialiased`}>
         <NextTopLoader />
 
-        <Transition>{children}</Transition>
+        <LayoutTransition
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          {children}
+        </LayoutTransition>
       </body>
     </html>
   );

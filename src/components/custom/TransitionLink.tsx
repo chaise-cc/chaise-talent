@@ -1,11 +1,14 @@
+"use client";
+
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ReactNode } from "react";
 
 interface TransitionLinkProps extends LinkProps {
   children: ReactNode;
-  className: string;
+  className?: string;
   href: string;
+  target?: string;
 }
 
 function sleep(ms: number): Promise<void> {
@@ -16,6 +19,7 @@ export default function TransitionLink({
   children,
   href,
   className,
+  target,
   ...props
 }: TransitionLinkProps) {
   const router = useRouter();
@@ -30,7 +34,9 @@ export default function TransitionLink({
 
     await sleep(450);
 
-    router.push(href);
+    if (target) window.open("www.yourdomain.com", "_ blank");
+    else router.push(href);
+
     await sleep(450);
 
     main?.classList.remove("page-transition");
@@ -42,6 +48,7 @@ export default function TransitionLink({
       className={className}
       href={href}
       onClick={handleTransition}
+      target={target}
     >
       {children}
     </Link>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FC } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 // Icons
 import {
@@ -27,6 +27,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
 }) => {
   const size = 18;
   const color = "black";
+  const router = useRouter();
 
   const MenuItems = [
     {
@@ -78,6 +79,10 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
     },
   ];
 
+  const handleLogout = () => {
+    router.push("/login");
+  };
+
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const currentPath = usePathname();
 
@@ -125,8 +130,8 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
                 <li key={item.label}>
                   {item.label === "Log out" ? (
                     <div
-                      className={`flex text-sm w-full items-center justify-center md:justify-start transition-all px-4 py-2.5 hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-r-4 gap-4`}
-                      //   onClick={handleLogout}
+                      className={`flex text-sm cursor-pointer w-full items-center justify-center md:justify-start transition-all px-4 py-2.5 hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-r-4 gap-4`}
+                      onClick={handleLogout}
                     >
                       <div className="icon text-black ">{item.icon}</div>
                       <span>{item.label}</span>

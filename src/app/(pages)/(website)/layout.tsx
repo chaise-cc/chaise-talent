@@ -1,3 +1,5 @@
+import Header from "./_components/header";
+
 export default function WebsiteLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function WebsiteLayout({
 }>) {
   return (
     <div className="">
-      <h2>Website Layout</h2>
+      <Header />
       {children}
     </div>
   );
