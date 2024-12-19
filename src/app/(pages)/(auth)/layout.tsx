@@ -21,6 +21,7 @@ export default function AuthenticationLayout({
                   src="/images/chaise-black.png"
                   alt="Chaise - The Future of Freelancing"
                   height={48}
+                  priority={false}
                   width={200}
                   loading="lazy"
                   className=" h-8 w-20 object-cover"
