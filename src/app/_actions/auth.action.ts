@@ -2,6 +2,7 @@
 
 import users from "@/data/mocks/users";
 import { createSession, deleteSession } from "@/lib/session";
+import { User } from "@/types";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -11,9 +12,14 @@ const loginSchema = z.object({
     .string()
     .min(8, { message: "Password must be at least 8 characters" })
     .trim(),
+  accountType: z.string(),
 });
 
 export async function login(prevState: unknown, formData: FormData) {
+  // Ensure accountType is set before parsing
+  formData.set("accountType", "talent");
+
+  // Parse and validate form data against the schema
   const result = loginSchema.safeParse(Object.fromEntries(formData));
 
   if (!result.success) {
@@ -22,9 +28,15 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
-  const { email, password } = result.data;
+  const { email, password, accountType } = result.data;
 
-  const user = users.find((u) => u.email === email && password === "12345678");
+  // Find the user that matches the provided credentials
+  const user: User | undefined = users.find(
+    (u) =>
+      u.email === email &&
+      password === "12345678" && // Replace with proper password hashing logic in production
+      u.accounts?.includes(accountType)
+  );
 
   if (!user) {
     return {
@@ -34,7 +46,10 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
+  // Create a session for the authenticated user
   await createSession(user);
+
+  // Redirect to the dashboard
   return redirect("/dashboard");
 }
 
