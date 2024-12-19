@@ -6,7 +6,6 @@ import { logout as logoutAction } from "@/app/_actions/auth.action"; // Import t
 
 type AuthContextType = {
   currentUser: User | null;
-  isAuthenticated: boolean;
   loading: boolean;
   status: number | null;
   logout: () => Promise<void>; // Provide the logout function in the context
@@ -20,7 +19,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState<number | null>(null);
 
@@ -33,7 +31,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         if (res.ok) {
           const data = await res.json();
           setCurrentUser(data.user);
-          setIsAuthenticated(true);
         } else {
           handleAuthError(res.status);
         }
@@ -51,7 +48,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   // Helper function to handle authentication errors
   const handleAuthError = (statusCode: number) => {
     setCurrentUser(null);
-    setIsAuthenticated(false);
     setStatus(statusCode);
   };
 
@@ -60,7 +56,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     try {
       await logoutAction(); // Call the logout function from auth.actions
       setCurrentUser(null);
-      setIsAuthenticated(false);
       setStatus(null);
       // window.location.href = "/auth/login"; // Redirect to login page after logout
     } catch (error) {
@@ -72,7 +67,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         currentUser,
-        isAuthenticated,
         loading,
         status,
         logout,

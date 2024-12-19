@@ -83,7 +83,6 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
 
   const handleLogout = async () => {
     await logout();
-    window.location.reload();
   };
 
   const [isMobileOpen, setIsMobileOpen] = useState(false);

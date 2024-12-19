@@ -26,7 +26,12 @@ export async function createSession(user: User): Promise<void> {
 
 export async function deleteSession() {
   const cookiesStore = await cookies();
+
   cookiesStore.delete("session");
+
+  return {
+    "Set-Cookie": `session=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Strict`,
+  };
 }
 
 export async function encrypt(payload: SessionPayload) {

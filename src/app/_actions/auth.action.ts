@@ -34,8 +34,11 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
+  // const sessionCookie = createSe/ssion(user);
+  // const headers = new Headers(sessionCookie);
+
   await createSession(user);
-  redirect("/dashboard");
+  return redirect("/dashboard");
 }
 
 export async function logout() {
