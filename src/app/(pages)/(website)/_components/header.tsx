@@ -27,7 +27,11 @@ export default function Header() {
             <div className="flex gap-2 items-center ">
               <ul className="flex space-x-4 md:space-x-6 shrink-0 items-center list-none">
                 <li className="shrink-0">
-                  <Link className="font-bold" href="/login" data-view="login">
+                  <Link
+                    className="font-bold"
+                    href="/auth/login"
+                    data-view="login"
+                  >
                     Login
                   </Link>
                 </li>

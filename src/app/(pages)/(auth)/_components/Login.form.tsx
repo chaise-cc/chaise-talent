@@ -1,155 +1,102 @@
-"use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, FieldErrors } from "react-hook-form";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 import { Checkbox } from "@/components/ui/checkbox";
-import { UserLogin, userLoginSchema } from "@/lib/zod/user.zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+
 import { PasswordInput } from "../../../../components/custom/PasswordInput";
 
 import { ArrowRight } from "iconsax-react";
-import { useAuth } from "@/app/_providers/auth.provider";
 import { Loader2 } from "lucide-react";
+import { useActionState } from "react";
+import { login } from "@/app/_actions/auth.action";
+import { useFormStatus } from "react-dom";
+import { Label } from "@/components/ui/label";
 
 export default function LoginForm() {
-  const { loading, handleLogin } = useAuth();
+  const { pending } = useFormStatus();
+  const [state, loginAction] = useActionState(login, undefined);
 
-  const form = useForm<UserLogin>({
-    resolver: zodResolver(userLoginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-    },
-  });
-
-  async function onSubmit(data: UserLogin) {
-    console.log(data, "data");
-    handleLogin(data);
-    // router.push("/dashboard");
-    // try {
-    //   await loginMutation.mutateAsync(data, {
-    //     onSuccess: (response) => {
-    //       toast.success("Login successful!");
-    //       router.push("/dashboard");
-    //     },
-    //     onError: (error: Error) => {
-    //       toast.error(`Login failed: ${error.message}`);
-    //     },
-    //   });
-    // } catch (err: any) {
-    //   toast.error("Unexpected error occurred, please try again.");
-    // }
-  }
-
-  function onError(errors: FieldErrors<UserLogin>) {
-    for (const [field, error] of Object.entries(errors)) {
-      toast.error(`Error in ${field}: ${error?.message}`);
-    }
-  }
+  console.log("this", pending);
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit, onError)}
-        className="space-y-6 max-w-lg mx-auto w-full py-4"
-      >
-        <FormField
+    <form
+      action={loginAction}
+      className="space-y-6 max-w-lg mx-auto w-full py-4"
+    >
+      <div className="flex flex-col items-start space-y-1 ">
+        <Label className="font-semibold text-base" htmlFor="email">
+          Email
+        </Label>
+        <Input
+          className="text-base py-6"
+          type="email"
+          placeholder="Email address"
           name="email"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-start space-y-1">
-              <FormLabel className="font-semibold text-base" htmlFor="email">
-                Email
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="text-base py-6"
-                  {...field}
-                  type="email"
-                  placeholder="Email address"
-                  required
-                  minLength={6}
-                  disabled={loading}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          required
+          minLength={6}
+          disabled={pending}
         />
+      </div>
 
-        <FormField
+      {state?.errors.email && (
+        <p className="text-red-500">{state?.errors?.email}</p>
+      )}
+
+      <div className="flex flex-col items-start space-y-1 ">
+        <Label className="font-semibold text-base" htmlFor="password">
+          Password
+        </Label>
+
+        <PasswordInput
+          className="text-base py-6"
+          id="password"
           name="password"
-          render={({ field }) => (
-            <FormItem className="flex flex-col items-start space-y-1">
-              <FormLabel className="font-semibold text-base" htmlFor="password">
-                Password
-              </FormLabel>
-              <FormControl>
-                <PasswordInput
-                  {...field}
-                  className="text-base py-6"
-                  id="password"
-                  autoComplete="current-password"
-                  placeholder="Enter Password"
-                  required
-                  minLength={6}
-                  disabled={loading}
-                />
-              </FormControl>
-            </FormItem>
-          )}
+          autoComplete="current-password"
+          placeholder="Enter Password"
+          required
+          minLength={6}
+          disabled={pending}
         />
+      </div>
 
-        <div className="flex mt-2 justify-between items-center">
-          <FormField
-            control={form.control}
-            name="rememberMe"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-4 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="leading-none">
-                  <FormLabel>Keep me logged in</FormLabel>
-                </div>
-              </FormItem>
-            )}
-          />
+      {state?.errors.password && (
+        <p className="text-red-500">{state?.errors?.password}</p>
+      )}
 
-          <a href="/recover-account" className="font-bold text-sm underline">
-            Recover password
-          </a>
+      <div className="flex mt-2 justify-between items-center">
+        <div className="flex flex-row items-start space-x-4 space-y-0">
+          <Checkbox />
+          <Label className="leading-none">Keep me logged in</Label>
         </div>
 
-        <Button
-          type="submit"
-          className="text-base w-full font-bold border border-transparent hover:border-main-color-500 hover:bg-transparent py-6 text-gray-700 bg-main-color-500"
-          disabled={loading}
-        >
-          {loading ? (
-            <>
-              Logging in <Loader2 size={18} className="animate-spin" />
-            </>
-          ) : (
-            <>
-              Login <ArrowRight size={20} color="black" />
-            </>
-          )}
+        <a href="/recover-account" className="font-bold text-sm underline">
+          Recover password
+        </a>
+      </div>
 
-          {/* {loginMutation.isLoading ? "Logging in..." : "Login"} */}
-        </Button>
-      </form>
-    </Form>
+      <SubmitButton />
+    </form>
+  );
+}
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      type="submit"
+      className="text-base w-full font-bold border border-transparent hover:border-main-color-500 hover:bg-transparent py-6 text-gray-700 bg-main-color-500"
+      disabled={pending}
+    >
+      {pending ? (
+        <>
+          Logging in <Loader2 size={18} className="animate-spin" />
+        </>
+      ) : (
+        <>
+          Login <ArrowRight size={20} color="black" />
+        </>
+      )}
+    </Button>
   );
 }

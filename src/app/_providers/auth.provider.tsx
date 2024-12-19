@@ -1,98 +1,89 @@
 "use client";
 
-import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { useRouter } from "next/navigation";
-import { UserLogin } from "@/lib/zod/user.zod";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "@/types";
-import { login } from "../api/auth/login";
+import { logout as logoutAction } from "@/app/_actions/auth.action"; // Import the logout function
 
 type AuthContextType = {
-  authToken?: string | null;
-  currentUser?: User | null;
-  handleLogin: (data: UserLogin) => Promise<void>;
-  handleLogout: () => Promise<void>;
+  currentUser: User | null;
   isAuthenticated: boolean;
   loading: boolean;
   status: number | null;
+  logout: () => Promise<void>;
 };
 
-type AuthProviderProps = PropsWithChildren;
+type AuthProviderProps = {
+  children: React.ReactNode;
+};
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [authToken, setAuthToken] = useState<string | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState<number | null>(null);
-  const router = useRouter();
 
-  async function handleLogin(data: UserLogin) {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        setAuthToken(token);
-        setIsAuthenticated(true);
+  // Fetch session on mount and after login
+  useEffect(() => {
+    const initializeAuth = async () => {
+      setLoading(true); // Set loading to true before the fetch
+      try {
+        const res = await fetch("/api/auth/session");
+        if (res.ok) {
+          const data = await res.json();
+          setCurrentUser(data.user);
+          setIsAuthenticated(true);
+        } else {
+          handleAuthError(res.status);
+        }
+      } catch (error) {
+        console.error("Failed to initialize authentication:", error);
+        handleAuthError(500); // Internal server error
+      } finally {
+        setLoading(false); // Set loading to false after the fetch completes
       }
-    }
+    };
 
-    setLoading(true);
-    setStatus(null);
+    initializeAuth();
+  }, []); // On mount or after login
 
-    try {
-      const [loginStatus, response] = await login(data);
-
-      if (loginStatus === 500) {
-        setStatus(loginStatus);
-        setAuthToken(null);
-        setCurrentUser(null);
-        setIsAuthenticated(false);
-        return;
-      }
-
-      const { authToken, user } = response;
-      setAuthToken(authToken);
-      setCurrentUser(user);
-      setIsAuthenticated(true);
-      localStorage.setItem("authToken", authToken || "");
-      setStatus(loginStatus);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      setStatus(500);
-    } finally {
-      setLoading(false);
-    }
-
-    return;
-  }
-
-  async function handleLogout() {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("authToken");
-    }
-
-    setAuthToken(null);
+  // Helper function to handle authentication errors
+  const handleAuthError = (statusCode: number) => {
     setCurrentUser(null);
-    setIsAuthenticated(false); // This should be set before the redirect
-    router.push("/login");
+    setIsAuthenticated(false);
+    setStatus(statusCode);
+  };
 
-    return;
-  }
+  // The logout function now uses the one from auth.actions
+  const logout = async () => {
+    try {
+      await logoutAction(); // Call the logout function from auth.actions
+      setCurrentUser(null);
+      setIsAuthenticated(false);
+      setStatus(null);
+      window.location.href = "/auth/login"; // Redirect to login page after logout
+    } catch (error) {
+      console.error("Failed to log out:", error);
+    }
+  };
 
   return (
     <AuthContext.Provider
       value={{
-        authToken,
         currentUser,
-        handleLogout,
-        handleLogin,
         isAuthenticated,
         loading,
         status,
+        logout,
       }}
     >
-      {children}
+      {/* Conditionally render based on loading */}
+      {loading ? (
+        <div>Loading...</div> // Placeholder while data is being fetched
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 }

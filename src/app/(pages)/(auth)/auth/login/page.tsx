@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import FormHeader from "@/components/custom/FormHeader";
-import LoginForm from "../_components/Login.form";
+import LoginForm from "../../_components/Login.form";
 
 const LoginPage = () => {
   return (
@@ -18,7 +18,6 @@ const LoginPage = () => {
             target="_blank"
             href="https://chaise.cc/signup?accountType=talent"
             className="font-bold underline"
-            // onClick={() => openModal(<GetStartedModal />)}
           >
             Create one
           </Link>

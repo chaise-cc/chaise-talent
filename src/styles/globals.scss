@@ -160,7 +160,7 @@ aside {
   ul {
     li {
       a {
-        @apply font-normal text-sm flex p-4 items-center gap-3 transition-all;
+        @apply font-normal flex p-4 items-center gap-3 transition-all;
         &.active,
         &:hover {
           @apply text-main-color-700 bg-main-color-100 border-r-4  border-main-color-300;

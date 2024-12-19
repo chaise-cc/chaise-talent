@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FC } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 // Icons
 import {
@@ -17,6 +17,8 @@ import {
 } from "iconsax-react";
 import Image from "next/image";
 import TransitionLink from "@/components/custom/TransitionLink";
+import { useAuth } from "@/app/_providers/auth.provider";
+// import { logout } from "@/app/_actions/auth.action";
 
 interface DesktopDashboardSideBarProps {
   baseUrl?: string;
@@ -27,7 +29,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
 }) => {
   const size = 18;
   const color = "black";
-  const router = useRouter();
+  const { logout } = useAuth();
 
   const MenuItems = [
     {
@@ -79,8 +81,9 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
     },
   ];
 
-  const handleLogout = () => {
-    router.push("/login");
+  const handleLogout = async () => {
+    await logout();
+    window.location.reload();
   };
 
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -130,7 +133,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
                 <li key={item.label}>
                   {item.label === "Log out" ? (
                     <div
-                      className={`flex text-sm cursor-pointer w-full items-center justify-center md:justify-start transition-all px-4 py-2.5 hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-r-4 gap-4`}
+                      className={`flex  cursor-pointer w-full items-center justify-center md:justify-start transition-all px-4 py-2.5 hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-r-4 gap-4`}
                       onClick={handleLogout}
                     >
                       <div className="icon text-black ">{item.icon}</div>
