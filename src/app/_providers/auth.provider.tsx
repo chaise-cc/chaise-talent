@@ -2,14 +2,14 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { User } from "@/types";
-import { logout as logoutAction } from "@/app/_actions/auth.action"; // Import the logout function
+import { logout as logoutAction } from "@/app/_actions/auth.action"; // Import the logout function from auth.actions
 
 type AuthContextType = {
   currentUser: User | null;
   isAuthenticated: boolean;
   loading: boolean;
   status: number | null;
-  logout: () => Promise<void>;
+  logout: () => Promise<void>; // Provide the logout function in the context
 };
 
 type AuthProviderProps = {
@@ -24,7 +24,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState<number | null>(null);
 
-  // Fetch session on mount and after login
+  // Fetch session on mount
   useEffect(() => {
     const initializeAuth = async () => {
       setLoading(true); // Set loading to true before the fetch
@@ -46,7 +46,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     };
 
     initializeAuth();
-  }, []); // On mount or after login
+  }, []);
 
   // Helper function to handle authentication errors
   const handleAuthError = (statusCode: number) => {
@@ -62,7 +62,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       setCurrentUser(null);
       setIsAuthenticated(false);
       setStatus(null);
-      window.location.href = "/auth/login"; // Redirect to login page after logout
+      // window.location.href = "/auth/login"; // Redirect to login page after logout
     } catch (error) {
       console.error("Failed to log out:", error);
     }

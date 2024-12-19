@@ -8,7 +8,7 @@ export default function HomePage() {
   const { currentUser: user, loading } = useAuth();
 
   // Handle loading state
-  if ((loading && user === null) || undefined) {
+  if (loading && user === null) {
     return (
       <div className="flex justify-center items-center h-screen">
         <p>Loading...</p>
@@ -18,7 +18,9 @@ export default function HomePage() {
 
   return (
     <div>
-      <TopNavigation pageTitle={`Welcome back, ${user?.firstName}`} />
+      <TopNavigation
+        pageTitle={`Welcome back, ${user?.firstName || "Guest"}`}
+      />
       <main className="p-4">
         <p>Explore your dashboard and make the most of your account.</p>
       </main>
