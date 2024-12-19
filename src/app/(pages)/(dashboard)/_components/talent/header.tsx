@@ -22,7 +22,7 @@ import MessageIcon from "@/components/icons/Message.icon";
 
 // interface HubHeaderProps {}
 
-const HubHeader = () => {
+const DashboardHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -103,4 +103,4 @@ const HubHeader = () => {
   );
 };
 
-export default HubHeader;
+export default DashboardHeader;

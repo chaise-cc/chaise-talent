@@ -10,14 +10,19 @@ const encodedKey = new TextEncoder().encode(secretKey);
 type SessionPayload = {
   user: User;
   expiresAt: Date;
+  activeRole: string;
 };
 
-export async function createSession(user: User): Promise<void> {
+export async function createSession(
+  user: User,
+  activeRole: string
+): Promise<void> {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ user, expiresAt });
+  const session: SessionPayload = { user, expiresAt, activeRole };
+  const encryptedSession = await encrypt(session);
   const cookiesStore = await cookies();
 
-  cookiesStore.set("session", session, {
+  cookiesStore.set("session", encryptedSession, {
     httpOnly: true,
     secure: true,
     expires: expiresAt,
@@ -34,23 +39,48 @@ export async function deleteSession() {
   };
 }
 
-export async function encrypt(payload: SessionPayload) {
-  return new SignJWT(payload)
+export async function encrypt(payload: SessionPayload): Promise<string> {
+  return new SignJWT({
+    user: payload.user,
+    activeRole: payload.activeRole,
+    expiresAt: payload.expiresAt.toISOString(), // Explicitly include expiresAt in the payload
+  })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("7d")
+    .setExpirationTime(Math.floor(payload.expiresAt.getTime() / 1000)) // Ensure expiration is consistent with expiresAt
     .sign(encodedKey);
 }
 
-export async function decrypt(session: string | undefined = "") {
+export async function decrypt(
+  session: string | undefined = ""
+): Promise<SessionPayload | null> {
+  if (!session) {
+    console.log("No session provided");
+    return null;
+  }
+
   try {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
     });
-    console.log(payload);
 
-    return payload.user;
+    if (!payload.user || !payload.activeRole || !payload.expiresAt) {
+      console.log(
+        "Invalid session payload: missing user, activeRole, or expiresAt"
+      );
+      return null;
+    }
+
+    // Parse expiresAt back into a Date object
+    const expiresAt = new Date(payload.expiresAt as string);
+
+    // Ensure the payload has the correct structure
+    const user = payload.user as User;
+    const activeRole = payload.activeRole as string;
+
+    return { user, activeRole, expiresAt };
   } catch (error) {
-    console.log("Failed to verify session");
+    console.error("Failed to verify session:", error.message || error);
+    return null;
   }
 }

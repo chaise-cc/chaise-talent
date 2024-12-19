@@ -2,7 +2,6 @@
 
 import users from "@/data/mocks/users";
 import { createSession, deleteSession } from "@/lib/session";
-import { User } from "@/types";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -12,15 +11,12 @@ const loginSchema = z.object({
     .string()
     .min(8, { message: "Password must be at least 8 characters" })
     .trim(),
-  accountType: z.string(),
+  activeRole: z.string().optional(), // Mark activeRole as optional
 });
 
 export async function login(prevState: unknown, formData: FormData) {
-  // Ensure accountType is set before parsing
-  formData.set("accountType", "talent");
-
-  // Parse and validate form data against the schema
-  const result = loginSchema.safeParse(Object.fromEntries(formData));
+  const formDataObj = Object.fromEntries(formData);
+  const result = loginSchema.safeParse(formDataObj);
 
   if (!result.success) {
     return {
@@ -28,15 +24,10 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
-  const { email, password, accountType } = result.data;
+  const { email, password, activeRole } = result.data;
 
-  // Find the user that matches the provided credentials
-  const user: User | undefined = users.find(
-    (u) =>
-      u.email === email &&
-      password === "12345678" && // Replace with proper password hashing logic in production
-      u.accounts?.includes(accountType)
-  );
+  // Locate the user
+  const user = users.find((u) => u.email === email && password === "12345678");
 
   if (!user) {
     return {
@@ -46,11 +37,34 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
-  // Create a session for the authenticated user
-  await createSession(user);
+  // Check for accounts
+  if (!user.accounts || user.accounts.length === 0) {
+    return {
+      errors: {
+        email: ["No active accounts associated with this user"],
+      },
+    };
+  }
 
-  // Redirect to the dashboard
-  return redirect("/dashboard");
+  // Validate activeRole
+  const activeRoleFromForm = formData.get("activeRole");
+  const activeRoleString =
+    typeof activeRoleFromForm === "string" ? activeRoleFromForm : activeRole;
+
+  if (activeRoleString && !user.accounts.includes(activeRoleString)) {
+    return {
+      errors: {
+        email: ["Invalid account type selected"],
+      },
+    };
+  }
+
+  // Default to the first account if activeRole is not specified
+  const roleToSet = activeRoleString || user.accounts[0];
+
+  await createSession(user, roleToSet);
+
+  return redirect(`/dashboard`); // Direct to specific role dashboard
 }
 
 export async function logout() {

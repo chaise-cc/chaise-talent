@@ -5,7 +5,7 @@ const users = [
     firstName: "Paul",
     lastName: "Ishaili C.",
     email: "paulishaili@gmail.com",
-    activeRole: "talent",
+    activeRole: "client",
     identityIsVerified: false,
     accountIsSuspended: false,
     emailIsVerified: false,

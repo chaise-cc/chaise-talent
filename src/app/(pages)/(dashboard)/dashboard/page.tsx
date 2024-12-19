@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import TopNavigation from "../_components/top-navigation";
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
 import { User } from "@/types";
+import ClientHomePageScreen from "@/app/_screens/client/HomePage.screen";
+import TalentHomePageScreen from "@/app/_screens/talent/HomePage.screen";
 
 export default async function HomePage() {
   // Fetch cookies
@@ -10,14 +12,16 @@ export default async function HomePage() {
   const token = cookiesStore.get("session")?.value;
 
   let user: User | null = null;
+  let activeRole;
 
   if (token) {
     try {
       const decryptedData = await decrypt(token);
+      activeRole = decryptedData?.activeRole;
 
-      // Ensure decryptedData matches the User type
+      // Ensure decryptedData contains a valid User object
       if (isUser(decryptedData)) {
-        user = decryptedData;
+        user = decryptedData.user; // Access user from decrypted data
       } else {
         console.warn("Decrypted data is not of type User.");
       }
@@ -36,23 +40,25 @@ export default async function HomePage() {
   }
 
   // Render the main content
-  return (
-    <div>
-      <TopNavigation pageTitle={`Welcome back, ${user.firstName || "Guest"}`} />
-      <main className="p-4">
-        <p>Explore your dashboard and make the most of your account.</p>
-      </main>
-    </div>
+  return activeRole === "client" ? (
+    <ClientHomePageScreen user={user} activeRole={activeRole} />
+  ) : (
+    activeRole === "talent" && (
+      <TalentHomePageScreen activeRole={activeRole} user={user} />
+    )
   );
 }
 
-// Type guard to check if data is of type User
-function isUser(data: unknown): data is User {
+function isUser(data: unknown): data is { user: User } {
   return (
     typeof data === "object" &&
     data !== null &&
-    "firstName" in data &&
-    "lastName" in data &&
-    "email" in data
+    "user" in data &&
+    typeof (data as any).user === "object" &&
+    (data as any).user !== null &&
+    "firstName" in (data as any).user &&
+    "lastName" in (data as any).user &&
+    "email" in (data as any).user &&
+    "activeRole" in (data as any).user
   );
 }

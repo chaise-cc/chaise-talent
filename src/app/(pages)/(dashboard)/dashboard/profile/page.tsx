@@ -1,5 +1,5 @@
 import React from "react";
-import TopNavigation from "../../_components/top-navigation";
+import TopNavigation from "../../_components/talent/top-navigation";
 
 export default function MyProfilePage() {
   return (
