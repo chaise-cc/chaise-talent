@@ -34,9 +34,6 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
-  // const sessionCookie = createSe/ssion(user);
-  // const headers = new Headers(sessionCookie);
-
   await createSession(user);
   return redirect("/dashboard");
 }

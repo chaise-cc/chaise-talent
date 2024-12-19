@@ -7,12 +7,9 @@ function generateAuthToken() {
 
 export async function login(data: UserLogin) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  console.log(data);
 
   const user = users.find(
     (user: { email: string }) => user.email === data.email
-
-    // && user.password === data.password
   );
 
   if (!user)
@@ -40,11 +37,7 @@ export async function loginWithAccountSelection(
 ) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const user = users.find(
-    (user) => user.email === data.email
-
-    // && user.password === data.password
-  );
+  const user = users.find((user) => user.email === data.email);
 
   if (!user)
     return [
