@@ -163,7 +163,11 @@ aside {
         @apply font-normal flex p-4 items-center gap-3 transition-all;
         &.active,
         &:hover {
-          @apply text-main-color-700 bg-main-color-100 border-r-4  border-main-color-300;
+          @apply text-main-color-700 bg-main-color-100 border-l-4  border-main-color-300;
+        }
+
+        &.active {
+          @apply border-main-color-500;
         }
 
         &.isCollapsed {
@@ -178,16 +182,16 @@ aside {
   }
 }
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 5px;
+  padding: 0.5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #ffa722; /* Adjust color as desired */
-  border-radius: 10px; /* Optional: Round the edges */
+  @apply bg-main-color-300 /* Adjust color as desired */;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #fff8ed; /* Adjust color as desired */
+  @apply bg-main-color-100; /* Adjust color as desired */
 }
 
 input {

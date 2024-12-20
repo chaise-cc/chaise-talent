@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   Chart1,
   DollarCircle,
+  Edit,
   Edit2,
   FolderOpen,
   Home,
@@ -36,8 +37,13 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
     },
     {
       icon: <MonitorMobbile size={size} color={color} />,
-      label: "Find Works",
+      label: "Find Work",
       link: "/works",
+    },
+    {
+      icon: <Edit size={size} color={color} />,
+      label: "My Proposals",
+      link: "/proposals",
     },
     {
       icon: <FolderOpen size={size} color={color} />,
@@ -91,8 +97,8 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
     <>
       <aside
         className={`fixed h-screen z-50 top-0 bg-gray-50 overflow-y-auto ${
-          isMobileOpen ? "w-60" : "w-16"
-        } md:w-60 shrink-0 hidden md:flex h-screen flex-col duration-300 transition-all`}
+          isMobileOpen ? "w-64" : "w-16"
+        } md:w-64 shrink-0 hidden md:flex h-screen flex-col duration-300 transition-all`}
       >
         <Image
           height={80}
@@ -106,7 +112,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
             {MenuItems.slice(0, -3).map((item) => (
               <li key={item.label}>
                 <TransitionLink
-                  className={`flex justify-start px-4 items-center gap-4 py-3.5 transition-all hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-r-4 ${isActive(
+                  className={`flex justify-start px-5 items-center gap-5 py-3.5 transition-all hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-l-4 ${isActive(
                     item.link
                   )}`}
                   href={`${baseUrl}${item.link}`}
@@ -123,7 +129,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
                 <li key={item.label}>
                   {item.label === "Log out" ? (
                     <div
-                      className={`flex cursor-pointer w-full items-center justify-center md:justify-start transition-all px-4 py-3.5 hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-r-4 gap-4`}
+                      className={`flex cursor-pointer w-full items-center justify-center md:justify-start transition-all px-5 py-3.5 hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-l-4 gap-5`}
                       onClick={handleLogout}
                     >
                       <div className="icon text-black">{item.icon}</div>
@@ -131,7 +137,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
                     </div>
                   ) : (
                     <TransitionLink
-                      className={`flex justify-start px-4 py-3.5 items-center gap-4 transition-all hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-r-4 ${isActive(
+                      className={`flex justify-start px-5 py-3.5 items-center gap-5 transition-all hover:border-main-color-300 hover:text-main-color-700 hover:bg-main-color-100 hover:border-l-4 ${isActive(
                         item.link
                       )}`}
                       href={`${baseUrl}${item.link}`}
