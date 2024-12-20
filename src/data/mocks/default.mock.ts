@@ -7,9 +7,9 @@ import {
   FaLinkedin,
 } from "react-icons/fa6";
 
-export const AVATAR_MALE = "/images/users/default_male.webp";
-export const AVATAR_FEMALE = "/images/users/female.webp";
-export const SERVICE_IMAGE = "/images/services/default.jpg";
+export const AVATAR_MALE = "/images/avatars/users/default_male.webp";
+export const AVATAR_FEMALE = "/images/avatars/users/default_female.webp";
+export const SERVICE_IMAGE = "/services/default.jpg";
 export const HEADER_COVER_IMAGE = "/images/header_cover/default.webp";
 export const BASE_URL = "https://talent.chaise.cc";
 

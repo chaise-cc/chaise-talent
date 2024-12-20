@@ -18,10 +18,11 @@ import NotificationIcon from "@/components/icons/Notification.icon";
 import { Input } from "@/components/ui/input";
 import MessageIcon from "@/components/icons/Message.icon";
 
-import { User as Usss, SearchNormal1, More } from "iconsax-react";
+import { User as Usss, SearchNormal1 } from "iconsax-react";
 import { User } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import AccountSwitcher from "@/components/custom/AccountSwitcher";
+import { ChevronDown } from "lucide-react";
 
 type TalentDashboardHeader = {
   user: User;
@@ -63,14 +64,15 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
             <DropdownMenuTrigger>
               <div className="flex items-center space-x-1  cursor-pointer">
                 <Avatar
-                  src={AVATAR_FEMALE}
+                  src={user.avatar ? user.avatar : AVATAR_FEMALE}
                   alt="User Image"
                   size="md"
                   shape="circle"
                   status="online"
                 />
-                <More
-                  size={24}
+                <ChevronDown
+                  size={20}
+                  color="black"
                   className={`transition-transform ${
                     isOpen ? "rotate-180" : "rotate-0"
                   }`}
@@ -79,11 +81,13 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="text-gray-900">
               <div className="flex flex-col relative md:max-w-[300px] p-4 w-full gap-4 justify-center items-center">
-                <div className="img-container size-20 rounded-full overflow-hidden">
+                <div className="img-container size-20 md:size-24 rounded-full overflow-hidden">
                   <Image
-                    src={AVATAR_FEMALE}
+                    src={user.avatar ? user.avatar : AVATAR_FEMALE}
                     width={120}
                     height={120}
+                    quality={100}
+                    priority={false}
                     alt=""
                     className="w-full h-full object-cover"
                   />
@@ -96,12 +100,12 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
                   <Badge>{activeRole}</Badge>
                 </div>
 
-                <div className="flex flex-col gap-8 md:mt-4 my-2 w-full items-start justify-start">
+                <div className="flex flex-col gap-8 my-2 w-full items-start justify-start">
                   <Link
                     href={"/dashboard/settings"}
                     className="flex gap-2 items-center text-start justify-self-start justify-start w-full px-4"
                   >
-                    <Usss size="18" color="black" variant="Outline" /> Profile
+                    <Usss size="14" color="black" variant="Outline" /> Profile
                     Setting
                   </Link>
                 </div>
