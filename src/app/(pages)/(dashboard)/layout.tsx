@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LayoutTransition } from "@/LayoutTransition";
-
 import "./_styles/index.scss";
 import { cookies } from "next/headers";
 import { User } from "@/types";
@@ -8,6 +7,9 @@ import { redirect } from "next/navigation";
 import { decrypt } from "@/lib/session";
 import DesktopSideBar from "./_components/sidebar/desktop.sidebar";
 import DashboardHeader from "./_components/header";
+import { NotificationProvider } from "./_providers/NotificationProvider";
+import NotificationSidebar from "./_components/sidebar/NotificationSidebar";
+// import NotificationSidebarClient from "./_components/notifications/NotificationSidebarClient";
 
 export default async function TalentDashboardLayout({
   children,
@@ -17,6 +19,33 @@ export default async function TalentDashboardLayout({
   const cookiesStore = await cookies();
   const token = cookiesStore.get("session")?.value;
 
+  const notifications = [
+    {
+      id: 1,
+      title: "New Message",
+      message: "You have a message from Jane.",
+      timestamp: "2 mins ago",
+      read: false,
+      link: "/dashboard/messages/123", // Example event URL
+    },
+    {
+      id: 2,
+      title: "System Update",
+      message: "System update completed.",
+      timestamp: "1 hour ago",
+      read: true,
+      link: "/dashboard/system-updates",
+    },
+    {
+      id: 3,
+      title: "Reminder",
+      message: "Team meeting tomorrow.",
+      timestamp: "3 hours ago",
+      read: false,
+      link: "/dashboard/calendar/events/456",
+    },
+  ];
+
   let user: User | null = null;
   let activeRole: string | undefined;
 
@@ -25,7 +54,6 @@ export default async function TalentDashboardLayout({
       const decryptedData = await decrypt(token);
       activeRole = decryptedData?.activeRole;
 
-      // Ensure decryptedData contains a valid User object
       if (isUser(decryptedData)) {
         user = decryptedData.user; // Access user from decrypted data
       } else {
@@ -36,7 +64,6 @@ export default async function TalentDashboardLayout({
     }
   }
 
-  // Handle loading or unauthenticated states
   if (!user || !activeRole) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -48,22 +75,29 @@ export default async function TalentDashboardLayout({
   if (activeRole == "client") return redirect("/panel");
 
   return (
-    <div className="flex w-full">
-      <DesktopSideBar />
+    <NotificationProvider>
+      <div className="flex w-full">
+        <DesktopSideBar />
 
-      <div className="md:ml-60 w-full">
-        <DashboardHeader user={user} activeRole={activeRole} />
-        <main className="p-4 w-full">
+        <div className="md:ml-60 w-full">
           <LayoutTransition
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {children}
+            <DashboardHeader
+              notifications={notifications}
+              user={user}
+              activeRole={activeRole}
+            />
+
+            <NotificationSidebar notifications={notifications} />
+
+            <main className="p-4 w-full">{children}</main>
           </LayoutTransition>
-        </main>
+        </div>
       </div>
-    </div>
+    </NotificationProvider>
   );
 }
 

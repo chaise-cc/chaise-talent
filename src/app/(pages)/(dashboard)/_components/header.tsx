@@ -23,13 +23,19 @@ import { User } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import AccountSwitcher from "@/components/custom/AccountSwitcher";
 import { ChevronDown } from "lucide-react";
+import { Notification } from "@/types/notification";
 
 type TalentDashboardHeader = {
   user: User;
   activeRole: string;
+  notifications: Notification[];
 };
 
-const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
+const TalentDashboardHeader = ({
+  user,
+  activeRole,
+  notifications,
+}: TalentDashboardHeader) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -51,7 +57,7 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
 
       <div className="flex items-center shrink-0 gap-4 ml-4 md:gap-8 justify-end">
         <div className="flex items-center gap-4 md:gap-8">
-          <NotificationIcon unreadCount={4} />
+          <NotificationIcon unreadCount={notifications.length} />
           <MessageIcon badgeColor="bg-blue" unreadCount={4} />
         </div>
 

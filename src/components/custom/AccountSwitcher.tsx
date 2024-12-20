@@ -1,19 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
+import { Loader2 } from "lucide-react";
 
-export default function AccountSwitcher({
-  accounts,
-  activeRole,
-}: {
+interface AccountSwitcherProps {
   accounts: string[];
   activeRole: string;
-}) {
+}
+
+const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
+  accounts,
+  activeRole,
+}) => {
   const [currentRole, setCurrentRole] = useState(activeRole);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const pathname = usePathname(); // To track current route
 
   const handleRoleSwitch = async (newRole: string) => {
     if (newRole === currentRole) return;
@@ -24,9 +29,7 @@ export default function AccountSwitcher({
     try {
       const response = await fetch("/api/auth/switchrole", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ newRole }),
       });
 
@@ -36,31 +39,45 @@ export default function AccountSwitcher({
       }
 
       setCurrentRole(newRole);
-      window.location.href = `/dashboard`; // Redirect to the new dashboard
+      window.location.href = "/dashboard";
+      // router.push(`/dashboard`); // Navigate to the new role's dashboard
     } catch (err: any) {
       setError(err.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading if there's an error
     }
   };
 
-  // todo: display switching until new role is set
-  const accountToSwitch = accounts.find((ac) => ac !== activeRole);
+  // Stop loading once the route changes
+  useEffect(() => {
+    setLoading(false);
+  }, [pathname]); // React to changes in the current pathname
 
-  if (!accountToSwitch) return;
+  const accountToSwitch = accounts.find((account) => account !== currentRole);
+
+  if (!accountToSwitch) return null;
+
   return (
-    <div className="">
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+    <div>
+      {error && (
+        <p className="text-red-500 text-sm mb-4" role="alert">
+          {error}
+        </p>
+      )}
 
       <div className="flex flex-wrap gap-4">
         <Button
-          variant={"outline"}
-          size={"sm"}
-          className="font-mono font-bold !leading-none !py-0 bg-main-color-100 border border-main-color-500"
+          variant="outline"
+          size="sm"
+          className="font-mono flex items-center font-bold !leading-none !py-0 bg-main-color-100 border border-main-color-500"
           onClick={() => handleRoleSwitch(accountToSwitch)}
+          disabled={loading}
+          aria-busy={loading}
         >
-          {loading && accountToSwitch !== currentRole ? (
-            "Switching..."
+          {loading ? (
+            <>
+              <span className="loader mr-2"></span> {/* Optional loader */}
+              <Loader2 size={10} className="animate-spin" /> Switching ...
+            </>
           ) : (
             <>
               Switch to{" "}
@@ -72,4 +89,6 @@ export default function AccountSwitcher({
       </div>
     </div>
   );
-}
+};
+
+export default AccountSwitcher;

@@ -1,6 +1,8 @@
-import Link from "next/link";
+"use client";
+
 import React, { FC } from "react";
 import { Notification } from "iconsax-react";
+import { useNotificationContext } from "@/app/(pages)/(dashboard)/_providers/NotificationProvider";
 
 interface NotificationIconProps {
   unreadCount: number;
@@ -23,10 +25,13 @@ const NotificationIcon: FC<NotificationIconProps> = ({
   badgeColor = "bg-green-700",
   iconColor = "black",
 }) => {
+  const { toggleSidebar } = useNotificationContext();
+
   return (
-    <Link
-      href={"/dashboard/notifications"}
-      className="relative inline-flex items-center"
+    <div
+      className="relative cursor-pointer hover:opacity-75  transition inline-flex items-center"
+      onClick={toggleSidebar}
+      aria-label="Open Notifications"
     >
       <div
         className="icon bg-gray-100 rounded-full grid place-items-center"
@@ -36,6 +41,7 @@ const NotificationIcon: FC<NotificationIconProps> = ({
           color={iconColor}
           size={iconSize}
           aria-label="Notifications"
+          className="hover:scale-95 transition"
         />
       </div>
       {unreadCount > 0 && (
@@ -45,7 +51,7 @@ const NotificationIcon: FC<NotificationIconProps> = ({
           {unreadCount > 9 ? "9+" : unreadCount}
         </div>
       )}
-    </Link>
+    </div>
   );
 };
 

@@ -21,7 +21,6 @@ export default function AuthenticationLayout({
                   src="/images/chaise-black.png"
                   alt="Chaise - The Future of Freelancing"
                   height={48}
-                  priority={false}
                   width={200}
                   loading="lazy"
                   className=" h-8 w-20 object-cover"
@@ -37,6 +36,8 @@ export default function AuthenticationLayout({
                 src={"/images/auth-bg.webp"}
                 alt="Chasie Authentication Flow Image"
                 height={1080}
+                priority={false}
+                quality={100}
                 width={1920}
                 loading="lazy"
                 className="object-contain h-full w-auto"
