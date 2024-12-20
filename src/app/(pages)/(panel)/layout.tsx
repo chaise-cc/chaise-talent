@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import { cookies } from "next/headers";
-import { decrypt } from "@/lib/session";
-import { User } from "@/types";
-import TopNavigation from "../_components/top-navigation";
+import { LayoutTransition } from "@/LayoutTransition";
 
-export default async function HomePage() {
-  // Fetch cookies
+import "./_styles/index.scss";
+import { cookies } from "next/headers";
+import { User } from "@/types";
+import { redirect } from "next/navigation";
+import { decrypt } from "@/lib/session";
+
+export default async function ClientDashboardLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const cookiesStore = await cookies();
   const token = cookiesStore.get("session")?.value;
 
@@ -37,12 +42,25 @@ export default async function HomePage() {
       </div>
     );
   }
+
+  if (activeRole == "talent") redirect("/dashboard");
+
   return (
-    <div>
-      <TopNavigation
-        pageTitle={`Welcome back, ${user?.firstName || "Guest"}`}
-      />
-      <main className="p-4"></main>
+    <div className="flex w-full">
+      {/* <DesktopSideBar /> */}
+
+      <div className="md:ml-60 w-full">
+        {/* <DashboardHeader /> */}
+        <main className="p-4 w-full">
+          <LayoutTransition
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {children}
+          </LayoutTransition>
+        </main>
+      </div>
     </div>
   );
 }

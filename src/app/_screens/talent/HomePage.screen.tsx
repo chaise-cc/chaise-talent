@@ -1,5 +1,5 @@
 import AccountSwitcher from "@/app/(pages)/(dashboard)/_components/shared/AccountSwitcher";
-import TopNavigation from "@/app/(pages)/(dashboard)/_components/talent/top-navigation";
+import TopNavigation from "@/app/(pages)/(dashboard)/_components/top-navigation";
 import { User } from "@/types";
 import React from "react";
 

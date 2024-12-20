@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
-import TopNavigation from "../../_components/talent/top-navigation";
+import TopNavigation from "../../_components/top-navigation";
 import ActionButton from "@/components/custom/ActionButton";
 
 export default function ServicesPage() {

@@ -3,7 +3,7 @@ import React from "react";
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
 import { User } from "@/types";
-import TopNavigation from "../_components/top-navigation";
+import AccountSwitcher from "@/components/custom/AccountSwitcher";
 
 export default async function HomePage() {
   // Fetch cookies
@@ -37,12 +37,15 @@ export default async function HomePage() {
       </div>
     );
   }
+
   return (
     <div>
-      <TopNavigation
-        pageTitle={`Welcome back, ${user?.firstName || "Guest"}`}
-      />
-      <main className="p-4"></main>
+      <h2>Top Navigation</h2>
+      <main className="p-4">
+        <p>Explore your dashboard and make the most of your account.</p>
+
+        <AccountSwitcher accounts={user.accounts} activeRole={activeRole} />
+      </main>
     </div>
   );
 }

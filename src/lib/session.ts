@@ -78,6 +78,8 @@ export async function decrypt(
     const user = payload.user as User;
     const activeRole = payload.activeRole as string;
 
+    console.log(user, activeRole);
+
     return { user, activeRole, expiresAt };
   } catch (error) {
     console.error("Failed to verify session:", error.message || error);

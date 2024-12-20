@@ -1,21 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { LayoutTransition } from "@/LayoutTransition";
+
+import "./_styles/index.scss";
 import { cookies } from "next/headers";
 import { User } from "@/types";
+import { redirect } from "next/navigation";
 import { decrypt } from "@/lib/session";
-import ClientDashboardLayout from "./_layouts/ClientDashboardLayout";
-import TalentDashboardLayout from "./_layouts/TalentDashboardLayout";
+import DesktopSideBar from "./_components/sidebar/desktop.sidebar";
+import DashboardHeader from "./_components/header";
 
-export default async function DashboardLayout({
+export default async function TalentDashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetch cookies
   const cookiesStore = await cookies();
   const token = cookiesStore.get("session")?.value;
 
   let user: User | null = null;
-  let activeRole;
+  let activeRole: string | undefined;
 
   if (token) {
     try {
@@ -33,40 +36,37 @@ export default async function DashboardLayout({
     }
   }
 
-  // Handle loading, unauthenticated, or invalid user states
-  if (!user) {
+  // Handle loading or unauthenticated states
+  if (!user || !activeRole) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p>Loading or user not authenticated...</p>
+        <p>Loading...</p>
       </div>
     );
   }
 
-  // Ensure user has an activeRole
-  if (!activeRole) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p>Active role is missing. Please contact support.</p>
-      </div>
-    );
-  }
+  if (activeRole == "client") return redirect("/panel");
 
-  // Render the appropriate dashboard layout based on activeRole
-  if (activeRole === "client") {
-    return <ClientDashboardLayout>{children}</ClientDashboardLayout>;
-  } else if (activeRole === "talent") {
-    return <TalentDashboardLayout>{children}</TalentDashboardLayout>;
-  } else {
-    // Handle cases where activeRole doesn't match expected values
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p>Invalid account type. Please log in again.</p>
+  return (
+    <div className="flex w-full">
+      <DesktopSideBar />
+
+      <div className="md:ml-60 w-full">
+        <DashboardHeader user={user} activeRole={activeRole} />
+        <main className="p-4 w-full">
+          <LayoutTransition
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {children}
+          </LayoutTransition>
+        </main>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-// Type guard to check if data contains a valid User object
 function isUser(data: unknown): data is { user: User } {
   return (
     typeof data === "object" &&

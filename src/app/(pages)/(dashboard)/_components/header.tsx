@@ -1,4 +1,9 @@
 "use client";
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+
+import { AVATAR_FEMALE } from "@/data/mocks/default.mock";
 
 import {
   DropdownMenu,
@@ -7,22 +12,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import Avatar from "@/components/icons/Avatar.icon";
-import { useState } from "react";
 import LevelRating from "@/components/icons/LevelRating.icon";
 
 import NotificationIcon from "@/components/icons/Notification.icon";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import Image from "next/image";
-import { User, SearchNormal1, More } from "iconsax-react";
-import Badge from "@/components/icons/Badge.icon";
-import { AVATAR_FEMALE } from "@/data/mocks/default.mock";
 import MessageIcon from "@/components/icons/Message.icon";
-// import dataConstant from "@/constants/data.constant";
 
-// interface HubHeaderProps {}
+import { User as Usss, SearchNormal1, More } from "iconsax-react";
+import { User } from "@/types";
+import { Badge } from "@/components/ui/badge";
+import AccountSwitcher from "@/components/custom/AccountSwitcher";
 
-const DashboardHeader = () => {
+type TalentDashboardHeader = {
+  user: User;
+  activeRole: string;
+};
+
+const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -40,7 +46,9 @@ const DashboardHeader = () => {
         </div>
       </div>
 
-      <div className="flex items-center shrink-0 gap-4 md:gap-8 justify-end">
+      <AccountSwitcher accounts={user.accounts} activeRole={activeRole} />
+
+      <div className="flex items-center shrink-0 gap-4 ml-4 md:gap-8 justify-end">
         <div className="flex items-center gap-4 md:gap-8">
           <NotificationIcon unreadCount={4} />
           <MessageIcon badgeColor="bg-blue" unreadCount={4} />
@@ -70,8 +78,8 @@ const DashboardHeader = () => {
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="text-gray-900">
-              <div className="flex flex-col relative md:p-8 md:w-[320px] p-4 w-full  gap-4 justify-center items-center">
-                <div className="img-container h-24 w-24 rounded-full overflow-hidden">
+              <div className="flex flex-col relative md:max-w-[300px] p-4 w-full gap-4 justify-center items-center">
+                <div className="img-container size-20 rounded-full overflow-hidden">
                   <Image
                     src={AVATAR_FEMALE}
                     width={120}
@@ -82,16 +90,19 @@ const DashboardHeader = () => {
                 </div>
 
                 <div className="flex flex-col justify-center items-center gap-1">
-                  <h2 className="text-xl">Login User</h2>
-                  <Badge variant={"secondary"}>Talent</Badge>
+                  <h2 className="text-lg">
+                    {user.firstName} {user.lastName}
+                  </h2>
+                  <Badge>{activeRole}</Badge>
                 </div>
 
-                <div className="flex flex-col gap-8 md:mt-8 my-4 w-full items-start justify-start">
+                <div className="flex flex-col gap-8 md:mt-4 my-2 w-full items-start justify-start">
                   <Link
                     href={"/dashboard/settings"}
                     className="flex gap-2 items-center text-start justify-self-start justify-start w-full px-4"
                   >
-                    <User size="18" variant="Outline" /> Profile Setting
+                    <Usss size="18" color="black" variant="Outline" /> Profile
+                    Setting
                   </Link>
                 </div>
               </div>
@@ -103,4 +114,4 @@ const DashboardHeader = () => {
   );
 };
 
-export default DashboardHeader;
+export default TalentDashboardHeader;
