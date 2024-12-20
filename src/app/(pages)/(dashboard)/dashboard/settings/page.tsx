@@ -5,11 +5,8 @@ import TopNavigation from "../../_components/top-navigation";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-// import WithdrawalMethodsScreen from "../../../../_screens/settings/WithdrawlMethodsScreen";
 import TabsContainer from "@/components/custom/TabsContainer";
 import TabItem from "@/components/custom/TabItem";
-
-// interface SettingsPageProps {}
 
 const tabs = [
   { name: "Profile", slug: "profile", component: "<ProfileSettingsScreen />" },
@@ -71,6 +68,7 @@ const SettingsPage = () => {
       <TabsContainer>
         {tabs.map((t) => (
           <TabItem
+            route="settings"
             key={t.slug}
             slug={t.slug}
             name={t.name}

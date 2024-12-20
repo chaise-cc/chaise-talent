@@ -7,13 +7,14 @@ interface TabItemProps {
   slug: string;
   name: string;
   activeTab: string;
+  route: string;
   handleTabClick?: (slug: string) => void;
 }
 
-const TabItem: React.FC<TabItemProps> = ({ slug, name, activeTab }) => {
+const TabItem: React.FC<TabItemProps> = ({ slug, name, route, activeTab }) => {
   return (
     <TransitionLink
-      href={`/dashboard/settings?tab=${slug}`}
+      href={`/dashboard/${route}?tab=${slug}`}
       key={slug}
       className={`pb-1.5 border-b-2 shrink-0 font-medium text-gray-700 cursor-pointer ${
         activeTab === slug
