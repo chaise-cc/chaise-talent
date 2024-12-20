@@ -16,9 +16,6 @@ export default async function TalentDashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookiesStore = await cookies();
-  const token = cookiesStore.get("session")?.value;
-
   const notifications = [
     {
       id: 1,
@@ -45,6 +42,9 @@ export default async function TalentDashboardLayout({
       link: "/dashboard/calendar/events/456",
     },
   ];
+
+  const cookiesStore = await cookies();
+  const token = cookiesStore.get("session")?.value;
 
   let user: User | null = null;
   let activeRole: string | undefined;
