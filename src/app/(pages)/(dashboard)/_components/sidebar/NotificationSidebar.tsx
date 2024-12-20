@@ -4,6 +4,8 @@ import { Plus } from "lucide-react";
 import { useNotificationContext } from "../../_providers/NotificationProvider";
 import { useRouter } from "next/navigation";
 import { Notification } from "@/types/notification";
+import Link from "next/link";
+import { NotificationBing } from "iconsax-react";
 
 type NotificationSidebarType = {
   notifications: Notification[];
@@ -12,7 +14,7 @@ type NotificationSidebarType = {
 export default function NotificationSidebar({
   notifications,
 }: NotificationSidebarType) {
-  const { isSidebarOpen, toggleSidebar } = useNotificationContext(); // Assuming toggleSidebar handles the opening/closing state
+  const { isSidebarOpen, toggleSidebar } = useNotificationContext();
   const router = useRouter();
 
   const handleNotificationClick = (link: string) => {
@@ -21,23 +23,32 @@ export default function NotificationSidebar({
   };
 
   return (
-    isSidebarOpen && (
-      <>
-        {/* Overlay */}
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 transition z-40"
-          onClick={toggleSidebar} // Close the sidebar when clicking the overlay
-        />
+    <>
+      {/* Overlay with Fade-In/Out Animation */}
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ${
+          isSidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={toggleSidebar}
+      />
 
-        {/* Sidebar */}
-        <div className="fixed right-0 top-0 bottom-0 h-full w-80 bg-white shadow-lg z-50">
-          <div className="p-4 border-b flex border-gray-200 justify-between gap-4">
-            <h2 className="text-lg font-semibold">Notifications</h2>
-            <button onClick={toggleSidebar}>
-              <Plus className="rotate-45 text-red-500" />
-            </button>
-          </div>
-          <div className="overflow-y-auto h-[calc(100vh-100px)]">
+      {/* Sidebar with Slide-In/Out Animation */}
+      <div
+        className={`fixed right-0 top-0 bottom-0 h-full w-80 bg-white shadow-lg z-50 transition-transform duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        {/* Header */}
+        <div className="p-4 border-b flex border-gray-200 justify-between gap-4">
+          <h2 className="text-lg font-semibold">Notifications</h2>
+          <button onClick={toggleSidebar}>
+            <Plus className="rotate-45 text-red-500" />
+          </button>
+        </div>
+
+        {/* Notifications List */}
+        <div className="overflow-y-auto h-[calc(100vh-100px)]">
+          {notifications.length > 0 ? (
             <ul className="">
               {notifications.map((notif) => (
                 <li
@@ -45,7 +56,7 @@ export default function NotificationSidebar({
                   className={`p-4 border-b cursor-pointer ${
                     notif.read
                       ? "bg-main-color-200 hover:bg-main-color-100 transition border-main-color-300"
-                      : "bg-main-color-50 hover:border-l-4 transition-all border-main-color-500  hover:bg-main-color-50 border-blue-400"
+                      : "bg-main-color-50 hover:border-l-4 transition-all border-main-color-500  hover:bg-main-color-50"
                   }`}
                   onClick={() => handleNotificationClick(notif.link)}
                 >
@@ -57,21 +68,31 @@ export default function NotificationSidebar({
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div className="border-t border-gray-200 transition hover:bg-gray-700 bg-black">
-            <button
-              className="w-full text-sm py-4 text-white rounded-md transition"
-              onClick={() => {
-                toggleSidebar(); // Close the sidebar
-                router.push("/dashboard/notifications");
-              }}
-            >
-              View All Notifications
-            </button>
-          </div>
+          ) : (
+            <div className="p-4 text-center text-gray-500">
+              No notifications
+            </div>
+          )}
         </div>
-      </>
-    )
+
+        {/* Footer */}
+        <div className="border-t border-gray-200 transition hover:bg-gray-700 bg-black">
+          <Link
+            href={"/dashboard/notifications"}
+            className="w-full flex items-center text-center justify-center font-medium gap-2 text-sm py-4 text-gray-100 rounded-md transition"
+            onClick={() => {
+              toggleSidebar(); // Close the sidebar
+            }}
+          >
+            <NotificationBing
+              className="animate-bounce"
+              size={15}
+              color="white"
+            />
+            View All Notifications
+          </Link>
+        </div>
+      </div>
+    </>
   );
 }
