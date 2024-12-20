@@ -50,7 +50,6 @@ export async function encrypt(payload: SessionPayload): Promise<string> {
     .setExpirationTime(Math.floor(payload.expiresAt.getTime() / 1000)) // Ensure expiration is consistent with expiresAt
     .sign(encodedKey);
 }
-
 export async function decrypt(
   session: string | undefined = ""
 ): Promise<SessionPayload | null> {
@@ -82,7 +81,12 @@ export async function decrypt(
 
     return { user, activeRole, expiresAt };
   } catch (error) {
-    console.error("Failed to verify session:", error.message || error);
+    // Narrow the error type and handle it safely
+    if (error instanceof Error) {
+      console.error("Failed to verify session:", error.message);
+    } else {
+      console.error("An unknown error occurred during session decryption");
+    }
     return null;
   }
 }
