@@ -65,11 +65,7 @@ export default async function TalentDashboardLayout({
   }
 
   if (!user || !activeRole) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p>Loading...</p>
-      </div>
-    );
+    return redirect("/auth/login");
   }
 
   if (activeRole == "client") return redirect("/panel");
