@@ -15,13 +15,14 @@ export default function LoginForm() {
   const { pending } = useFormStatus();
   const [state, loginAction] = useActionState(login, undefined);
 
-  console.log("this", pending);
+  console.log(state);
 
   return (
     <form
       action={loginAction}
       className="space-y-6 max-w-lg mx-auto w-full py-4"
     >
+      {/* Email Field */}
       <div className="flex flex-col items-start space-y-1 ">
         <Label className="font-semibold text-base" htmlFor="email">
           Email
@@ -35,12 +36,13 @@ export default function LoginForm() {
           minLength={6}
           disabled={pending}
         />
+        {/* Error for Email */}
+        {state && state !== undefined && state.errors?.email && (
+          <p className="text-red-500">{state.errors.email.join(", ")}</p>
+        )}
       </div>
 
-      {state?.errors.email && (
-        <p className="text-red-500">{state?.errors?.email}</p>
-      )}
-
+      {/* Password Field */}
       <div className="flex flex-col items-start space-y-1 ">
         <Label className="font-semibold text-base" htmlFor="password">
           Password
@@ -56,12 +58,13 @@ export default function LoginForm() {
           minLength={6}
           disabled={pending}
         />
+        {/* Error for Password */}
+        {state && state !== undefined && state.errors?.password && (
+          <p className="text-red-500">{state.errors.password.join(", ")}</p>
+        )}
       </div>
 
-      {state?.errors.password && (
-        <p className="text-red-500">{state?.errors?.password}</p>
-      )}
-
+      {/* Options */}
       <div className="flex mt-2 justify-between items-center">
         <div className="flex flex-row items-start space-x-4 space-y-0">
           <Checkbox />
@@ -73,6 +76,7 @@ export default function LoginForm() {
         </a>
       </div>
 
+      {/* Submit Button */}
       <SubmitButton />
     </form>
   );

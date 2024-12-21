@@ -68,7 +68,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
         <Button
           variant="outline"
           size="sm"
-          className="font-mono flex items-center font-bold !leading-none !py-0 bg-main-color-100 border border-main-color-500"
+          className="font-mono flex items-center font-bold rounded-full !leading-none !py-1 px-4 bg-main-color-50 border border-main-color-500"
           onClick={() => handleRoleSwitch(accountToSwitch)}
           disabled={loading}
           aria-busy={loading}
