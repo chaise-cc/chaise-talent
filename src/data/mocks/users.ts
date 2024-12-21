@@ -11,7 +11,16 @@ const users = [
     emailIsVerified: false,
     phoneIsVerified: false,
     getUpdates: true,
-    accounts: ["client", "talent"],
+    accounts: [
+      {
+        type: "talent",
+        isOnboarded: false,
+      },
+      {
+        type: "client",
+        isOnboarded: true,
+      },
+    ],
     createdAt: "",
     avatar: "/images/avatars/users/paulishaili.jpeg",
     phoneNumber: "",
@@ -39,7 +48,16 @@ const users = [
     createdAt: "",
     avatar: "/images/avatars/users/kingmezo.jpeg",
     phoneNumber: "",
-    accounts: ["talent", "client"],
+    accounts: [
+      {
+        type: "talent",
+        isOnboarded: false,
+      },
+      {
+        type: "client",
+        isOnboarded: false,
+      },
+    ],
     about:
       "Creative graphic designer specializing in branding and digital marketing, with a strong eye for visuals that communicate brand stories effectively.",
     location: {
@@ -55,13 +73,22 @@ const users = [
     firstName: "Harrison",
     lastName: "Stella Nkechinyere",
     email: "harrynkstella@gmail.com",
-    activeRole: "talent",
+
     identityIsVerified: false,
     accountIsSuspended: false,
     emailIsVerified: false,
     phoneIsVerified: false,
     getUpdates: true,
-    accounts: ["talent"],
+    accounts: [
+      {
+        type: "talent",
+        isOnboarded: false,
+      },
+      {
+        type: "client",
+        isOnboarded: false,
+      },
+    ],
     createdAt: "",
     avatar: "/images/avatars/users/stella_ux.jpeg",
     phoneNumber: "",
@@ -86,7 +113,16 @@ const users = [
     emailIsVerified: false,
     phoneIsVerified: false,
     getUpdates: true,
-    accounts: ["talent"],
+    accounts: [
+      {
+        type: "talent",
+        isOnboarded: false,
+      },
+      {
+        type: "client",
+        isOnboarded: false,
+      },
+    ],
     createdAt: "",
     avatar: "/images/avatars/users/paulishaili.jpeg",
     phoneNumber: "",
@@ -112,7 +148,16 @@ const users = [
     phoneIsVerified: false,
     getUpdates: true,
     createdAt: "",
-    accounts: ["talent"],
+    accounts: [
+      {
+        type: "talent",
+        isOnboarded: false,
+      },
+      {
+        type: "client",
+        isOnboarded: false,
+      },
+    ],
     avatar: "/images/avatars/users/ozegberita.jpeg",
     phoneNumber: "",
     about:
@@ -136,7 +181,16 @@ const users = [
     emailIsVerified: false,
     phoneIsVerified: false,
     getUpdates: true,
-    accounts: ["talent"],
+    accounts: [
+      {
+        type: "talent",
+        isOnboarded: false,
+      },
+      {
+        type: "client",
+        isOnboarded: false,
+      },
+    ],
     createdAt: "",
     avatar: "/images/avatars/users/ilori_fav.jpeg",
     phoneNumber: "",
@@ -156,7 +210,16 @@ const users = [
     lastName: "Sarah Dennis",
     email: "ebisusarah@gmail.com",
     activeRole: "talent",
-    accounts: ["talent"],
+    accounts: [
+      {
+        type: "talent",
+        isOnboarded: false,
+      },
+      {
+        type: "client",
+        isOnboarded: false,
+      },
+    ],
     identityIsVerified: false,
     accountIsSuspended: false,
     emailIsVerified: false,

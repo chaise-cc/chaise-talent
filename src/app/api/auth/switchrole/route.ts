@@ -21,7 +21,7 @@ export async function POST(req: Request) {
 
   const { user } = sessionData;
 
-  if (!user.accounts.includes(newRole)) {
+  if (!user.accounts.find((role) => role.type === newRole)) {
     return NextResponse.json({ error: "Invalid role" }, { status: 400 });
   }
 

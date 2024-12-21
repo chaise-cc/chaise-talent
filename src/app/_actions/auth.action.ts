@@ -46,7 +46,7 @@ export async function login(prevState: unknown, formData: FormData) {
   }
 
   // Default to the first account if activeRole is not specified
-  const roleToSet = user.accounts[0];
+  const roleToSet = user.accounts[0]?.type;
 
   // Include activeRole in the session
   await createSession(user, roleToSet);

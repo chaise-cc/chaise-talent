@@ -28,7 +28,7 @@ export type User = {
   createdAt: string;
   avatar: string;
   about: string;
-  accounts: string[];
+  accounts: { type: string; isOnboarded: bolean }[];
   phoneNumber: string;
   location: {
     address: string;

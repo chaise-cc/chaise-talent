@@ -49,7 +49,7 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
         </div>
       </div>
 
-      <AccountSwitcher accounts={user.accounts} activeRole={activeRole} />
+      <AccountSwitcher activeRole={activeRole} />
 
       <div className="flex items-center shrink-0 gap-4 ml-4 md:gap-8 justify-end">
         <div className="flex items-center gap-4 md:gap-8">

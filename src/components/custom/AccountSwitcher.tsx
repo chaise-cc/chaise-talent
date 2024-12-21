@@ -5,20 +5,19 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
+import { Refresh2 } from "iconsax-react";
 
 interface AccountSwitcherProps {
-  accounts: string[];
   activeRole: string;
 }
 
-const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
-  accounts,
-  activeRole,
-}) => {
+const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ activeRole }) => {
   const [currentRole, setCurrentRole] = useState(activeRole);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const pathname = usePathname(); // To track current route
+
+  const accounts = ["talent", "client"];
 
   const handleRoleSwitch = async (newRole: string) => {
     if (newRole === currentRole) return;
@@ -40,7 +39,6 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
 
       setCurrentRole(newRole);
       window.location.href = "/dashboard";
-      // router.push(`/dashboard`); // Navigate to the new role's dashboard
     } catch (err: any) {
       setError(err.message || "Something went wrong");
       setLoading(false); // Stop loading if there's an error
@@ -59,32 +57,40 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
   return (
     <div>
       {error && (
-        <p className="text-red-500 text-sm mb-4" role="alert">
+        <p className="text-red-500 font-sora mb-4" role="alert">
           {error}
         </p>
       )}
 
-      <div className="flex flex-wrap gap-4">
-        <Button
-          variant="outline"
-          size="sm"
-          className="font-mono flex items-center font-bold rounded-full !leading-none !py-1 px-4 bg-main-color-50 border border-main-color-500"
-          onClick={() => handleRoleSwitch(accountToSwitch)}
-          disabled={loading}
-          aria-busy={loading}
-        >
-          {loading ? (
-            <>
-              <span className="loader mr-2"></span> {/* Optional loader */}
-              <Loader2 size={10} className="animate-spin" /> Switching ...
-            </>
-          ) : (
-            <>
-              {accountToSwitch === "client" ? "Start hiring" : "Start selling"}
-            </>
-          )}
-        </Button>
-      </div>
+      <Button
+        variant="outline"
+        size="sm"
+        className="flex items-center justify-center font-sora font-medium text-sm gap-2 rounded-full  !py-4 px-4 bg-main-color-50 border border-main-color-500"
+        onClick={() => handleRoleSwitch(accountToSwitch)}
+        disabled={loading}
+        aria-busy={loading}
+      >
+        {loading ? (
+          <>
+            <Loader2 size={13} className="animate-spin" />
+            <span className="leading-none">Switching...</span>
+          </>
+        ) : (
+          <>
+            {accountToSwitch === "client" ? (
+              <>
+                <Refresh2 size={13} color="black" />
+                <span className="leading-none">Switch to hire</span>
+              </>
+            ) : (
+              <>
+                <Refresh2 size={13} color="black" />
+                <span className="leading-none">Switch to sell</span>
+              </>
+            )}
+          </>
+        )}
+      </Button>
     </div>
   );
 };
