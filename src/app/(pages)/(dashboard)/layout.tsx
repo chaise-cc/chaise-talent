@@ -64,8 +64,13 @@ export default async function TalentDashboardLayout({
     }
   }
 
+  // Handle loading or unauthenticated states
   if (!user || !activeRole) {
-    return redirect("/auth/login");
+    return (
+      <div className="flex justify-center items-center h-screen animate-pulse font-medium">
+        <p>Loading...</p>
+      </div>
+    );
   }
 
   if (activeRole == "client") return redirect("/panel");
