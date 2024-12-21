@@ -56,6 +56,30 @@ export async function login(prevState: unknown, formData: FormData) {
     : roleToSet === "client" && redirect(`/panel`); // Direct to specific role dashboard
 }
 
+export async function signup(data: FormData) {
+  const firstname = data.get("firstname");
+  const lastname = data.get("lastname");
+  const email = data.get("email");
+  const password = data.get("password");
+
+  try {
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      body: JSON.stringify({ firstname, lastname, email, password }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      const errors = await response.json();
+      throw errors;
+    }
+
+    return response.json();
+  } catch (error) {
+    return { errors: error };
+  }
+}
+
 export async function logout() {
   await deleteSession();
   redirect("/auth/login");

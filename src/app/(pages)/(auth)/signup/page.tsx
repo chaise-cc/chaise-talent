@@ -1,6 +1,7 @@
 import FormHeader from "@/components/custom/FormHeader";
 import Link from "next/link";
 import React from "react";
+import SignupForm from "../_components/SignUpForm";
 
 export default function SignUp() {
   return (
@@ -11,6 +12,8 @@ export default function SignUp() {
       />
 
       {/* <LoginForm /> */}
+
+      <SignupForm />
 
       <div className="grid place-items-center text-sm gap-2 my-4 ">
         <p>
