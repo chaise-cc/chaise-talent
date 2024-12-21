@@ -1,9 +1,9 @@
 import { LayoutTransition } from "@/LayoutTransition";
-import { NotificationProvider } from "@/app/_providers/notification.provider";
+import "./_styles/index.scss";
 import DashboardHeader from "./_components/header";
 import NotificationSidebar from "./_components/sidebar/NotificationSidebar";
+import { NotificationProvider } from "@/app/_providers/notification.provider";
 import DesktopSideBar from "./_components/sidebar/desktop.sidebar";
-import "./_styles/index.scss";
 import getUserAndRole from "@/utils/getUserAndRole";
 import { redirect } from "next/navigation";
 
@@ -15,12 +15,7 @@ export default async function TalentDashboardLayout({
   const { user, activeRole } = await getUserAndRole();
 
   // Handle unauthenticated or incomplete states
-  if (!user) {
-    return redirect("/auth/login");
-  }
-
-  // Handle missing or incomplete role states
-  if (!activeRole) {
+  if (!user || !activeRole) {
     return (
       <div className="flex justify-center items-center h-screen animate-pulse font-medium">
         <p>Loading...</p>
@@ -28,15 +23,8 @@ export default async function TalentDashboardLayout({
     );
   }
 
-  // Redirect based on active role
   if (activeRole === "client") {
     return redirect("/panel");
-  }
-
-  const activeAccount = user.accounts.find((acc) => acc.type === activeRole);
-
-  if (activeAccount && !activeAccount.isOnboarded) {
-    return redirect("/onboarding");
   }
 
   return (

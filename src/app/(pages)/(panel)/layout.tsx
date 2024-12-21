@@ -22,7 +22,7 @@ export default async function ClientDashboardLayout({
     );
   }
 
-  // Redirect based on active role
+  // // Redirect based on active role
   if (activeRole === "talent") {
     return redirect("/dashboard");
   }

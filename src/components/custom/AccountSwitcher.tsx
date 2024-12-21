@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
-import { Refresh2 } from "iconsax-react";
 
 interface AccountSwitcherProps {
   activeRole: string;
@@ -65,7 +64,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ activeRole }) => {
       <Button
         variant="outline"
         size="sm"
-        className="flex items-center justify-center font-sora font-medium text-sm gap-2 rounded-full  !py-4 px-4 bg-main-color-50 border border-main-color-500"
+        className="flex items-center justify-center font-sora text-base font-medium py-5  gap-2 rounded-xl  px-4 bg-main-color-50 border border-main-color-500"
         onClick={() => handleRoleSwitch(accountToSwitch)}
         disabled={loading}
         aria-busy={loading}
@@ -79,12 +78,10 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ activeRole }) => {
           <>
             {accountToSwitch === "client" ? (
               <>
-                <Refresh2 size={13} color="black" />
                 <span className="leading-none">Switch to hire</span>
               </>
             ) : (
               <>
-                <Refresh2 size={13} color="black" />
                 <span className="leading-none">Switch to sell</span>
               </>
             )}

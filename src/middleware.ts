@@ -1,4 +1,3 @@
-// /middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { decrypt } from "./lib/session";
@@ -9,16 +8,38 @@ export async function middleware(request: NextRequest) {
   const token = cookiesStore.get("session")?.value;
 
   const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
-  const session = await decrypt(token);
+  const isOnboardingPage = request.nextUrl.pathname.startsWith("/onboarding");
+  const session = token ? await decrypt(token) : null;
 
   if (!session && !isAuthPage) {
     // Redirect to login if not authenticated
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
-  if (session && isAuthPage) {
-    // Redirect to dashboard if authenticated and trying to access auth page
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+  if (session) {
+    const { user, activeRole } = session;
+
+    if (!user || !activeRole) {
+      // Redirect to login if session is incomplete
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+
+    const activeAccount = user.accounts?.find((acc) => acc.type === activeRole);
+
+    if (activeAccount && !activeAccount.isOnboarded && !isOnboardingPage) {
+      // Redirect non-onboarded users to onboarding
+      return NextResponse.redirect(new URL("/onboarding", request.url));
+    }
+
+    if (isAuthPage) {
+      // Redirect authenticated users away from auth pages
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
+    // Pass session to downstream layouts or handlers (optional)
+    const response = NextResponse.next();
+    response.headers.set("x-user-session", JSON.stringify(session));
+    return response;
   }
 
   return NextResponse.next();
@@ -26,5 +47,10 @@ export async function middleware(request: NextRequest) {
 
 // Apply middleware to specific routes
 export const config = {
-  matcher: ["/dashboard/:path*", "/auth/:path*", "/panel/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/auth/:path*",
+    "/onboarding/:path*",
+    "/panel/:path*",
+  ],
 };

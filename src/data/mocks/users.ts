@@ -18,7 +18,7 @@ const users = [
       },
       {
         type: "client",
-        isOnboarded: true,
+        isOnboarded: false,
       },
     ],
     createdAt: "",
