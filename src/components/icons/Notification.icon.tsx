@@ -2,8 +2,8 @@
 
 import React, { FC } from "react";
 import { Notification } from "iconsax-react";
-import { useNotificationContext } from "@/app/(pages)/(dashboard)/_providers/NotificationProvider";
-
+import { useNotifications } from "@/app/_providers/notification.provider";
+//
 interface NotificationIconProps {
   unreadCount: number;
   iconSize?: number;
@@ -25,7 +25,7 @@ const NotificationIcon: FC<NotificationIconProps> = ({
   badgeColor = "bg-green-700",
   iconColor = "black",
 }) => {
-  const { toggleSidebar } = useNotificationContext();
+  const { toggleSidebar } = useNotifications();
 
   return (
     <div

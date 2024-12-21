@@ -23,20 +23,16 @@ import { User } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import AccountSwitcher from "@/components/custom/AccountSwitcher";
 import { ChevronDown } from "lucide-react";
-import { Notification } from "@/types/notification";
+import { useNotifications } from "@/app/_providers/notification.provider";
 
 type TalentDashboardHeader = {
   user: User;
   activeRole: string;
-  notifications: Notification[];
 };
 
-const TalentDashboardHeader = ({
-  user,
-  activeRole,
-  notifications,
-}: TalentDashboardHeader) => {
+const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { notifications } = useNotifications();
 
   return (
     <header className="px-4 h-16 w-full sticky top-0 z-50 bg-gray-50 gap-4 flex items-center justify-between">

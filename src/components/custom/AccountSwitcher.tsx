@@ -80,9 +80,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({
             </>
           ) : (
             <>
-              Switch to{" "}
-              {accountToSwitch.charAt(0).toUpperCase() +
-                accountToSwitch.slice(1)}
+              {accountToSwitch === "client" ? "Start hiring" : "Start selling"}
             </>
           )}
         </Button>

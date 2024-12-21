@@ -1,20 +1,17 @@
 "use client";
 
 import { Plus } from "lucide-react";
-import { useNotificationContext } from "../../_providers/NotificationProvider";
 import { useRouter } from "next/navigation";
-import { Notification } from "@/types/notification";
 import Link from "next/link";
 import { NotificationBing } from "iconsax-react";
+import { useNotifications } from "@/app/_providers/notification.provider";
 
-type NotificationSidebarType = {
-  notifications: Notification[];
-};
+// type NotificationSidebarType = {
+//   notifications: Notification[];
+// };
 
-export default function NotificationSidebar({
-  notifications,
-}: NotificationSidebarType) {
-  const { isSidebarOpen, toggleSidebar } = useNotificationContext();
+export default function NotificationSidebar() {
+  const { notifications, isSidebarOpen, toggleSidebar } = useNotifications();
   const router = useRouter();
 
   const handleNotificationClick = (link: string) => {
