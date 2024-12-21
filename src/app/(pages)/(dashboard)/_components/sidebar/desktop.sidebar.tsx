@@ -3,15 +3,16 @@
 import { useState, type FC } from "react";
 import { usePathname } from "next/navigation";
 import {
+  Calendar1,
   Chart1,
   DollarCircle,
   Edit,
   Edit2,
-  FolderOpen,
   Home,
   LogoutCurve,
   MessageQuestion,
   MonitorMobbile,
+  SecurityCard,
   Setting,
 } from "iconsax-react";
 import Image from "next/image";
@@ -45,10 +46,11 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
       label: "My Proposals",
       link: "/proposals",
     },
+
     {
-      icon: <FolderOpen size={size} color={color} />,
-      label: "Projects",
-      link: "/projects",
+      icon: <SecurityCard size={size} color={color} />,
+      label: "Contracts",
+      link: "/contracts",
     },
     {
       icon: <DollarCircle size={size} color={color} />,
@@ -59,6 +61,11 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
       icon: <Chart1 size={size} color={color} />,
       label: "Analytics",
       link: "/analytics",
+    },
+    {
+      icon: <Calendar1 size={size} color={color} />,
+      label: "Calendar",
+      link: "/calendar",
     },
     {
       icon: <Setting size={size} color={color} />,
@@ -98,7 +105,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
       <aside
         className={`fixed h-screen z-50 top-0 bg-gray-50 overflow-y-auto ${
           isMobileOpen ? "w-64" : "w-16"
-        } md:w-64 shrink-0 hidden md:flex h-screen flex-col duration-300 transition-all`}
+        } md:w-64 shrink-0 hidden md:flex h-screen flex-col pb-8 duration-300 transition-all`}
       >
         <Image
           height={80}
@@ -123,7 +130,7 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
               </li>
             ))}
           </ul>
-          <div className="mt-20">
+          <div className="mt-12">
             <ul className="flex flex-col gap-1">
               {MenuItems.slice(-3).map((item) => (
                 <li key={item.label}>

@@ -77,8 +77,6 @@ export async function decrypt(
     const user = payload.user as User;
     const activeRole = payload.activeRole as string;
 
-    console.log(user, activeRole);
-
     return { user, activeRole, expiresAt };
   } catch (error) {
     // Narrow the error type and handle it safely
