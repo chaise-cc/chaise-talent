@@ -28,7 +28,15 @@ export async function middleware(request: NextRequest) {
 
     if (activeAccount && !activeAccount.isOnboarded && !isOnboardingPage) {
       // Redirect non-onboarded users to onboarding
-      return NextResponse.redirect(new URL("/onboarding", request.url));
+      if (activeRole === "client") {
+        return NextResponse.redirect(
+          new URL("/client-onboarding", request.url)
+        );
+      } else {
+        return NextResponse.redirect(
+          new URL("/talent-onboarding", request.url)
+        );
+      }
     }
 
     if (isAuthPage) {

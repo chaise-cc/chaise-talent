@@ -14,11 +14,7 @@ const LoginPage = () => {
       <div className="grid place-items-center text-sm gap-2 my-4 ">
         <p>
           Don&apos;t have an account? &nbsp;
-          <Link
-            target="_blank"
-            href="https://chaise.cc/signup?accountType=talent"
-            className="font-bold underline"
-          >
+          <Link href="/signup" className="font-bold underline">
             Create one
           </Link>
         </p>
