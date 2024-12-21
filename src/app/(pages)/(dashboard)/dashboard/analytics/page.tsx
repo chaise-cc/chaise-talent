@@ -7,8 +7,8 @@ export default function AnalyticsPage() {
       <TopNavigation
         pageTitle="Analytics"
         pageCrumbs={[
-          { text: "Home", link: "/" },
-          { text: "Analytics", link: "/analytics" },
+          { text: "Home", link: "/dashboard/" },
+          { text: "Analytics", link: "/dashboard/analytics" },
         ]}
       />
       AnalyticsPage

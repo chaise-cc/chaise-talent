@@ -7,6 +7,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 
 import TabsContainer from "@/components/custom/TabsContainer";
 import TabItem from "@/components/custom/TabItem";
+import Link from "next/link";
+import { Add } from "iconsax-react";
 
 const tabs = [
   {
@@ -54,7 +56,18 @@ const ServicesPage = () => {
 
   return (
     <div>
-      <TopNavigation pageTitle="Services" />
+      <TopNavigation
+        pageTitle="Services"
+        action={
+          <Link
+            className="flex bg-main-color-500 items-center gap-1.5 text-gray-900 text-sm pr-3 pl-5 py-2 rounded-full font-bold"
+            href="/dashboard/services/new"
+          >
+            <span className="leading-none">Create service</span>
+            <Add size={20} color="black" />{" "}
+          </Link>
+        }
+      />
 
       {/* Tabs */}
 

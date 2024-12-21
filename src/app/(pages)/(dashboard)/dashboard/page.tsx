@@ -11,12 +11,10 @@ export default async function HomePage() {
   const token = cookiesStore.get("session")?.value;
 
   let user: User | null = null;
-  let activeRole: string | undefined;
 
   if (token) {
     try {
       const decryptedData = await decrypt(token);
-      activeRole = decryptedData?.activeRole;
 
       // Ensure decryptedData contains a valid User object
       if (isUser(decryptedData)) {
@@ -29,14 +27,6 @@ export default async function HomePage() {
     }
   }
 
-  // Handle loading or unauthenticated states
-  if (!user || !activeRole) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p>Loading...</p>
-      </div>
-    );
-  }
   return (
     <div>
       <TopNavigation
