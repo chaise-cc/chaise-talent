@@ -47,7 +47,7 @@ const VerifyEmailForm = () => {
   });
 
   // const searchParams = useSearchParams();
-  const email = searchParams.get("email");
+  // const email = searchParams.get("email");
   // const url = searchParams.get("/on");
 
   // function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -62,7 +62,7 @@ const VerifyEmailForm = () => {
   // }
   //   const verifyEmailMutation = useVerifyEmail();
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit() {
     // if (!email) {
     //   toast.error("Email is missing in the URL.");
     //   return;
