@@ -3,13 +3,13 @@
 import FormHeader from "@/components/custom/FormHeader";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 export default function EnterPhoneOTPPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const phone = searchParams.get("phone");
+  //   const searchParams = useSearchParams();
+  const phone = ' searchParams.get("phone")';
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const [error, setError] = useState("");
 
