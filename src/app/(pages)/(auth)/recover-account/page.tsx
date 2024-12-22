@@ -1,5 +1,5 @@
 import React from "react";
-import RecoverAccountForm from "../../_components/RecoverAccount.form";
+import RecoverAccountForm from "../_components/RecoverAccount.form";
 import FormHeader from "@/components/custom/FormHeader";
 import Link from "next/link";
 

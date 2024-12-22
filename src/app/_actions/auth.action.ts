@@ -56,28 +56,64 @@ export async function login(prevState: unknown, formData: FormData) {
     : roleToSet === "client" && redirect(`/panel`); // Direct to specific role dashboard
 }
 
-export async function signup(data: FormData) {
-  const firstname = data.get("firstname");
-  const lastname = data.get("lastname");
-  const email = data.get("email");
-  const password = data.get("password");
+// Define validation schema
+const signupSchema = z.object({
+  firstname: z
+    .string()
+    .min(2, { message: "First Name must be at least 2 characters" })
+    .trim(),
+  lastname: z
+    .string()
+    .min(2, { message: "Last Name must be at least 2 characters" })
+    .trim(),
+  email: z.string().email({ message: "Invalid email address" }).trim(),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" })
+    .trim(),
+});
 
-  try {
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      body: JSON.stringify({ firstname, lastname, email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+// Mock database for users
+const userss: Array<{ email: string }> = [];
 
-    if (!response.ok) {
-      const errors = await response.json();
-      throw errors;
-    }
+export async function signup(prevState: unknown, formData: FormData) {
+  const formDataObj = Object.fromEntries(formData);
+  const result = signupSchema.safeParse(formDataObj);
 
-    return response.json();
-  } catch (error) {
-    return { errors: error };
+  console.log(formDataObj);
+
+  if (!result.success) {
+    return {
+      errors: result.error.flatten().fieldErrors,
+    };
   }
+
+  const { firstname, lastname, email } = result.data;
+
+  // Check if the user already exists
+  const existingUser = userss.find((u) => u.email === email);
+  if (existingUser) {
+    return {
+      errors: {
+        email: ["Email is already registered"],
+      },
+    };
+  }
+
+  // Simulate creating a new user
+  const newUser = {
+    id: users.length + 1,
+    firstName: firstname,
+    lastName: lastname,
+    email,
+  };
+  userss.push(newUser);
+
+  // Automatically log the user in after signup
+  await createSession(newUser, "default");
+
+  // Redirect to dashboard
+  return redirect("/dashboard");
 }
 
 export async function logout() {

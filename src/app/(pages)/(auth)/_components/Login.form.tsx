@@ -1,4 +1,3 @@
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +9,7 @@ import { useActionState } from "react";
 import { login } from "@/app/_actions/auth.action";
 import { useFormStatus } from "react-dom";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 export default function LoginForm() {
   const { pending } = useFormStatus();
@@ -66,14 +66,10 @@ export default function LoginForm() {
 
       {/* Options */}
       <div className="flex mt-2 justify-between items-center">
-        <div className="flex flex-row items-start space-x-4 space-y-0">
-          <Checkbox />
-          <Label className="leading-none">Keep me logged in</Label>
-        </div>
-
-        <a href="/recover-account" className="font-bold text-sm underline">
+        <div className=""></div>
+        <Link href="/recover-account" className="font-bold text-sm underline">
           Recover password
-        </a>
+        </Link>
       </div>
 
       {/* Submit Button */}

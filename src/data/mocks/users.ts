@@ -1,16 +1,12 @@
 const users = [
   {
-    twoFA: { type: "email", active: true, isVerified: false },
-    _id: "1",
+    id: "1",
     firstName: "Paul",
     lastName: "Ishaili C.",
     email: "paulishaili@gmail.com",
-    activeRole: "client",
     identityIsVerified: false,
-    accountIsSuspended: false,
     emailIsVerified: false,
     phoneIsVerified: false,
-    getUpdates: true,
     accounts: [
       {
         type: "talent",
@@ -21,33 +17,18 @@ const users = [
         isOnboarded: false,
       },
     ],
-    createdAt: "",
     avatar: "/images/avatars/users/paulishaili.jpeg",
     phoneNumber: "",
-    about:
-      "Experienced full-stack software engineer passionate about solving problems through code, with a focus on frontend and backend development using modern web technologies.",
-    location: {
-      address: "",
-      city: "",
-      state: "Abuja",
-      country: "Nigeria",
-    },
   },
   {
-    twoFA: { type: "email", active: true, isVerified: false },
-    _id: "2",
+    id: "2",
     firstName: "Chibuzo",
     lastName: "Ogbonnaya",
     email: "chibuzoogbonnaya01@gmail.com",
-    activeRole: "talent",
     identityIsVerified: false,
-    accountIsSuspended: false,
     emailIsVerified: false,
     phoneIsVerified: false,
-    getUpdates: true,
-    createdAt: "",
     avatar: "/images/avatars/users/kingmezo.jpeg",
-    phoneNumber: "",
     accounts: [
       {
         type: "talent",
@@ -58,27 +39,16 @@ const users = [
         isOnboarded: false,
       },
     ],
-    about:
-      "Creative graphic designer specializing in branding and digital marketing, with a strong eye for visuals that communicate brand stories effectively.",
-    location: {
-      address: "",
-      city: "",
-      state: "Abuja",
-      country: "Nigeria",
-    },
   },
   {
-    twoFA: { type: "email", active: true, isVerified: false },
-    _id: "3",
+    id: "3",
     firstName: "Harrison",
     lastName: "Stella Nkechinyere",
     email: "harrynkstella@gmail.com",
 
     identityIsVerified: false,
-    accountIsSuspended: false,
     emailIsVerified: false,
     phoneIsVerified: false,
-    getUpdates: true,
     accounts: [
       {
         type: "talent",
@@ -89,30 +59,14 @@ const users = [
         isOnboarded: false,
       },
     ],
-    createdAt: "",
     avatar: "/images/avatars/users/stella_ux.jpeg",
     phoneNumber: "",
-    about:
-      "UX/UI designer passionate about creating intuitive and user-centered designs, ensuring seamless interactions and impactful digital experiences.",
-    location: {
-      address: "",
-      city: "",
-      state: "Abuja",
-      country: "Nigeria",
-    },
   },
   {
-    twoFA: { type: "email", active: true, isVerified: false },
-    _id: "4",
+    id: "4",
     firstName: "Joe",
     lastName: "Boi",
     email: "johnny_joe_boi@gmail.com",
-    activeRole: "talent",
-    identityIsVerified: false,
-    accountIsSuspended: false,
-    emailIsVerified: false,
-    phoneIsVerified: false,
-    getUpdates: true,
     accounts: [
       {
         type: "talent",
@@ -123,31 +77,21 @@ const users = [
         isOnboarded: false,
       },
     ],
-    createdAt: "",
     avatar: "/images/avatars/users/paulishaili.jpeg",
     phoneNumber: "",
-    about:
-      "Entrepreneur and project manager, always looking to collaborate with top talents to bring innovative ideas and projects to life.",
-    location: {
-      address: "",
-      city: "",
-      state: "Abuja",
-      country: "Nigeria",
-    },
+
+    identityIsVerified: false,
+    emailIsVerified: false,
+    phoneIsVerified: false,
   },
   {
-    twoFA: { type: "email", active: true, isVerified: false },
-    _id: "5",
+    id: "5",
     firstName: "Ozegbe",
     lastName: "Rita",
     email: "ozegberita@gmail.com",
-    activeRole: "talent",
     identityIsVerified: false,
-    accountIsSuspended: false,
     emailIsVerified: false,
     phoneIsVerified: false,
-    getUpdates: true,
-    createdAt: "",
     accounts: [
       {
         type: "talent",
@@ -160,27 +104,15 @@ const users = [
     ],
     avatar: "/images/avatars/users/ozegberita.jpeg",
     phoneNumber: "",
-    about:
-      "Creative writer and content strategist with expertise in crafting compelling narratives that engage and inform audiences across various platforms.",
-    location: {
-      address: "",
-      city: "",
-      state: "Abuja",
-      country: "Nigeria",
-    },
   },
   {
-    twoFA: { type: "email", active: true, isVerified: false },
-    _id: "6",
+    id: "6",
     firstName: "Favour",
     lastName: "Oluwole-Ilori",
     email: "favourilori@gmail.com",
-    activeRole: "talent",
     identityIsVerified: false,
-    accountIsSuspended: false,
     emailIsVerified: false,
     phoneIsVerified: false,
-    getUpdates: true,
     accounts: [
       {
         type: "talent",
@@ -191,25 +123,14 @@ const users = [
         isOnboarded: false,
       },
     ],
-    createdAt: "",
     avatar: "/images/avatars/users/ilori_fav.jpeg",
     phoneNumber: "",
-    about:
-      "Frontend developer with a passion for turning design concepts into responsive, user-friendly web experiences, specializing in JavaScript and modern frameworks.",
-    location: {
-      address: "",
-      city: "",
-      state: "Abuja",
-      country: "Nigeria",
-    },
   },
   {
-    twoFA: { type: "email", active: true, isVerified: false },
-    _id: "7",
+    id: "7",
     firstName: "Ebisu",
     lastName: "Sarah Dennis",
     email: "ebisusarah@gmail.com",
-    activeRole: "talent",
     accounts: [
       {
         type: "talent",
@@ -221,21 +142,10 @@ const users = [
       },
     ],
     identityIsVerified: false,
-    accountIsSuspended: false,
     emailIsVerified: false,
     phoneIsVerified: false,
-    getUpdates: true,
-    createdAt: "",
     avatar: "/images/avatars/users/kinicreative.jpg",
     phoneNumber: "",
-    about:
-      "Digital marketing expert focused on building data-driven strategies to help brands grow their online presence and reach their target audience effectively.",
-    location: {
-      address: "",
-      city: "",
-      state: "Port-Harcourt",
-      country: "Nigeria",
-    },
   },
 ];
 

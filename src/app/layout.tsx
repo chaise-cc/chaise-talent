@@ -5,7 +5,7 @@ import NextTopLoader from "nextjs-toploader";
 import { LayoutTransition } from "@/LayoutTransition";
 
 const varela_round = localFont({
-  src: "../../fonts/varela-round.woff2",
+  src: "../fonts/varela-round.woff2",
   display: "swap",
   variable: "--font-varela-round",
 });
@@ -13,37 +13,37 @@ const varela_round = localFont({
 const sora = localFont({
   src: [
     {
-      path: "../../fonts/sora-100.woff2",
+      path: "../fonts/sora-100.woff2",
       weight: "100",
       style: "normal",
     },
     {
-      path: "../../fonts/sora-200.woff2",
+      path: "../fonts/sora-200.woff2",
       weight: "200",
       style: "normal",
     },
     {
-      path: "../../fonts/sora-300.woff2",
+      path: "../fonts/sora-300.woff2",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../../fonts/sora-400.woff2",
+      path: "../fonts/sora-400.woff2",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../../fonts/sora-500.woff2",
+      path: "../fonts/sora-500.woff2",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../../fonts/sora-700.woff2",
+      path: "../fonts/sora-700.woff2",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../../fonts/sora-800.woff2",
+      path: "../fonts/sora-800.woff2",
       weight: "800",
       style: "normal",
     },

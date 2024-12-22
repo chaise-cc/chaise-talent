@@ -9,33 +9,23 @@ type TalentService = {
   service: Service;
 };
 
-export type User = {
-  twoFA: {
-    type: string;
-    active: boolean;
-    isVerified: boolean;
-  };
-  _id: string;
-  firstName: string;
-  lastName: string;
+export type BasicUser = {
+  id: string;
+  firstname: string;
+  lastname: string;
   email: string;
-  activeRole?: string;
+  phone?: string;
+  accounts: {
+    name: string;
+    onboardingStatus: boolean;
+  }[];
+};
+
+export type User = BasiUser & {
+  avatar?: string;
   identityIsVerified: boolean;
-  accountIsSuspended: boolean;
   emailIsVerified: boolean;
   phoneIsVerified: boolean;
-  getUpdates: boolean;
-  createdAt: string;
-  avatar: string;
-  about: string;
-  accounts: { type: string; isOnboarded: bolean }[];
-  phoneNumber: string;
-  location: {
-    address: string;
-    city: string;
-    state: string;
-    country: string;
-  };
 };
 
 interface talentReview {

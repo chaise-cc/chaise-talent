@@ -1,6 +1,7 @@
+"use client";
+
 import { User } from "@/types";
 import { User as Uss } from "iconsax-react";
-// import { User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -16,7 +17,7 @@ export default function Header({ user }: HeaderType) {
         <div className="flex w-full rounded-full bg-gray-50 justify-between items-center gap-4 py-4 shadow-sm pl-6 pr-4">
           <Link
             shallow={true}
-            href="/"
+            href="/auth/login"
             className="logo flex  gap-2 font-semibold items-center w-fit shrink-0"
           >
             <Image
@@ -46,10 +47,9 @@ export default function Header({ user }: HeaderType) {
 
                   <li>
                     <Link
-                      href="https://chaise.cc/signup?accountType=talent"
+                      href="/signup"
                       className="bg-main-color-500 w-[9rem] h-11 !leading-1 overflow-hidden flex items-center justify-center font-semibold rounded-full text-main-color-900"
                       data-view="signup"
-                      target="_blank"
                     >
                       Join for free
                     </Link>

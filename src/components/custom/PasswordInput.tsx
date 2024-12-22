@@ -3,18 +3,16 @@
 import { forwardRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { InputHTMLAttributes } from "react"; // Use this for InputProps
+import type { InputHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 import { Eye, EyeSlash } from "iconsax-react";
 
-// Define InputProps locally, as it may not be exported from the input component
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
 const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
 
-    // Handle disabled state based on props
     const disabled =
       props.value === "" || props.value === undefined || props.disabled;
 
@@ -22,7 +20,11 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
       <div className="relative w-full">
         <Input
           type={showPassword ? "text" : "password"}
-          className={cn("hide-password-toggle pr-10 w-full", className)}
+          className={cn(
+            "pr-12 w-full",
+            "hide-password-toggle",
+            className // Allow additional styles to be passed
+          )}
           ref={ref}
           {...props}
         />
@@ -30,9 +32,11 @@ const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
           type="button"
           variant="ghost"
           size="sm"
-          className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2"
           onClick={() => setShowPassword((prev) => !prev)}
           disabled={disabled}
+          tabIndex={0} // Ensure it's focusable
+          style={{ zIndex: 10 }} // Explicitly bring to the front
         >
           {showPassword && !disabled ? (
             <Eye size={18} color="black" aria-hidden="true" />

@@ -9,15 +9,33 @@ import { PasswordInput } from "../../../../components/custom/PasswordInput";
 import { ArrowRight } from "iconsax-react";
 import { Loader2 } from "lucide-react";
 import { useActionState } from "react";
-import { signup } from "@/app/_actions/auth.action"; // Define a signup action
+import { signup } from "@/app/_actions/auth.action";
 import { useFormStatus } from "react-dom";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 export default function SignupForm() {
   const { pending } = useFormStatus();
   const [state, signupAction] = useActionState(signup, undefined);
 
-  console.log(state);
+  // Local state for form inputs
+  const [formValues, setFormValues] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+  });
+
+  // Fallback loading state
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const isPending = pending;
+
+  console.log("Form Values:", formValues);
 
   return (
     <form
@@ -34,9 +52,11 @@ export default function SignupForm() {
           type="text"
           placeholder="First Name"
           name="firstname"
+          value={formValues.firstname}
+          onChange={handleChange}
           required
           minLength={2}
-          disabled={pending}
+          disabled={isPending}
         />
         {state && state.errors?.firstname && (
           <p className="text-red-500">{state.errors.firstname.join(", ")}</p>
@@ -53,9 +73,11 @@ export default function SignupForm() {
           type="text"
           placeholder="Last Name"
           name="lastname"
+          value={formValues.lastname}
+          onChange={handleChange}
           required
           minLength={2}
-          disabled={pending}
+          disabled={isPending}
         />
         {state && state.errors?.lastname && (
           <p className="text-red-500">{state.errors.lastname.join(", ")}</p>
@@ -72,9 +94,11 @@ export default function SignupForm() {
           type="email"
           placeholder="Email address"
           name="email"
+          value={formValues.email}
+          onChange={handleChange}
           required
           minLength={6}
-          disabled={pending}
+          disabled={isPending}
         />
         {state && state.errors?.email && (
           <p className="text-red-500">{state.errors.email.join(", ")}</p>
@@ -90,10 +114,12 @@ export default function SignupForm() {
           className="text-base py-6"
           id="password"
           name="password"
+          value={formValues.password}
+          onChange={handleChange}
           placeholder="Enter Password"
           required
           minLength={6}
-          disabled={pending}
+          disabled={isPending}
         />
         {state && state.errors?.password && (
           <p className="text-red-500">{state.errors.password.join(", ")}</p>

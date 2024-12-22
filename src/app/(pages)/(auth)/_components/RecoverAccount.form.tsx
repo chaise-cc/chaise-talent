@@ -39,7 +39,7 @@ const RecoverAccountForm = () => {
 
         <Button
           type="submit"
-          className="w-full py-6 font-semibold text-base bg-main-color-500 border  hover:bg-transparent border-transparent transition hover:border-main-color-500  text-gray-900"
+          className="w-max mx-auto flex py-6 text-sm font-semibold  bg-main-color-500 border  hover:bg-transparent border-transparent transition hover:border-main-color-500  text-gray-900"
         >
           Recover my account <ArrowRight size={20} color="black" />
         </Button>
