@@ -24,7 +24,9 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
 
-    const activeAccount = user.accounts?.find((acc) => acc.type === activeRole);
+    const activeAccount = user.accounts?.find(
+      (acc: { type: string }) => acc.type === activeRole
+    );
 
     if (activeAccount && !activeAccount.isOnboarded && !isOnboardingPage) {
       // Redirect non-onboarded users to onboarding
