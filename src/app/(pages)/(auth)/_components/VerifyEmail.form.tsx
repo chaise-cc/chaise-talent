@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +19,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { Mail } from "lucide-react";
 import Link from "next/link";
 // import { useVerifyEmail } from "@/app/services/Auth";
@@ -47,7 +46,7 @@ const VerifyEmailForm = () => {
     },
   });
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const email = searchParams.get("email");
   // const url = searchParams.get("/on");
 
