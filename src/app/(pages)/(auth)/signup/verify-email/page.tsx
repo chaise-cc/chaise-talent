@@ -2,12 +2,16 @@ import FormHeader from "@/components/custom/FormHeader";
 import React from "react";
 import VerifyEmailForm from "../../_components/VerifyEmail.form";
 
-export default function VerifyEmail() {
+type VerifyEmailProps = {
+  email: string;
+};
+
+export default function VerifyEmail({ email }: VerifyEmailProps) {
   return (
     <div>
       <FormHeader
-        title="Verify email"
-        description="Verfication code is sent to your email address"
+        title="Check your email"
+        description={`We have sent an otp to ${email}`}
       />
 
       <VerifyEmailForm />
