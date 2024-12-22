@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -63,10 +64,12 @@ const VerifyEmailForm = () => {
   //   const verifyEmailMutation = useVerifyEmail();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    if (!email) {
-      toast.error("Email is missing in the URL.");
-      return;
-    }
+    // if (!email) {
+    //   toast.error("Email is missing in the URL.");
+    //   return;
+    // }
+
+    alert("email success");
 
     //     verifyEmailMutation.mutate(
     //       { email, otp: Number(data.pin) },
@@ -99,27 +102,27 @@ const VerifyEmailForm = () => {
                   <InputOTP maxLength={6} {...field} className="l">
                     <InputOTPGroup autoFocus className="font-medium space-x-2">
                       <InputOTPSlot
-                        className="!text-4xl md:text-5xl h-14 md:h-16 w-14 md:w-16 border"
+                        className="!text-5xl md:text-6xl h-14 md:h-18 w-14 md:w-18 border"
                         index={0}
                       />
                       <InputOTPSlot
-                        className="!text-4xl md:text-5xl h-14 md:h-16 w-14 md:w-16 border"
+                        className="!text-5xl md:text-6xl h-14 md:h-18 w-14 md:w-18 border"
                         index={1}
                       />
                       <InputOTPSlot
-                        className="!text-4xl md:text-5xl h-14 md:h-16 w-14 md:w-16 border"
+                        className="!text-5xl md:text-6xl h-14 md:h-18 w-14 md:w-18 border"
                         index={2}
                       />
                       <InputOTPSlot
-                        className="!text-4xl md:text-5xl h-14 md:h-16 w-14 md:w-16 border"
+                        className="!text-5xl md:text-6xl h-14 md:h-18 w-14 md:w-18 border"
                         index={3}
                       />
                       <InputOTPSlot
-                        className="!text-4xl md:text-5xl h-14 md:h-16 w-14 md:w-16 border"
+                        className="!text-5xl md:text-6xl h-14 md:h-18 w-14 md:w-18 border"
                         index={4}
                       />
                       <InputOTPSlot
-                        className="!text-4xl md:text-5xl h-14 md:h-16 w-14 md:w-16 border"
+                        className="!text-5xl md:text-6xl h-14 md:h-18 w-14 md:w-18 border"
                         index={5}
                       />
                     </InputOTPGroup>

@@ -50,7 +50,7 @@ export default function AuthenticationLayout({
 
           <section className="md:w-[50%] w-full md:pb-8">
             <div className="h-full w-full flex items-center flex-col md:overflow-y-auto no-srollbar p-8 md:p-12">
-              <Link href={"/"} className="block md:hidden">
+              <Link href={"/auth/login"} className="block md:hidden">
                 <Image
                   quality={100}
                   src="/images/chaise-black.png"
