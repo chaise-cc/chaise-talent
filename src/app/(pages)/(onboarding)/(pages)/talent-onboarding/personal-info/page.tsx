@@ -212,21 +212,21 @@ const TalentPersonalDetailsScreen = () => {
                         Language
                       </FormLabel>
                       <FormControl>
-                        <Select {...field}>
+                        {/* <Select {...field}>
                           <SelectTrigger className="w-full py-6 text-base">
                             <SelectValue placeholder="Preferred language" />
                           </SelectTrigger>
                           <SelectContent className="text-black font-medium !text-base">
-                            {languages.map((country, index) => (
+                            {languages.map((language, index) => (
                               <SelectItem
                                 key={index}
-                                value={country.name.toLocaleLowerCase()}
+                                value={language.name.toLocaleLowerCase()}
                               >
-                                {country.name}
+                                {language.name}
                               </SelectItem>
                             ))}
                           </SelectContent>
-                        </Select>
+                        </Select> */}
                       </FormControl>
                       <FormMessage />
                     </FormItem>
