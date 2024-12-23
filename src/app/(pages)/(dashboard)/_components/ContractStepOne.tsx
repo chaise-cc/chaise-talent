@@ -1,13 +1,5 @@
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { AlertCircle } from "lucide-react";
 
 const ErrorMessage = ({ message }: { message: string }) => (
@@ -16,52 +8,36 @@ const ErrorMessage = ({ message }: { message: string }) => (
   </span>
 );
 
-const ContractStepOne = ({ onNext }: { onNext: () => void }) => {
-  const [formData, setFormData] = useState({
-    email: "",
-    contractName: "",
-    description: "",
-    contractType: "",
-  });
-
-  const [errors, setErrors] = useState({
-    email: "",
-    contractName: "",
-    description: "",
-    contractType: "",
-  });
-
+const StepOne = ({
+  formData,
+  setFormData,
+  errors,
+  validateField,
+  onNext,
+}: {
+  formData: {
+    email: string;
+    contractName: string;
+    description: string;
+    contractType: string;
+  };
+  setFormData: (data: Partial<typeof formData>) => void;
+  errors: Record<keyof typeof formData, string>;
+  validateField: (field: keyof typeof formData) => boolean;
+  onNext: () => void;
+}) => {
   const handleInputChange = (field: keyof typeof formData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: "" })); // Clear error when user starts typing
-  };
-
-  const validateField = (field: keyof typeof formData) => {
-    let error = "";
-    if (
-      field === "email" &&
-      !formData.email.match(/^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)
-    ) {
-      error = "Please enter a valid email address.";
-    } else if (!formData[field].trim()) {
-      error = "This field is required.";
-    }
-    setErrors((prev) => ({ ...prev, [field]: error }));
-    return !error;
-  };
-
-  const validateAllFields = () => {
-    const emailValid = validateField("email");
-    const contractNameValid = validateField("contractName");
-    const descriptionValid = validateField("description");
-    const contractTypeValid = validateField("contractType");
-    return (
-      emailValid && contractNameValid && descriptionValid && contractTypeValid
-    );
+    setFormData({ [field]: value });
   };
 
   const handleSubmit = () => {
-    if (validateAllFields()) {
+    const allFieldsValid = Object.keys(formData).every((field) =>
+      validateField(field as keyof typeof formData)
+    );
+
+    console.log(allFieldsValid);
+
+    if (allFieldsValid) {
       onNext();
     }
   };
@@ -130,32 +106,30 @@ const ContractStepOne = ({ onNext }: { onNext: () => void }) => {
         <Label htmlFor="contractType" className="text-base font-medium">
           Contract Type
         </Label>
-        <Select
-          onValueChange={(value) => {
-            handleInputChange("contractType", value);
-          }}
+        <select
+          id="contractType"
+          className={`w-full md:text-lg text-base py-4  px-4 border rounded-lg ${
+            errors.contractType ? "border-red-500" : "border-gray-300"
+          }`}
+          value={formData.contractType}
+          onBlur={() => validateField("contractType")}
+          onChange={(e) => handleInputChange("contractType", e.target.value)}
         >
-          <SelectTrigger
-            id="contractType"
-            className={`w-full py-6 text-base ${
-              errors.contractType ? "border-red-500" : ""
-            }`}
-          >
-            <SelectValue placeholder="Select the type of contract" />
-          </SelectTrigger>
-          <SelectContent className="text-black font-medium !text-base">
-            <SelectItem value="Hourly">Hourly</SelectItem>
-            <SelectItem value="Fixed">Fixed</SelectItem>
-            <SelectItem value="Milestone">Milestone</SelectItem>
-          </SelectContent>
-        </Select>
+          <option value="" disabled>
+            Select the type of contract
+          </option>
+          <option value="Hourly">Hourly</option>
+          <option value="Fixed">Fixed</option>
+          <option value="Milestone">Milestone</option>
+        </select>
         {errors.contractType && <ErrorMessage message={errors.contractType} />}
       </div>
 
       {/* Submit Button */}
       <button
+        type="button"
         onClick={handleSubmit}
-        className="mt-4 bg-main-color-500 hover:bg-main-color-700 text-white py-4 px-6 rounded-lg text-lg font-semibold"
+        className="mt-4 bg-main-color-500 hover:bg-main-color-300  text-black py-4 px-6 rounded-lg text-lg font-semibold"
       >
         Next
       </button>
@@ -163,4 +137,4 @@ const ContractStepOne = ({ onNext }: { onNext: () => void }) => {
   );
 };
 
-export default ContractStepOne;
+export default StepOne;

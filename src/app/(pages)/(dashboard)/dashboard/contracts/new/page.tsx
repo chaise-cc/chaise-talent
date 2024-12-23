@@ -3,11 +3,6 @@
 import { useState } from "react";
 import FormHeader from "@/components/custom/FormHeader";
 import { Modal } from "@/components/custom/Modal";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-
-import { ArrowRight, ArrowLeft } from "iconsax-react";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ContractStepTwo from "../../../_components/ContractStepTwo";
@@ -15,90 +10,126 @@ import ContractStepOne from "../../../_components/ContractStepOne";
 
 export default function NewContractSetupPage() {
   const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    email: "",
+    contractName: "",
+    description: "",
+    contractType: "",
+    milestones: [] as { title: string; amount: string; dueDate: string }[],
+  });
+  const [errors, setErrors] = useState({
+    email: "",
+    contractName: "",
+    description: "",
+    contractType: "",
+  });
   const router = useRouter();
 
   const handleNext = () => setStep((prev) => Math.min(prev + 1, 3));
   const handleBack = () => setStep((prev) => Math.max(prev - 1, 1));
 
+  const validateField = (field: keyof typeof formData) => {
+    let error = "";
+    if (
+      field === "email" &&
+      !formData.email.match(/^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)
+    ) {
+      error = "Please enter a valid email address.";
+    } else if (
+      field !== "milestones" &&
+      typeof formData[field] === "string" &&
+      !formData[field]?.trim()
+    ) {
+      error = "This field is required.";
+    }
+
+    setErrors((prev) => ({ ...prev, [field]: error }));
+
+    return !error;
+  };
+
+  const validateAllFields = () => {
+    const fieldsToValidate = Object.keys(formData).filter(
+      (key) => key !== "milestones"
+    ) as (keyof typeof formData)[];
+    const validationResults = fieldsToValidate.map((field) =>
+      validateField(field)
+    );
+    return validationResults.every(Boolean);
+  };
+
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (step < 3) {
-      handleNext();
+      if (validateAllFields()) {
+        handleNext();
+      }
     } else {
-      // Simulate form submission
       alert("Form submitted successfully!");
     }
   };
 
+  const handleFormDataUpdate = (data: Partial<typeof formData>) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+  };
+
   return (
     <Modal className="w-full max-w-[90%] relative overflow-y-scroll p-4 md:max-w-3xl">
+      <Plus
+        size={18}
+        onClick={() => router.push("/dashboard/contracts")}
+        className="rotate-45 cursor-pointer font-bold absolute top-4 right-4 bg-red-500 text-white"
+      />
       <div className="w-full py-8 px-6 md:px-8 rounded-xl bg-main-color-50 bg-opacity-15">
         {step === 1 && (
           <FormHeader
-            title="Create a project contract"
+            title="Create contract"
             description="Setup and send to client in minutes"
           />
         )}
-        {/* Contract Steps */}
         <form onSubmit={handleFormSubmit} className="py-8 w-full">
           <div className="flex flex-col gap-8 w-full">
-            {step === 1 && <ContractStepOne onNext={handleNext} />}
-            {step === 2 && <ContractStepTwo />}
-            {step === 3 && <StepThree />}
-
-            <div className="flex w-full justify-between items-center gap-4">
-              {/* Back or Close Button */}
-              {step > 1 ? (
-                <Button
-                  type="button"
-                  onClick={handleBack}
-                  className="w-max border border-gray-500 hover:bg-gray-200 bg-white flex items-center text-black font-semibold py-5 px-4 mt-8"
-                >
-                  <ArrowLeft size={20} className="mr-2" color="black" /> Back
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  onClick={() => router.push("/dashboard/contracts")}
-                  className="w-max border border-red-500 hover:bg-red-500 bg-white flex items-center text-black font-semibold py-5 px-4 mt-8"
-                >
-                  <Plus size={20} className="rotate-45" />
-                  Close
-                </Button>
-              )}
-
-              {/* Next or Submit Button */}
-              <Button
-                type="submit"
-                className="ml-auto w-max hover:bg-main-color-50 border-transparent hover:border-main-color-500 border bg-main-color-500 flex items-center text-black font-semibold py-5 px-6 mt-8"
-              >
-                {step < 3 ? (
-                  <>
-                    Next <ArrowRight size={20} color="black" className="ml-2" />
-                  </>
-                ) : (
-                  <>Submit</>
-                )}
-              </Button>
-            </div>
+            {step === 1 && (
+              <ContractStepOne
+                formData={formData}
+                setFormData={handleFormDataUpdate}
+                errors={errors}
+                validateField={validateField}
+                onNext={handleNext}
+              />
+            )}
+            {step === 2 && (
+              <ContractStepTwo
+                formData={formData}
+                setFormData={handleFormDataUpdate}
+                handleBack={handleBack}
+                handleNext={handleNext}
+              />
+            )}
+            {step === 3 && (
+              <div>
+                <h2 className="text-2xl font-bold">Step Three</h2>
+                <p>Finalize your contract setup here.</p>
+                <div className="flex justify-between mt-4">
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="px-4 py-2 bg-gray-300 rounded-md"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-main-color-500 text-white rounded-md"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </form>
       </div>
     </Modal>
   );
 }
-
-const StepThree = () => {
-  return (
-    <div>
-      <div className="flex gap-1 flex-col w-full">
-        <Label className="text-base">Additional Notes</Label>
-        <Input
-          className="md:text-lg text-base py-6"
-          placeholder="Add any additional information here"
-          type="text"
-        />
-      </div>
-    </div>
-  );
-};

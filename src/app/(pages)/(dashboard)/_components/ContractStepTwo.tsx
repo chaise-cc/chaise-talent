@@ -1,13 +1,22 @@
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Plus, Trash } from "lucide-react";
 
-const ContractStepTwo = () => {
-  const [milestones, setMilestones] = useState([
-    { title: "", amount: "", dueDate: "" },
-  ]);
+const ContractStepTwo = ({
+  formData,
+  setFormData,
+  handleBack,
+  handleNext,
+}: {
+  formData: {
+    milestones: { title: string; amount: string; dueDate: string }[];
+  };
+  setFormData: (data: Partial<typeof formData>) => void;
+  handleBack: () => void;
+  handleNext: () => void;
+}) => {
+  const milestones = formData.milestones || [];
 
   const calculateTotals = () => {
     const total = milestones.reduce((sum, milestone) => {
@@ -21,20 +30,19 @@ const ContractStepTwo = () => {
   const { total, chaiseFee } = calculateTotals();
 
   const handleAddMilestone = () => {
-    // Prevent adding a new milestone if any existing one is incomplete
     const hasEmptyFields = milestones.some(
       (milestone) => !milestone.title || !milestone.amount
     );
     if (!hasEmptyFields) {
-      setMilestones((prev) => [
-        ...prev,
-        { title: "", amount: "", dueDate: "" },
-      ]);
+      setFormData({
+        milestones: [...milestones, { title: "", amount: "", dueDate: "" }],
+      });
     }
   };
 
   const handleRemoveMilestone = (index: number) => {
-    setMilestones((prev) => prev.filter((_, i) => i !== index));
+    const updatedMilestones = milestones.filter((_, i) => i !== index);
+    setFormData({ milestones: updatedMilestones });
   };
 
   const handleInputChange = (
@@ -44,18 +52,18 @@ const ContractStepTwo = () => {
   ) => {
     const updatedMilestones = [...milestones];
     updatedMilestones[index][field] = value;
-    setMilestones(updatedMilestones);
+    setFormData({ milestones: updatedMilestones });
   };
 
   return (
-    <div className="flex flex-col gap-8  w-full">
+    <div className="flex flex-col gap-8 w-full">
       {/* Header */}
-      <div className="sticky top-0 -mt-4  bg-white z-50">
+      <div className="sticky top-0 -mt-4 bg-white z-50">
         <h2 className="text-center py-5 w-full flex items-center justify-center text-5xl lg:text-6xl text-gray-700 font-light">
           <span className="text-main-color-500 text-5xl">$</span>
           {total.toFixed(2)}
         </h2>
-        <h2 className="text-center py-4 border-t border-b w-full text-xl text-gray-500 font-medium ">
+        <h2 className="text-center py-4 border-t border-b w-full text-xl text-gray-500 font-medium">
           Project Deliverables
         </h2>
       </div>
@@ -137,16 +145,34 @@ const ContractStepTwo = () => {
 
       {/* Summary */}
       <div className="text-center !font-varela flex flex-col gap-2 w-full text-gray-700">
-        <p className="text-lg  flex w-full justify-between">
+        <p className="text-lg flex w-full justify-between">
           <span className="font-medium !font-varela">5.0% Chaise Fee:</span> $
           {chaiseFee.toFixed(2)}
         </p>
-        <p className="text-lg font-semibold mt-2 flex w-full justify-between ">
+        <p className="text-lg font-semibold mt-2 flex w-full justify-between">
           <span className="text-main-color-500 font-medium !font-varela">
             You&apos;ll Receive:
           </span>{" "}
           ${(total - chaiseFee).toFixed(2)}
         </p>
+      </div>
+
+      {/* Navigation Buttons */}
+      <div className="flex w-full justify-between items-center gap-4">
+        <Button
+          type="button"
+          onClick={handleBack}
+          className="w-max border border-gray-500 hover:bg-gray-200 bg-white flex items-center text-black font-semibold py-5 px-4"
+        >
+          Back
+        </Button>
+        <Button
+          type="button"
+          onClick={handleNext}
+          className="ml-auto w-max hover:bg-main-color-50 border-transparent hover:border-main-color-500 border bg-main-color-500 flex items-center text-black font-semibold py-5 px-6"
+        >
+          Next
+        </Button>
       </div>
     </div>
   );
