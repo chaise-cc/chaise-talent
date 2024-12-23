@@ -13,8 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 import {
   Select,
@@ -23,6 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const TalentPersonalDetailsFormSchema = z.object({
   firstName: z.string().min(2, {
@@ -40,7 +40,7 @@ const TalentPersonalDetailsFormSchema = z.object({
   country: z.string().min(2, {
     message: "Country must be at least 2 characters.",
   }),
-  state: z.string().min(2, {
+  language: z.string().min(2, {
     message: "State must be at least 2 characters.",
   }),
 });
@@ -54,7 +54,7 @@ const TalentPersonalDetailsScreen = () => {
       gender: "",
       dateOfBirth: "",
       country: "",
-      state: "",
+      language: "",
     },
   });
 
@@ -212,7 +212,7 @@ const TalentPersonalDetailsScreen = () => {
                         Language
                       </FormLabel>
                       <FormControl>
-                        {/* <Select {...field}>
+                        <Select {...field}>
                           <SelectTrigger className="w-full py-6 text-base">
                             <SelectValue placeholder="Preferred language" />
                           </SelectTrigger>
@@ -226,7 +226,7 @@ const TalentPersonalDetailsScreen = () => {
                               </SelectItem>
                             ))}
                           </SelectContent>
-                        </Select> */}
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
