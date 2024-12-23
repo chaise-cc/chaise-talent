@@ -35,7 +35,7 @@ export type User = {
     type: string;
     isOnboarded: boolean;
   }[];
-  avatar?: string;
+  avatar: string;
   identityIsVerified: boolean;
   emailIsVerified: boolean;
   phoneIsVerified: boolean;
