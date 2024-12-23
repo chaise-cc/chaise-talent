@@ -8,8 +8,6 @@ export default async function WebsiteLayout({
 }>) {
   const { user } = await getUserAndRole();
 
-  if (!user) return null;
-
   return (
     <>
       <Header user={user} />

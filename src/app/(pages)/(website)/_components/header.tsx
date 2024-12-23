@@ -7,7 +7,7 @@ import Link from "next/link";
 import React from "react";
 
 type HeaderType = {
-  user: User | null;
+  user?: User | null;
 };
 
 export default function Header({ user }: HeaderType) {
