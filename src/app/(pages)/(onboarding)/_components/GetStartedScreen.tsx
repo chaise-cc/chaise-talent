@@ -5,15 +5,14 @@ import { LuFolderHeart } from "react-icons/lu";
 import { LiaUserEditSolid } from "react-icons/lia";
 import { CiBadgeDollar } from "react-icons/ci";
 import Link from "next/link";
-import { HelpCircle } from "lucide-react";
 import { ArrowRight } from "iconsax-react";
 
 interface GetStartedScreenProps {}
 
 const GetStartedScreen: FC<GetStartedScreenProps> = () => {
   return (
-    <div className="container py-4 pb-12 flex gap-8 items-center">
-      <div className="flex flex-col w-full gap-4 md:gap-6">
+    <div className="container md:max-w-7xl py-4 pb-12 flex gap-8 items-center">
+      <div className="flex flex-col w-full max-w-5xl gap-4 md:gap-6">
         <div className="flex flex-col gap-4 md:gap-6">
           <h1 className="text-2xl md:text-3xl xl:text-4xl tracking-tight">
             Hey, ready for your big opportunity on Chaise? <br /> Here&apos;s
@@ -68,20 +67,14 @@ const GetStartedScreen: FC<GetStartedScreenProps> = () => {
         <div className="flex items-center gap-4 mt-4">
           <Link
             href={"/onboarding/talent/personal-info"}
-            className="px-6 py-3 flex gap-3 items-center leading-none font-bold  bg-black text-white rounded-full"
+            className="px-6 py-4 flex gap-3 items-center leading-none font-bold  bg-main-color-500 text-black rounded-full"
           >
             Get Started <ArrowRight size={20} color="white" />
-          </Link>
-          <Link
-            href={"/talent-onboarding/personal-info"}
-            className="text-main-color-500 leading-none font-bold flex items-center gap-2"
-          >
-            What not to do <HelpCircle size={17} />
           </Link>
         </div>
       </div>
 
-      <div className="w-[400px] hidden h-[430px] md:flex shrink-0 pl-8 rounded-xl bg-gray-50 border border-gray-300"></div>
+      <div className="w-full max-w-xs hidden h-[320px] md:flex shrink-0 pl-8 rounded-xl bg-gray-50 border border-gray-300"></div>
     </div>
   );
 };

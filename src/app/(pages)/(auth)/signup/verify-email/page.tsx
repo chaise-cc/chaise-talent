@@ -6,6 +6,8 @@ import getUserAndRole from "@/utils/getUserAndRole";
 export default async function VerifyEmail() {
   const { user } = await getUserAndRole();
 
+  if (!user) return null;
+
   const { email } = user;
 
   if (!email) {
