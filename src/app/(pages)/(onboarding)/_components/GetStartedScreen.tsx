@@ -67,7 +67,7 @@ const GetStartedScreen: FC<GetStartedScreenProps> = () => {
 
         <div className="flex items-center gap-4 mt-4">
           <Link
-            href={"/talent-onboarding/personal-info"}
+            href={"/onboarding/talent/personal-info"}
             className="px-6 py-3 flex gap-3 items-center leading-none font-bold  bg-black text-white rounded-full"
           >
             Get Started <ArrowRight size={20} color="white" />

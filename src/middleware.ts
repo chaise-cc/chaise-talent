@@ -25,18 +25,20 @@ export async function middleware(request: NextRequest) {
     }
 
     const activeAccount = user.accounts?.find(
-      (acc: { type: string }) => acc.type === activeRole
+      (acc) => acc?.type === activeRole
     );
 
-    if (activeAccount && !activeAccount.isOnboarded && !isOnboardingPage) {
+    console.log(activeAccount, activeRole);
+
+    if (activeAccount && !activeAccount.onboardingStatus && !isOnboardingPage) {
       // Redirect non-onboarded users to onboarding
       if (activeRole === "client") {
         return NextResponse.redirect(
-          new URL("/client-onboarding", request.url)
+          new URL("/onboarding/client", request.url)
         );
       } else {
         return NextResponse.redirect(
-          new URL("/talent-onboarding", request.url)
+          new URL("/onboarding/talent", request.url)
         );
       }
     }

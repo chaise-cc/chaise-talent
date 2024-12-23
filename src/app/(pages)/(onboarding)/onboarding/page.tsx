@@ -1,20 +1,12 @@
 import getUserAndRole from "@/utils/getUserAndRole";
-import React from "react";
-import ClientOnboardingIndex from "../_screens/client";
-import TalentOnboardingIndex from "../_screens/talent";
+
+import { redirect } from "next/navigation";
 
 export default async function OnboardingPage() {
   const { activeRole } = await getUserAndRole();
 
   if (!activeRole) return null;
 
-  return (
-    <div className="container">
-      {activeRole === "client" ? (
-        <ClientOnboardingIndex />
-      ) : (
-        <TalentOnboardingIndex />
-      )}
-    </div>
-  );
+  if (activeRole === "client") redirect("/onboarding/client");
+  if (activeRole === "talent") redirect("/onboarding/talent");
 }

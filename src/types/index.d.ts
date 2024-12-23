@@ -11,17 +11,30 @@ type TalentService = {
 
 export type BasicUser = {
   id: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone?: string;
   accounts: {
-    name: string;
+    type: string;
     onboardingStatus: boolean;
   }[];
 };
 
-export type User = BasiUser & {
+export type User = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  gender: "male" | "female";
+  email: string;
+  dateOfBirth?: string;
+  phone?: string;
+  preferredLanguage?: string;
+  country?: string;
+  accounts: {
+    type: string;
+    onboardingStatus: boolean;
+  }[];
   avatar?: string;
   identityIsVerified: boolean;
   emailIsVerified: boolean;
