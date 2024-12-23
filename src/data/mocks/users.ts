@@ -10,7 +10,7 @@ const users = [
     accounts: [
       {
         type: "talent",
-        isOnboarded: false,
+        isOnboarded: true,
       },
       {
         type: "client",

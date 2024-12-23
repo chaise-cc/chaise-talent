@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
 
     console.log(activeAccount, activeRole);
 
-    if (activeAccount && !activeAccount.onboardingStatus && !isOnboardingPage) {
+    if (activeAccount && !activeAccount.isOnboarded && !isOnboardingPage) {
       // Redirect non-onboarded users to onboarding
       if (activeRole === "client") {
         return NextResponse.redirect(

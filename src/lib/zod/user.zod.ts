@@ -52,7 +52,7 @@ export const userLoginSchema = z.object({
   rememberMe: z.boolean(),
 });
 
-export const userOnboardingStatusSchema = z.object({
+export const userisOnboardedSchema = z.object({
   userId: z.string().uuid(),
   accountType: z.enum(["talent", "client"]),
   onboardStatus: z.boolean(),
@@ -63,4 +63,4 @@ export const userOnboardingStatusSchema = z.object({
 export type User = z.infer<typeof userSchema>;
 export type UserRegistration = z.infer<typeof userRegistrationSchema>;
 export type UserLogin = z.infer<typeof userLoginSchema>;
-export type userOnboardingStatus = z.infer<typeof userOnboardingStatusSchema>;
+export type userisOnboarded = z.infer<typeof userisOnboardedSchema>;

@@ -17,7 +17,7 @@ export type BasicUser = {
   phone?: string;
   accounts: {
     type: string;
-    onboardingStatus: boolean;
+    isOnboarded: boolean;
   }[];
 };
 
@@ -33,7 +33,7 @@ export type User = {
   country?: string;
   accounts: {
     type: string;
-    onboardingStatus: boolean;
+    isOnboarded: boolean;
   }[];
   avatar?: string;
   identityIsVerified: boolean;

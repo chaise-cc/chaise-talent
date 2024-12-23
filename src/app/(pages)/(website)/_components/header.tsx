@@ -28,7 +28,6 @@ export default function Header({ user }: HeaderType) {
               loading="lazy"
               className={""}
             />
-            <span className="mt-2 text-gray-500 ">Talent</span>
           </Link>
 
           <nav className="flex gap-4 items-center">
