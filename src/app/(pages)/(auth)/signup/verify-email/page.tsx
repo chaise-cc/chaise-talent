@@ -2,11 +2,11 @@ import FormHeader from "@/components/custom/FormHeader";
 import React from "react";
 import VerifyEmailForm from "../../_components/VerifyEmail.form";
 
-type VerifyEmailProps = {
+type VerifyEmail = {
   email: string;
 };
 
-export default function VerifyEmail({ email }: VerifyEmailProps) {
+export default function VerifyEmail({ email }: VerifyEmail) {
   return (
     <div>
       <FormHeader
