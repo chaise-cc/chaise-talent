@@ -27,7 +27,7 @@ export function Modal({ children, className }: ModalProps) {
       ref={dialogRef}
       onClick={closeModal}
       onClose={router.back}
-      className={`backdrop:bg-black/60 rounded-3xl overflow-y-hidden backdrop:backdrop-blur-sm h-full max-h-[90vh]  ${
+      className={`backdrop:bg-black/60 rounded-3xl  backdrop:backdrop-blur-sm h-full max-h-[90vh]  ${
         className || ""
       }`}
       style={{
@@ -36,7 +36,7 @@ export function Modal({ children, className }: ModalProps) {
       }}
     >
       <div
-        className="h-full md:overflow-y-clip overflow-y-auto"
+        className="h-full overflow-y-auto"
         style={{
           maxHeight: "90vh", // Constrain modal content height
         }}
