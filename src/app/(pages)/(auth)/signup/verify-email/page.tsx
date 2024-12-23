@@ -7,13 +7,16 @@ type VerifyEmail = {
 };
 
 export default function VerifyEmail({ email }: VerifyEmail) {
+  if (!email) {
+    return <div>Email is required to verify.</div>;
+  }
+
   return (
     <div>
       <FormHeader
         title="Check your email"
-        description={`We have sent an otp to ${email}`}
+        description={`We have sent an OTP to ${email}`}
       />
-
       <VerifyEmailForm />
     </div>
   );
