@@ -1,12 +1,13 @@
 import FormHeader from "@/components/custom/FormHeader";
 import React from "react";
 import VerifyEmailForm from "../../_components/VerifyEmail.form";
+import getUserAndRole from "@/utils/getUserAndRole";
 
-type VerifyEmail = {
-  email: string;
-};
+export default async function VerifyEmail() {
+  const { user } = await getUserAndRole();
 
-export default function VerifyEmail({ email }: VerifyEmail) {
+  const { email } = user;
+
   if (!email) {
     return <div>Email is required to verify.</div>;
   }
