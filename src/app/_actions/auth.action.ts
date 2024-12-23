@@ -2,6 +2,7 @@
 
 import users from "@/data/mocks/users";
 import { createSession, deleteSession } from "@/lib/session";
+import { User } from "@/types";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -101,11 +102,16 @@ export async function signup(prevState: unknown, formData: FormData) {
   }
 
   // Simulate creating a new user
-  const newUser = {
-    id: users.length + 1,
+  const newUser: User = {
+    id: (users.length + 1).toString(),
     firstName: firstname,
     lastName: lastname,
     email,
+    gender: "male",
+    identityIsVerified: false,
+    emailIsVerified: false,
+    phoneIsVerified: false,
+    accounts: [{ type: "talent", isOnboarded: false }],
   };
   userss.push(newUser);
 

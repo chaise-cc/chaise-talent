@@ -25,7 +25,7 @@ export type User = {
   id: string;
   firstName: string;
   lastName: string;
-  gender: "male" | "female";
+  gender: string;
   email: string;
   dateOfBirth?: string;
   phone?: string;
