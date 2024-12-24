@@ -22,6 +22,7 @@ import {
 // import { useSearchParams } from "next/navigation";
 import { Mail } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 // import { useVerifyEmail } from "@/app/services/Auth";
 
 const FormSchema = z.object({
@@ -67,7 +68,7 @@ const VerifyEmailForm = () => {
     //   toast.error("Email is missing in the URL.");
     //   return;
     // }
-
+    redirect("/signup/verify-phone");
     alert("email success");
 
     //     verifyEmailMutation.mutate(
