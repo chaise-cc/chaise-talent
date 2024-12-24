@@ -17,7 +17,7 @@ import SearchBarComponent from "./SearchBar";
 import { MdOpenInNew } from "react-icons/md";
 import NotificationIcon from "@/components/icons/Notification.icon";
 import { useNotifications } from "@/app/_providers/notification.provider";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Heart } from "lucide-react";
 
 type HeaderType = {
   user?: User | null;
@@ -36,7 +36,7 @@ export default function Header({ user, activeRole }: HeaderType) {
             <Link
               shallow={true}
               href="/auth/login"
-              className="logo flex mr-4 h-8 font-semibold items-center w-fit shrink-0"
+              className="logo flex mr-4 h-6 font-semibold items-center w-fit shrink-0"
             >
               <Image
                 src="/images/chaise-yellow.png"
@@ -44,18 +44,31 @@ export default function Header({ user, activeRole }: HeaderType) {
                 height={32}
                 width={82}
                 loading="lazy"
-                className={""}
+                className={"h-full object-cover w-auto"}
               />
             </Link>
-            <div className="flex items-center gap-4 mt-1 font-medium">
-              <Link
-                className="flex gap-1 items-center"
-                href={"/dashboard/messages"}
-              >
-                Find works <ChevronDown size={18} />
-              </Link>
-              <Link href={"/dashboard/messages"}>Messages</Link>
-            </div>
+
+            {activeRole === "talent" ? (
+              <div className="flex text-sm items-center gap-4 mt-1 font-medium">
+                <Link
+                  className="flex gap-1 items-center"
+                  href={"/dashboard/messages"}
+                >
+                  Find works <ChevronDown size={18} />
+                </Link>
+                <Link href={"/dashboard/messages"}>Messages</Link>
+              </div>
+            ) : (
+              <div className="flex text-sm items-center gap-4 mt-1 font-medium">
+                <Link className="flex gap-1 items-center" href={"#"}>
+                  Jobs <ChevronDown size={18} />
+                </Link>
+                <Link className="flex gap-1 items-center" href={"#"}>
+                  Talents <ChevronDown size={18} />
+                </Link>
+                <Link href={"#"}>Messages</Link>
+              </div>
+            )}
           </div>
 
           <nav className="flex gap-4 items-center">
@@ -88,6 +101,8 @@ export default function Header({ user, activeRole }: HeaderType) {
                 <div className="flex gap-6 items-center">
                   <PiQuestionMark size={24} className="!text-4xl shrink-0" />
 
+                  {activeRole === "client" && <Heart />}
+
                   <NotificationIcon unreadCount={notifications.length} />
 
                   <DropdownMenu onOpenChange={(open) => setIsOpen(open)}>
@@ -103,8 +118,8 @@ export default function Header({ user, activeRole }: HeaderType) {
                       </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="text-gray-900">
-                      <div className="flex flex-col relative md:max-w-[300px] p-4 w-full gap-4 items-center w-f ">
-                        <div className="flex gap-4">
+                      <div className="flex flex-col relative md:max-w-[300px] p-4 w-full gap-4 items-center">
+                        <div className="flex gap-4 border-b pb-3">
                           <div className="img-container size-14 rounded-full overflow-hidden">
                             <Image
                               src={user.avatar}

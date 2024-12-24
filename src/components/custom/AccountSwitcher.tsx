@@ -37,7 +37,8 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ activeRole }) => {
       }
 
       setCurrentRole(newRole);
-      window.location.href = "/dashboard";
+      window.location.reload();
+      return;
     } catch (err: any) {
       setError(err.message || "Something went wrong");
       setLoading(false); // Stop loading if there's an error

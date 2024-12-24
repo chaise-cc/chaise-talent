@@ -40,7 +40,7 @@ export default function SearchBarComponent() {
       action="/nx/search/jobs/"
       method="GET"
       role="search"
-      className="relative hidden  md:flex items-center w-full justify-center max-w-xl md:min-w-96 bg-white border  rounded-full  focus:ring focus:ring-blue-300"
+      className="relative hidden md:flex items-center w-full justify-center max-w-xl md:min-w-96 bg-white border  rounded-full  focus:ring focus:ring-blue-300"
     >
       {/* Search Bar */}
       <div className="flex w-full items-center rounded-l-full overflow-hidden gap-2">
@@ -70,7 +70,7 @@ export default function SearchBarComponent() {
           type="button"
           aria-expanded={isDropdownOpen}
           onClick={() => setIsDropdownOpen((prev) => !prev)}
-          className="flex items-center justify-between w-full px-4 py-2 border-l gap-2 focus:outline-none"
+          className="flex items-center text-sm justify-between w-full px-4 py-2 border-l gap-2 focus:outline-none"
         >
           <span className="font-medium text-gray-700">{selectedCategory}</span>
           <ChevronDown
