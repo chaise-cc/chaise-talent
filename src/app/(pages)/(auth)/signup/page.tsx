@@ -12,8 +12,6 @@ export default function SignUp() {
         description="You'll be up and running in 5 minutes"
       />
 
-      {/* <LoginForm /> */}
-
       <SignupForm />
 
       <div className="grid place-items-center text-sm gap-2 my-4 ">

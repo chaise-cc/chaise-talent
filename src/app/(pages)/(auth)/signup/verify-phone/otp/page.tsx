@@ -38,7 +38,7 @@ const PhoneNumberVerification = ({ phone }: { phone: string }) => {
 
     setError("");
     alert(`OTP verified for ${phone}`);
-    router.push("/dashboard");
+    router.push("/onboarding");
   };
 
   return (

@@ -110,7 +110,7 @@ export async function signup(prevState: unknown, formData: FormData) {
   await createSession(newUser, "default");
 
   // Redirect to dashboard
-  return redirect("/dashboard");
+  return redirect("/signup/verify-email");
 }
 
 export async function logout() {
