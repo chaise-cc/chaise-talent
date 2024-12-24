@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "@/styles/globals.scss";
 import NextTopLoader from "nextjs-toploader";
 import { LayoutTransition } from "@/LayoutTransition";
+import { NotificationProvider } from "./_providers/notification.provider";
 
 const varela_round = localFont({
   src: "../fonts/varela-round.woff2",
@@ -85,7 +86,7 @@ export default function RootLayout({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {children}
+          <NotificationProvider>{children}</NotificationProvider>
         </LayoutTransition>
       </body>
     </html>

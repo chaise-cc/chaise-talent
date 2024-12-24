@@ -40,7 +40,7 @@ export default function SearchBarComponent() {
       action="/nx/search/jobs/"
       method="GET"
       role="search"
-      className="relative flex items-center w-full justify-center max-w-xl md:min-w-96 bg-white border  rounded-full  focus:ring focus:ring-blue-300"
+      className="relative hidden  md:flex items-center w-full justify-center max-w-xl md:min-w-96 bg-white border  rounded-full  focus:ring focus:ring-blue-300"
     >
       {/* Search Bar */}
       <div className="flex w-full items-center rounded-l-full overflow-hidden gap-2">

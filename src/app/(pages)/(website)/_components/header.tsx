@@ -9,13 +9,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User } from "@/types";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
-import { NotificationBing } from "iconsax-react";
 import { PiQuestionMark } from "react-icons/pi";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import SearchBarComponent from "./SearchBar";
 import { MdOpenInNew } from "react-icons/md";
+import NotificationIcon from "@/components/icons/Notification.icon";
+import { useNotifications } from "@/app/_providers/notification.provider";
+import { ChevronDown } from "lucide-react";
 
 type HeaderType = {
   user?: User | null;
@@ -24,30 +26,44 @@ type HeaderType = {
 
 export default function Header({ user, activeRole }: HeaderType) {
   const [, setIsOpen] = useState(false);
+  const { notifications } = useNotifications();
 
   return (
     <header className="my-4">
       <div className="container w-full">
-        <div className="flex w-full rounded-full bg-gray-50 justify-between items-center gap-4 py-4 shadow-sm pl-6 pr-4">
-          <Link
-            shallow={true}
-            href="/auth/login"
-            className="logo flex  gap-2 font-semibold items-center w-fit shrink-0"
-          >
-            <Image
-              src="/images/chaise-yellow.png"
-              alt="Chaise - The Future of Freelancing"
-              height={32}
-              width={82}
-              loading="lazy"
-              className={""}
-            />
-          </Link>
+        <div className="flex w-full rounded-full bg-gray-50 justify-between items-center gap-4 py-4 pl-6 pr-4 shadow-sm ">
+          <div className="flex gap-4 leading-none items-center">
+            <Link
+              shallow={true}
+              href="/auth/login"
+              className="logo flex mr-4 h-8 font-semibold items-center w-fit shrink-0"
+            >
+              <Image
+                src="/images/chaise-yellow.png"
+                alt="Chaise - The Future of Freelancing"
+                height={32}
+                width={82}
+                loading="lazy"
+                className={""}
+              />
+            </Link>
+            <div className="flex items-center gap-4 mt-1 font-medium">
+              <Link
+                className="flex gap-1 items-center"
+                href={"/dashboard/messages"}
+              >
+                Find works <ChevronDown size={18} />
+              </Link>
+              <Link href={"/dashboard/messages"}>Messages</Link>
+            </div>
+          </div>
 
           <nav className="flex gap-4 items-center">
             <div className="flex gap-2 items-center ">
+              <SearchBarComponent />
+
               {!user ? (
-                <ul className="flex space-x-4 md:space-x-6 shrink-0 items-center list-none">
+                <ul className="flex space-x-4 ml-5 md:space-x-6 shrink-0 items-center list-none">
                   <li className="shrink-0">
                     <Link
                       className="font-bold"
@@ -61,7 +77,7 @@ export default function Header({ user, activeRole }: HeaderType) {
                   <li>
                     <Link
                       href="/signup"
-                      className="bg-main-color-500 w-[9rem] h-11 !leading-1 overflow-hidden flex items-center justify-center font-semibold rounded-full text-main-color-900"
+                      className="bg-main-color-500 px-4 md:px-5 py-3 md:py-4 !leading-none overflow-hidden flex items-center justify-center font-semibold rounded-full text-main-color-900"
                       data-view="signup"
                     >
                       Join for free
@@ -70,11 +86,9 @@ export default function Header({ user, activeRole }: HeaderType) {
                 </ul>
               ) : (
                 <div className="flex gap-6 items-center">
-                  <SearchBarComponent />
+                  <PiQuestionMark size={24} className="!text-4xl shrink-0" />
 
-                  <PiQuestionMark size={24} className="!text-4xl" />
-
-                  <NotificationBing size={28} color="black" />
+                  <NotificationIcon unreadCount={notifications.length} />
 
                   <DropdownMenu onOpenChange={(open) => setIsOpen(open)}>
                     <DropdownMenuTrigger>

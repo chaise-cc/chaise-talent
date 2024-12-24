@@ -13,7 +13,7 @@ interface NotificationIconProps {
 }
 
 const badgeSizeClasses = {
-  small: "h-3.5 w-3.5 text-[.6rem]",
+  small: "text-[.615rem] font-medium leading-none",
   medium: "h-5 w-5 text-sm",
   large: "h-6 w-6 text-base",
 };
@@ -46,7 +46,7 @@ const NotificationIcon: FC<NotificationIconProps> = ({
       </div>
       {unreadCount > 0 && (
         <div
-          className={`absolute -top-1 -right-1 flex items-center justify-center rounded-full text-white ${badgeSizeClasses[badgeSize]} ${badgeColor}`}
+          className={`absolute -top-1 -right-0.5 h-4 w-4 flex items-center justify-center rounded-full text-white ${badgeSizeClasses[badgeSize]} ${badgeColor}`}
         >
           {unreadCount > 9 ? "9+" : unreadCount}
         </div>
