@@ -11,7 +11,7 @@ export default function AuthenticationLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Modal className="w-full max-w-[90%]">
+    <Modal className="w-[90%] max-w-5xl">
       <div className="w-full h-screen md:overflow-hidden">
         <div className="h-full flex w-full">
           <div className="md:w-[50%] h-full bg-main-color-50 hidden md:inline-block">
