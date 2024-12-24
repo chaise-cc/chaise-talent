@@ -1,10 +1,16 @@
+import { redirect } from "next/navigation";
+
 import { LayoutTransition } from "@/LayoutTransition";
-import "./_styles/index.scss";
-import DashboardHeader from "./_components/header";
+
 import NotificationSidebar from "./_components/sidebar/NotificationSidebar";
 import DesktopSideBar from "./_components/sidebar/desktop.sidebar";
+import MobileNavbarDashboard from "./_components/sidebar/mobile.sidebar";
+import DashboardHeader from "./_components/header";
+
 import getUserAndRole from "@/utils/getUserAndRole";
-import { redirect } from "next/navigation";
+import { isMobile } from "@/utils/checkDeviceIsMobile";
+
+import "./_styles/index.scss";
 
 export default async function TalentDashboardLayout({
   children,
@@ -12,6 +18,7 @@ export default async function TalentDashboardLayout({
   children: React.ReactNode;
 }) {
   const { user, activeRole } = await getUserAndRole();
+  const deviceIsMobile = await isMobile();
 
   // Handle unauthenticated or incomplete states
   if (!user || !activeRole) {
@@ -38,6 +45,7 @@ export default async function TalentDashboardLayout({
           <DashboardHeader activeRole={activeRole} user={user} />
           <NotificationSidebar />
           <main className="p-4 w-full">{children}</main>
+          {deviceIsMobile && <MobileNavbarDashboard />}
         </LayoutTransition>
       </div>
     </div>
