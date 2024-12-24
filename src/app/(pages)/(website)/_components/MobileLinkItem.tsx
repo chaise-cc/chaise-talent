@@ -29,12 +29,14 @@ const LinkItem = ({ href, text, isLast, children }: Props) => {
               <ArrowUp2
                 size="16"
                 variant="Outline"
+                color="black"
                 className="cursor-pointer text-gray-800"
               />
             ) : (
               <ArrowDown2
                 size="16"
                 variant="Outline"
+                color="black"
                 className="cursor-pointer text-gray-800"
               />
             )}

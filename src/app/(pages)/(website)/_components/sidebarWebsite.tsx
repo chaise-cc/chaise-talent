@@ -6,8 +6,6 @@ import { MOBILE_NAV_LINK_ITEMS } from "@/data/menuCategories";
 import { User } from "@/types";
 import LinkItem from "./MobileLinkItem";
 import { SideBarContext } from "@/app/_providers/sidebar.provider";
-import { Add } from "iconsax-react";
-// import { SideBarContext } from "./SideBarProvider";
 
 type SideBarWebsiteMobileProps = {
   user?: User | undefined | null;
@@ -27,12 +25,7 @@ const SideBarWebsiteMobile = ({ user }: SideBarWebsiteMobileProps) => {
   return (
     <>
       {showSideBar && (
-        <nav className="side-bar-container pt-16 max-w-sm fixed inset-0 z-20 bg-gray-50 flex flex-col justify-between shadow-md border-gray-300 lg:hidden">
-          <Add
-            size={32}
-            color="red"
-            className="absolute rotate-45 top-4 right-4"
-          />
+        <nav className="side-bar-container fixed inset-0 z-50 bg-white flex flex-col justify-between shadow-md border-gray-300 lg:hidden">
           <div className="flex flex-col p-4">
             {MOBILE_NAV_LINK_ITEMS.map((item) => (
               <LinkItem
