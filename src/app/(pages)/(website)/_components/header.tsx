@@ -48,7 +48,22 @@ export default function Header({ user, activeRole }: HeaderType) {
               />
             </Link>
 
-            {activeRole === "talent" ? (
+            {user ? (
+              <div className="flex items-center gap-6 mt-1 font-medium">
+                <Link className="flex gap-1 items-center" href={"#"}>
+                  Find Talents <ChevronDown size={18} />
+                </Link>
+                <Link className="flex gap-1 items-center" href={"#"}>
+                  Find Works <ChevronDown size={18} />
+                </Link>
+                <Link className="flex gap-1 items-center" href={"#"}>
+                  Chaise Pro
+                </Link>
+                <Link className="flex gap-1 items-center" href={"#"}>
+                  Explore <ChevronDown size={18} />
+                </Link>
+              </div>
+            ) : activeRole === "talent" ? (
               <div className="flex items-center gap-6 mt-1 font-medium">
                 <Link
                   className="flex gap-1 items-center"

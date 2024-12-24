@@ -4,6 +4,7 @@ import "./_styles/index.scss";
 import SideBarProvider from "@/app/_providers/sidebar.provider";
 import WebsiteMobileHeader from "./_components/WebsiteMobileHeader";
 import SideBarWebsiteMobile from "./_components/sidebarWebsite";
+import SiteFooter from "./_components/footer";
 
 export default async function WebsiteLayout({
   children,
@@ -19,6 +20,8 @@ export default async function WebsiteLayout({
       <SideBarWebsiteMobile user={user} />
 
       {children}
+
+      <SiteFooter />
     </SideBarProvider>
   );
 }
