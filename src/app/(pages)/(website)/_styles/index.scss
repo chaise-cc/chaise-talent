@@ -1,10 +1,5 @@
 html {
-  @apply text-sm;
-}
-
-html,
-body {
-  @apply text-sm md:text-base;
+  @apply !text-sm;
 }
 
 main {
