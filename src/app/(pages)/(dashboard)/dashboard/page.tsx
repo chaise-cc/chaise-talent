@@ -21,7 +21,7 @@ export default async function HomePage() {
         <div className="md:w-[65%] w-full">
           <div className="flex w-full gap-4">
             <div className="border rounded-xl flex gap-4 h-full justify-between flex-col p-4 w-full">
-              <h2 className="font-bold text-sm">Earnings</h2>
+              <h2 className="font-semibold text-sm">Earnings</h2>
 
               <h3 className="font-bold text-2xl">$1550</h3>
 
@@ -30,7 +30,7 @@ export default async function HomePage() {
               </small>
             </div>
             <div className="border rounded-xl h-full flex flex-col justify-between gap-4 p-4 w-full">
-              <h2 className="font-bold text-sm">Projects completed</h2>
+              <h2 className="font-semibold text-sm">Projects completed</h2>
 
               <h3 className="font-bold text-2xl">3</h3>
 
