@@ -29,10 +29,10 @@ export default function Header({ user, activeRole }: HeaderType) {
   const { notifications } = useNotifications();
 
   return (
-    <header className="my-4">
+    <header className="my-4 hidden md:flex">
       <div className="container w-full">
         <div className="flex w-full rounded-full bg-gray-50 justify-between items-center gap-4 py-4 pl-6 pr-4 shadow-sm ">
-          <div className="flex gap-4 leading-none items-center">
+          <div className="flex gap-8 leading-none items-center">
             <Link
               shallow={true}
               href="/auth/login"
@@ -49,7 +49,7 @@ export default function Header({ user, activeRole }: HeaderType) {
             </Link>
 
             {activeRole === "talent" ? (
-              <div className="flex text-sm items-center gap-4 mt-1 font-medium">
+              <div className="flex items-center gap-6 mt-1 font-medium">
                 <Link
                   className="flex gap-1 items-center"
                   href={"/dashboard/messages"}
@@ -59,7 +59,7 @@ export default function Header({ user, activeRole }: HeaderType) {
                 <Link href={"/dashboard/messages"}>Messages</Link>
               </div>
             ) : (
-              <div className="flex text-sm items-center gap-4 mt-1 font-medium">
+              <div className="flex items-center gap-6 mt-1 font-medium">
                 <Link className="flex gap-1 items-center" href={"#"}>
                   Jobs <ChevronDown size={18} />
                 </Link>
