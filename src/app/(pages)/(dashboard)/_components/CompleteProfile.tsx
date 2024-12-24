@@ -25,7 +25,7 @@ export default function CompleteProfile() {
   const completedSteps = steps.filter((step) => step.completed).length;
 
   return (
-    <section className="bg-white shadow-sm drop-shadow-md rounded-xl overflow-hidden">
+    <section className="bg-white shadow-sm drop-shadow-md rounded-xl w-full overflow-hidden">
       {/* Header Section */}
       <div className="flex gap-2 items-center p-4 bg-gray-100 justify-between">
         <h2 className="text-xl font-semibold">Next Steps</h2>

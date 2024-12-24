@@ -3,6 +3,7 @@ import React from "react";
 import TopNavigation from "../_components/top-navigation";
 import getUserAndRole from "@/utils/getUserAndRole";
 import CompleteProfile from "../_components/CompleteProfile";
+import DashboardCalendar from "../_components/DashboardCalendar";
 
 export default async function HomePage() {
   const { user } = await getUserAndRole();
@@ -18,10 +19,10 @@ export default async function HomePage() {
         ]}
       />
       <main className="flex w-full justify-between">
-        <div className="md:w-[65%] w-full">
+        <div className=" flex flex-col gap-8 w-full">
           <div className="flex w-full gap-4">
             <div className="border rounded-xl flex gap-4 h-full justify-between flex-col p-4 w-full">
-              <h2 className="font-semibold text-sm">Earnings</h2>
+              <h2 className="font-medium text-sm">Earnings</h2>
 
               <h3 className="font-bold text-2xl">$1550</h3>
 
@@ -29,8 +30,9 @@ export default async function HomePage() {
                 <span className="text-green-500">10%</span> increase
               </small>
             </div>
+
             <div className="border rounded-xl h-full flex flex-col justify-between gap-4 p-4 w-full">
-              <h2 className="font-semibold text-sm">Projects completed</h2>
+              <h2 className="font-medium text-sm">Projects completed</h2>
 
               <h3 className="font-bold text-2xl">3</h3>
 
@@ -39,9 +41,23 @@ export default async function HomePage() {
               </small>
             </div>
           </div>
+
+          {/*  */}
+          <div className="border rounded-xl flex gap-2 h-full flex-col p-4 w-full">
+            <h2 className="font-medium text-lg">Profile metrics</h2>
+
+            <h3 className="font-medium text-2xl">
+              <span>0</span>&nbsp;profile views
+            </h3>
+          </div>
         </div>
+
+        {/*  */}
         <div className="md:w-[35%] px-4 max-w-sm hidden flex-shrink-0 md:block">
           <CompleteProfile />
+
+          {/*  */}
+          <DashboardCalendar />
         </div>
       </main>
     </div>
