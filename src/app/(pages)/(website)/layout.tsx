@@ -6,11 +6,11 @@ export default async function WebsiteLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { user } = await getUserAndRole();
+  const { user, activeRole } = await getUserAndRole();
 
   return (
     <>
-      <Header user={user} />
+      <Header user={user} activeRole={activeRole} />
       {children}
     </>
   );

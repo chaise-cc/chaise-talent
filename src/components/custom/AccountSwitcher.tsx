@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 
 interface AccountSwitcherProps {
-  activeRole: string;
+  activeRole?: string;
 }
 
 const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ activeRole }) => {
@@ -56,7 +56,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ activeRole }) => {
   return (
     <div>
       {error && (
-        <p className="text-red-500 font-sora mb-4" role="alert">
+        <p className="text-red-500 font-sora" role="alert">
           {error}
         </p>
       )}
@@ -64,7 +64,7 @@ const AccountSwitcher: React.FC<AccountSwitcherProps> = ({ activeRole }) => {
       <Button
         variant="outline"
         size="sm"
-        className="flex items-center justify-center font-sora text-base font-medium py-5  gap-2 rounded-xl  px-4 bg-main-color-50 border border-main-color-500"
+        className="flex items-center justify-center text-sm font-medium py-2.5 gap-2 rounded-xl leading-none  px-4 bg-main-color-50 border border-main-color-500"
         onClick={() => handleRoleSwitch(accountToSwitch)}
         disabled={loading}
         aria-busy={loading}

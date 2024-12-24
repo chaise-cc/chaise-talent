@@ -18,6 +18,8 @@ import {
 import Image from "next/image";
 import TransitionLink from "@/components/custom/TransitionLink";
 import { logout } from "@/app/_actions/auth.action";
+import Link from "next/link";
+import { MdOpenInNew } from "react-icons/md";
 
 interface DesktopDashboardSideBarProps {
   baseUrl?: string;
@@ -107,13 +109,19 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
           isMobileOpen ? "w-64" : "w-16"
         } md:w-64 shrink-0 hidden md:flex h-screen flex-col pb-8 duration-300 transition-all`}
       >
-        <Image
-          height={80}
-          width={200}
-          className="h-5 px-4 my-[22px] w-max mx-auto object-contain"
-          alt="Chaise Logo"
-          src={"/images/chaise-yellow.png"}
-        />
+        <div className="flex w-full items-center justify-between px-4">
+          <Image
+            height={80}
+            width={200}
+            className="h-5 px-4 my-[22px] w-max  object-contain"
+            alt="Chaise Logo"
+            src={"/images/chaise-yellow.png"}
+          />
+          <Link href={"/"}>
+            <MdOpenInNew className="text-xl" />
+          </Link>
+        </div>
+
         <div className="pb-4">
           <ul className="flex flex-col gap-2">
             {MenuItems.slice(0, -3).map((item) => (

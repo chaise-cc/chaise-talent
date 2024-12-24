@@ -1,16 +1,30 @@
 "use client";
 
+import AccountSwitcher from "@/components/custom/AccountSwitcher";
+import Avatar from "@/components/icons/Avatar.icon";
+import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { User } from "@/types";
-import { User as Uss } from "iconsax-react";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
+import { NotificationBing } from "iconsax-react";
+import { PiQuestionMark } from "react-icons/pi";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import SearchBarComponent from "./SearchBar";
+import { MdOpenInNew } from "react-icons/md";
 
 type HeaderType = {
   user?: User | null;
+  activeRole?: string;
 };
 
-export default function Header({ user }: HeaderType) {
+export default function Header({ user, activeRole }: HeaderType) {
+  const [, setIsOpen] = useState(false);
+
   return (
     <header className="my-4">
       <div className="container w-full">
@@ -55,13 +69,59 @@ export default function Header({ user }: HeaderType) {
                   </li>
                 </ul>
               ) : (
-                <Link
-                  className="bg-main-color-500 px-4 gap-1.5 h-11 !leading-1 overflow-hidden flex items-center justify-center font-semibold rounded-full text-main-color-900"
-                  href="/dashboard"
-                  data-view="dashboard"
-                >
-                  <Uss color="black" size={16} /> Dashboard
-                </Link>
+                <div className="flex gap-6 items-center">
+                  <SearchBarComponent />
+
+                  <PiQuestionMark size={24} className="!text-4xl" />
+
+                  <NotificationBing size={28} color="black" />
+
+                  <DropdownMenu onOpenChange={(open) => setIsOpen(open)}>
+                    <DropdownMenuTrigger>
+                      <div className="flex ml-2 items-center space-x-1  cursor-pointer">
+                        <Avatar
+                          src={user.avatar}
+                          alt="User Image"
+                          size="md"
+                          shape="circle"
+                          status="online"
+                        />
+                      </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="text-gray-900">
+                      <div className="flex flex-col relative md:max-w-[300px] p-4 w-full gap-4 items-center w-f ">
+                        <div className="flex gap-4">
+                          <div className="img-container size-14 rounded-full overflow-hidden">
+                            <Image
+                              src={user.avatar}
+                              width={96}
+                              height={96}
+                              quality={100}
+                              priority={false}
+                              alt=""
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+
+                          <div className="flex flex-col justify-center items-start">
+                            <h2 className="md:text-lg">
+                              {user.firstName} {user.lastName}
+                            </h2>
+                            <div className="flex gap-4 items-center">
+                              <Badge>{activeRole}</Badge>
+                              <Link href={"/dashboard"}>
+                                <MdOpenInNew className="text-xl" />
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/*  */}
+                        <AccountSwitcher activeRole={activeRole} />
+                      </div>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               )}
             </div>
           </nav>
