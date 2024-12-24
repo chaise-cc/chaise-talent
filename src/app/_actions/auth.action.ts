@@ -20,41 +20,33 @@ export async function login(prevState: unknown, formData: FormData) {
 
   if (!result.success) {
     return {
+      success: false,
       errors: result.error.flatten().fieldErrors,
     };
   }
 
   const { email, password } = result.data;
 
-  // Locate the user
   const user = users.find((u) => u.email === email && password === "12345678");
 
   if (!user) {
     return {
+      success: false,
       errors: {
         email: ["Invalid email or password"],
       },
     };
   }
 
-  // Check for accounts
-  if (!user.accounts || user.accounts.length === 0) {
-    return {
-      errors: {
-        email: ["No active accounts associated with this user"],
-      },
-    };
-  }
+  const roleToSet = user.accounts?.[0]?.type || "guest";
 
-  // Default to the first account if activeRole is not specified
-  const roleToSet = user.accounts[0]?.type;
-
-  // Include activeRole in the session
   await createSession(user, roleToSet);
 
-  return roleToSet === "talent"
-    ? redirect(`/dashboard`)
-    : roleToSet === "client" && redirect(`/panel`); // Direct to specific role dashboard
+  return {
+    success: true,
+    user,
+    redirectUrl: roleToSet === "talent" ? `/dashboard` : `/panel`,
+  };
 }
 
 // Define validation schema
@@ -80,8 +72,6 @@ const userss: Array<{ email: string }> = [];
 export async function signup(prevState: unknown, formData: FormData) {
   const formDataObj = Object.fromEntries(formData);
   const result = signupSchema.safeParse(formDataObj);
-
-  console.log(formDataObj);
 
   if (!result.success) {
     return {

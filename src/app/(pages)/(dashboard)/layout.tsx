@@ -7,10 +7,10 @@ import DesktopSideBar from "./_components/sidebar/desktop.sidebar";
 import MobileNavbarDashboard from "./_components/sidebar/mobile.sidebar";
 import DashboardHeader from "./_components/header";
 
+import "./_styles/index.scss";
+
 import getUserAndRole from "@/utils/getUserAndRole";
 import { isMobile } from "@/utils/checkDeviceIsMobile";
-
-import "./_styles/index.scss";
 
 export default async function TalentDashboardLayout({
   children,

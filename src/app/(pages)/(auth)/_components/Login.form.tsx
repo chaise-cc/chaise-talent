@@ -1,39 +1,80 @@
+"use client";
+
+import { useState } from "react";
+import { toast } from "sonner"; // Import toast from Sonner
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/custom/PasswordInput";
 import { ArrowRight } from "iconsax-react";
 import { Loader2 } from "lucide-react";
-import { useActionState } from "react";
 import { login } from "@/app/_actions/auth.action";
-import { useFormStatus } from "react-dom";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
-  const [state, loginAction] = useActionState(login, undefined);
-  const formStatus = useFormStatus();
-  const pending = formStatus?.pending || false; // Safe fallback for pending state
+  const [pending, setPending] = useState(false); // For managing form state
+  const [errors, setErrors] = useState<{
+    email?: string[];
+    password?: string[];
+  }>({});
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPending(true); // Indicate loading
+    setErrors({}); // Clear previous errors
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await login(undefined, formData);
+      console.log(response.success);
+
+      if (response.success) {
+        if (response.redirectUrl) {
+          router.push(response.redirectUrl);
+          toast.success("Login successful! 🎉");
+        }
+      } else if (response.errors) {
+        // Display toast for the first available error message
+        const errorMessage =
+          response.errors.email?.[0] ||
+          response.errors.password?.[0] ||
+          "Login failed.";
+        toast.error(errorMessage);
+
+        // Set field-specific errors to state for form validation feedback
+        setErrors(response.errors);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(
+          error.message ||
+            "An unexpected error occurred. Please try again later."
+        );
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setPending(false); // Reset pending state
+    }
+  };
 
   return (
     <form
-      action={loginAction}
+      onSubmit={handleSubmit}
       className="space-y-6 max-w-lg mx-auto w-full py-4"
     >
       {/* Email Field */}
-      <EmailField
-        errors={state && "errors" in state ? state.errors?.email : undefined}
-        pending={pending}
-      />
+      <EmailField errors={errors.email} pending={pending} />
 
       {/* Password Field */}
-      <PasswordField
-        errors={state && "errors" in state ? state.errors?.password : undefined}
-        pending={pending}
-      />
+      <PasswordField errors={errors.password} pending={pending} />
 
       {/* Options */}
       <div className="flex mt-2 justify-between items-center">
-        <div></div>
+        <div />
         <Link href="/recover-account" className="font-bold text-sm underline">
           Recover password
         </Link>
@@ -52,12 +93,9 @@ const PasswordField = ({
   errors?: string[];
   pending: boolean;
 }) => (
-  <div className="flex flex-col items-start space-y-1">
-    <Label className="font-semibold text-base" htmlFor="password">
-      Password
-    </Label>
+  <FieldContainer label="Password" id="password" errors={errors}>
     <PasswordInput
-      className="text-base py-6"
+      className="text-base py-3"
       id="password"
       name="password"
       autoComplete="current-password"
@@ -66,13 +104,7 @@ const PasswordField = ({
       minLength={6}
       disabled={pending}
     />
-    {/* Error for Password */}
-    {errors && (
-      <p className="text-red-500 mt-1 text-sm" aria-live="polite">
-        {errors.join(", ")}
-      </p>
-    )}
-  </div>
+  </FieldContainer>
 );
 
 const EmailField = ({
@@ -82,12 +114,9 @@ const EmailField = ({
   errors?: string[];
   pending: boolean;
 }) => (
-  <div className="flex flex-col items-start space-y-1">
-    <Label className="font-semibold text-base" htmlFor="email">
-      Email
-    </Label>
+  <FieldContainer label="Email" id="email" errors={errors}>
     <Input
-      className="text-base py-6"
+      className="text-base py-3"
       type="email"
       placeholder="Email address"
       name="email"
@@ -95,20 +124,40 @@ const EmailField = ({
       minLength={6}
       disabled={pending}
     />
-    {/* Error for Email */}
-    {errors && (
-      <p className="text-red-500 mt-1 text-sm" aria-live="polite">
-        {errors.join(", ")}
-      </p>
-    )}
-  </div>
+  </FieldContainer>
 );
+
+function FieldContainer({
+  label,
+  id,
+  errors,
+  children,
+}: {
+  label: string;
+  id: string;
+  errors?: string[];
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col items-start space-y-1">
+      <Label className="font-semibold text-base" htmlFor={id}>
+        {label}
+      </Label>
+      {children}
+      {errors && (
+        <p className="text-red-500 mt-1 text-sm" aria-live="polite">
+          {errors.join(", ")}
+        </p>
+      )}
+    </div>
+  );
+}
 
 function SubmitButton({ pending }: { pending: boolean }) {
   return (
     <Button
       type="submit"
-      className="text-base w-full font-bold border border-transparent hover:border-main-color-500 hover:bg-transparent py-6 text-gray-700 bg-main-color-500"
+      className="text-base w-full font-bold border border-transparent hover:border-main-color-500 hover:bg-transparent py-3 text-gray-700 bg-main-color-500"
       disabled={pending}
     >
       {pending ? (

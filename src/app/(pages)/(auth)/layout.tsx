@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "./_styles/index.scss";
 import { Modal } from "@/components/custom/Modal";
+import { Toaster } from "sonner";
 
 export default function AuthenticationLayout({
   children,
@@ -67,6 +68,8 @@ export default function AuthenticationLayout({
           </section>
         </div>
       </div>
+
+      <Toaster richColors position="top-right" />
     </Modal>
   );
 }
