@@ -2,7 +2,7 @@
 import "server-only";
 import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { BasicUser, User } from "@/types";
+import { User } from "@/types";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
@@ -13,12 +13,20 @@ type SessionPayload = {
   activeRole: string;
 };
 
+// Add the OTP and expiry information when creating the session
 export async function createSession(
   user: User,
   activeRole: string
 ): Promise<void> {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const session: SessionPayload = { user, expiresAt, activeRole };
+
+  // Store OTP-related data (if applicable)
+  if (user.verificationToken && user.otpExpiry) {
+    session.user.verificationToken = user.verificationToken;
+    session.user.otpExpiry = user.otpExpiry;
+  }
+
   const encryptedSession = await encrypt(session);
   const cookiesStore = await cookies();
 
@@ -50,6 +58,7 @@ export async function encrypt(payload: SessionPayload): Promise<string> {
     .setExpirationTime(Math.floor(payload.expiresAt.getTime() / 1000)) // Ensure expiration is consistent with expiresAt
     .sign(encodedKey);
 }
+
 export async function decrypt(
   session: string | undefined = ""
 ): Promise<SessionPayload | null> {

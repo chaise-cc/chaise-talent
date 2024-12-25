@@ -8,15 +8,22 @@ import { PasswordInput } from "../../../../components/custom/PasswordInput";
 
 import { ArrowRight } from "iconsax-react";
 import { Loader2 } from "lucide-react";
-import { useActionState } from "react";
-import { signup } from "@/app/_actions/auth.action";
-import { useFormStatus } from "react-dom";
+// import { signup } from "@/app/_actions/auth.action";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { signup } from "@/app/_actions/signup.action";
 
 export default function SignupForm() {
-  const { pending } = useFormStatus();
-  const [state, signupAction] = useActionState(signup, undefined);
+  const [pending, setPending] = useState(false); // For managing form state
+  const [errors, setErrors] = useState<{
+    email?: string[];
+    password?: string[];
+    firstname?: string[];
+    lastname?: string[];
+  }>({});
+  const router = useRouter();
 
   // Local state for form inputs
   const [formValues, setFormValues] = useState({
@@ -26,7 +33,45 @@ export default function SignupForm() {
     password: "",
   });
 
-  // Fallback loading state
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPending(true); // Indicate loading
+    setErrors({}); // Clear previous errors
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await signup(undefined, formData);
+
+      if ("redirectUrl" in response) {
+        toast.success("Signup successful! 🎉");
+        router.push(response.redirectUrl || "");
+      } else if (response.errors) {
+        // Display toast for the first available error message
+        const errorMessage =
+          response.errors.email?.[0] ||
+          response.errors.password?.[0] ||
+          response.errors.firstname?.[0] ||
+          response.errors.lastname?.[0] ||
+          "Signup failed.";
+        toast.error(errorMessage);
+
+        // Set field-specific errors to state for form validation feedback
+        setErrors(response.errors);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(
+          error.message ||
+            "An unexpected error occurred. Please try again later."
+        );
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    } finally {
+      setPending(false); // Reset pending state
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,11 +80,9 @@ export default function SignupForm() {
 
   const isPending = pending;
 
-  console.log("Form Values:", formValues);
-
   return (
     <form
-      action={signupAction}
+      onSubmit={handleSubmit}
       className="space-y-6 max-w-lg mx-auto w-full py-4"
     >
       {/* First Name Field */}
@@ -58,8 +101,8 @@ export default function SignupForm() {
           minLength={2}
           disabled={isPending}
         />
-        {state && state.errors?.firstname && (
-          <p className="text-red-500">{state.errors.firstname.join(", ")}</p>
+        {errors.firstname && (
+          <p className="text-red-500">{errors.firstname.join(", ")}</p>
         )}
       </div>
 
@@ -79,8 +122,8 @@ export default function SignupForm() {
           minLength={2}
           disabled={isPending}
         />
-        {state && state.errors?.lastname && (
-          <p className="text-red-500">{state.errors.lastname.join(", ")}</p>
+        {errors.lastname && (
+          <p className="text-red-500">{errors.lastname.join(", ")}</p>
         )}
       </div>
 
@@ -100,8 +143,8 @@ export default function SignupForm() {
           minLength={6}
           disabled={isPending}
         />
-        {state && state.errors?.email && (
-          <p className="text-red-500">{state.errors.email.join(", ")}</p>
+        {errors.email && (
+          <p className="text-red-500">{errors.email.join(", ")}</p>
         )}
       </div>
 
@@ -121,8 +164,8 @@ export default function SignupForm() {
           minLength={6}
           disabled={isPending}
         />
-        {state && state.errors?.password && (
-          <p className="text-red-500">{state.errors.password.join(", ")}</p>
+        {errors.password && (
+          <p className="text-red-500">{errors.password.join(", ")}</p>
         )}
       </div>
 

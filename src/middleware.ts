@@ -18,6 +18,8 @@ export async function middleware(request: NextRequest) {
 
   const isAuthPage = pathname.startsWith("/auth");
   const isOnboardingPage = pathname.startsWith("/onboarding");
+  const isVerifyEmailPage = pathname.startsWith("/signup/verify-email");
+  const isVerifyPhonePage = pathname.startsWith("/signup/verify-phone");
   const session = token ? await decrypt(token) : null;
 
   // If no session and not on an auth page, redirect to login with redirectUrl
@@ -38,11 +40,35 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(loginUrl);
     }
 
+    // Check if email is verified, redirect to verify-email if not
+    if (
+      user &&
+      !user.emailIsVerified &&
+      !isVerifyEmailPage &&
+      !isVerifyPhonePage
+    ) {
+      const redirectUrl = new URL("/signup/verify-email", request.url);
+      redirectUrl.searchParams.set("redirectUrl", pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
+
+    // Only check phone verification after email is verified
+    if (
+      user &&
+      user.emailIsVerified &&
+      !user.phoneIsVerified &&
+      !isVerifyPhonePage
+    ) {
+      const redirectUrl = new URL("/signup/verify-phone", request.url);
+      redirectUrl.searchParams.set("redirectUrl", pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
+
+    // Redirect to appropriate onboarding page for non-onboarded users
     const activeAccount = user.accounts?.find(
       (acc) => acc?.type === activeRole
     );
 
-    // Redirect non-onboarded users to onboarding
     if (activeAccount && !activeAccount.isOnboarded && !isOnboardingPage) {
       const onboardingPath =
         activeRole === "client" ? "/onboarding/client" : "/onboarding/talent";
@@ -71,5 +97,7 @@ export const config = {
     "/auth/:path*",
     "/onboarding/:path*",
     "/panel/:path*",
+    "/signup/verify-email",
+    "/signup/verify-phone",
   ],
 };

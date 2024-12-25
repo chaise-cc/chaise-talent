@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "./_styles/index.scss";
 import { Modal } from "@/components/custom/Modal";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function AuthenticationLayout({
   children,

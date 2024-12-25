@@ -28,7 +28,7 @@ export type User = {
   gender: string;
   email: string;
   dateOfBirth?: string;
-  phone?: string;
+  phoneNumber: string;
   preferredLanguage?: string;
   country?: string;
   accounts: {
@@ -39,6 +39,8 @@ export type User = {
   identityIsVerified: boolean;
   emailIsVerified: boolean;
   phoneIsVerified: boolean;
+  verificationToken: string;
+  otpExpiry?: number;
 };
 
 interface talentReview {
@@ -212,4 +214,10 @@ type SocialPlatform =
 type Social = {
   platform: string; // e.g., "twitter", "linkedin", "github", etc.
   handle: string; // e.g., "mrpaulishaili"
+};
+
+type SessionPayload = {
+  user: User; // Adjust this to match your User type
+  activeRole: string;
+  expiresAt: Date;
 };

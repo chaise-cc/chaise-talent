@@ -20,6 +20,7 @@ const users = [
     ],
     avatar: "/images/avatars/users/paulishaili.jpeg",
     phoneNumber: "",
+    verificationToken: "123456",
   },
   {
     id: "2",
@@ -30,6 +31,7 @@ const users = [
     identityIsVerified: false,
     emailIsVerified: false,
     phoneIsVerified: false,
+    phoneNumber: "",
     avatar: "/images/avatars/users/kingmezo.jpeg",
     accounts: [
       {
@@ -41,6 +43,7 @@ const users = [
         isOnboarded: false,
       },
     ],
+    verificationToken: "",
   },
   {
     id: "3",
@@ -48,7 +51,6 @@ const users = [
     lastName: "Stella Nkechinyere",
     gender: "female",
     email: "harrynkstella@gmail.com",
-
     identityIsVerified: false,
     emailIsVerified: false,
     phoneIsVerified: false,
@@ -64,6 +66,7 @@ const users = [
     ],
     avatar: "/images/avatars/users/stella_ux.jpeg",
     phoneNumber: "",
+    verificationToken: "",
   },
   {
     id: "4",
@@ -83,7 +86,7 @@ const users = [
     ],
     avatar: "/images/avatars/users/paulishaili.jpeg",
     phoneNumber: "",
-
+    verificationToken: "",
     identityIsVerified: false,
     emailIsVerified: false,
     phoneIsVerified: false,
@@ -109,6 +112,7 @@ const users = [
     ],
     avatar: "/images/avatars/users/ozegberita.jpeg",
     phoneNumber: "",
+    verificationToken: "",
   },
   {
     id: "6",
@@ -131,6 +135,7 @@ const users = [
     ],
     avatar: "/images/avatars/users/ilori_fav.jpeg",
     phoneNumber: "",
+    verificationToken: "",
   },
   {
     id: "7",
@@ -153,6 +158,7 @@ const users = [
     phoneIsVerified: false,
     avatar: "/images/avatars/users/kinicreative.jpg",
     phoneNumber: "",
+    verificationToken: "",
   },
 ];
 

@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react";
 import { login } from "@/app/_actions/auth.action";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
   const [pending, setPending] = useState(false); // For managing form state
@@ -18,6 +18,8 @@ export default function LoginForm() {
     email?: string[];
     password?: string[];
   }>({});
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirectUrl");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,12 +32,14 @@ export default function LoginForm() {
     try {
       const response = await login(undefined, formData);
       console.log(response.success);
-
       if (response.success) {
-        if (response.redirectUrl) {
-          router.push(response.redirectUrl);
-          toast.success("Login successful! 🎉");
+        if (redirectUrl) {
+          router.push(redirectUrl);
+        } else {
+          // Handle default redirection (e.g., based on user role)
+          router.push("/dashboard");
         }
+        toast.success("Login successful! 🎉");
       } else if (response.errors) {
         // Display toast for the first available error message
         const errorMessage =
