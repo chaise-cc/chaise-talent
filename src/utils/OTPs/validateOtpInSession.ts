@@ -27,13 +27,13 @@ export async function validateOTP(
 
     // Check if the OTP has expired
     const currentTime = new Date();
-    if (otpData.expiry < currentTime) {
+    if (otpData.otpExpiry < currentTime) {
       console.log("OTP has expired");
       return false; // OTP expired
     }
 
     // Check if the OTP provided by the user matches the stored OTP
-    if (userOTP !== otpData.otp) {
+    if (userOTP !== otpData.verificationToken) {
       console.log("Invalid OTP");
       return false; // OTP does not match
     }
