@@ -3,57 +3,64 @@ import type { NextRequest } from "next/server";
 import { decrypt } from "./lib/session";
 import { cookies } from "next/headers";
 
+// Utility to construct a safe redirect URL
+function getSafeRedirectUrl(request: NextRequest, fallbackUrl: string) {
+  const redirectUrl = request.nextUrl.searchParams.get("redirectUrl");
+  return redirectUrl && redirectUrl.startsWith("/")
+    ? new URL(redirectUrl, request.url)
+    : new URL(fallbackUrl, request.url);
+}
+
 export async function middleware(request: NextRequest) {
   const cookiesStore = await cookies();
   const token = cookiesStore.get("session")?.value;
+  const { pathname } = request.nextUrl;
 
-  const isAuthPage = request.nextUrl.pathname.startsWith("/auth");
-  const isOnboardingPage = request.nextUrl.pathname.startsWith("/onboarding");
+  const isAuthPage = pathname.startsWith("/auth");
+  const isOnboardingPage = pathname.startsWith("/onboarding");
   const session = token ? await decrypt(token) : null;
 
+  // If no session and not on an auth page, redirect to login with redirectUrl
   if (!session && !isAuthPage) {
-    // Redirect to login if not authenticated
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    const loginUrl = new URL("/auth/login", request.url);
+    loginUrl.searchParams.set("redirectUrl", pathname);
+    return NextResponse.redirect(loginUrl);
   }
 
+  // Handle authenticated users
   if (session) {
     const { user, activeRole } = session;
 
+    // Redirect to login if session data is incomplete
     if (!user || !activeRole) {
-      // Redirect to login if session is incomplete
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+      const loginUrl = new URL("/auth/login", request.url);
+      loginUrl.searchParams.set("redirectUrl", pathname);
+      return NextResponse.redirect(loginUrl);
     }
 
     const activeAccount = user.accounts?.find(
       (acc) => acc?.type === activeRole
     );
 
-    console.log(activeAccount, activeRole);
-
+    // Redirect non-onboarded users to onboarding
     if (activeAccount && !activeAccount.isOnboarded && !isOnboardingPage) {
-      // Redirect non-onboarded users to onboarding
-      if (activeRole === "client") {
-        return NextResponse.redirect(
-          new URL("/onboarding/client", request.url)
-        );
-      } else {
-        return NextResponse.redirect(
-          new URL("/onboarding/talent", request.url)
-        );
-      }
+      const onboardingPath =
+        activeRole === "client" ? "/onboarding/client" : "/onboarding/talent";
+      return NextResponse.redirect(new URL(onboardingPath, request.url));
     }
 
+    // Redirect authenticated users away from auth pages
     if (isAuthPage) {
-      // Redirect authenticated users away from auth pages
-      return NextResponse.redirect(new URL("/dashboard", request.url));
+      return NextResponse.redirect(getSafeRedirectUrl(request, "/dashboard"));
     }
 
-    // Pass session to downstream layouts or handlers (optional)
+    // Pass session to downstream handlers (optional)
     const response = NextResponse.next();
     response.headers.set("x-user-session", JSON.stringify(session));
     return response;
   }
 
+  // Allow requests to proceed by default
   return NextResponse.next();
 }
 

@@ -2,17 +2,18 @@ import FormHeader from "@/components/custom/FormHeader";
 import React from "react";
 import VerifyEmailForm from "../../_components/VerifyEmail.form";
 import getUserAndRole from "@/utils/getUserAndRole";
+import { redirect } from "next/navigation";
+// import { getServerUrl } from "@/utils/gerServerUrl";
 
 export default async function VerifyEmail() {
   const { user } = await getUserAndRole();
 
-  if (!user) return null;
+  if (!user) {
+    // const currentUrl = await getServerUrl();
+    redirect(`/auth/login`);
+  }
 
   const { email } = user;
-
-  if (!email) {
-    return <div>Email is required to verify.</div>;
-  }
 
   return (
     <div>
@@ -20,7 +21,7 @@ export default async function VerifyEmail() {
         title="Check your email"
         description={`We have sent an OTP to ${email}`}
       />
-      <VerifyEmailForm />
+      <VerifyEmailForm email={email} />
     </div>
   );
 }

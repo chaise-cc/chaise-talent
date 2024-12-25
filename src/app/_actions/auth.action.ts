@@ -3,6 +3,7 @@
 import users from "@/data/mocks/users";
 import { createSession, deleteSession } from "@/lib/session";
 import { User } from "@/types";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -15,9 +16,11 @@ const loginSchema = z.object({
 });
 
 export async function login(prevState: unknown, formData: FormData) {
+  // Convert FormData to an object
   const formDataObj = Object.fromEntries(formData);
   const result = loginSchema.safeParse(formDataObj);
 
+  // Validate form data
   if (!result.success) {
     return {
       success: false,
@@ -27,6 +30,7 @@ export async function login(prevState: unknown, formData: FormData) {
 
   const { email, password } = result.data;
 
+  // Locate the user
   const user = users.find((u) => u.email === email && password === "12345678");
 
   if (!user) {
@@ -38,14 +42,31 @@ export async function login(prevState: unknown, formData: FormData) {
     };
   }
 
-  const roleToSet = user.accounts?.[0]?.type || "guest";
+  // Determine the role to set in the session
+  const roleToSet = user.accounts[0]?.type || "guest";
 
+  // Create a session with the active role
   await createSession(user, roleToSet);
 
+  // Retrieve `redirectUrl` from the request headers
+  const currentHeaders = await headers();
+  const queryParams = new URLSearchParams(
+    currentHeaders.get("x-nextjs-query") || ""
+  );
+  const redirectUrl = queryParams.get("redirectUrl");
+
+  console.log("Redirect URL Params:", queryParams, redirectUrl);
+
+  // Return response object with redirectUrl or default based on role
   return {
     success: true,
     user,
-    redirectUrl: roleToSet === "talent" ? `/dashboard` : `/panel`,
+    redirectUrl:
+      redirectUrl && redirectUrl.startsWith("/")
+        ? redirectUrl
+        : roleToSet === "talent"
+        ? "/dashboard"
+        : "/panel",
   };
 }
 
@@ -72,6 +93,8 @@ const userss: Array<{ email: string }> = [];
 export async function signup(prevState: unknown, formData: FormData) {
   const formDataObj = Object.fromEntries(formData);
   const result = signupSchema.safeParse(formDataObj);
+
+  console.log(formDataObj);
 
   if (!result.success) {
     return {
@@ -110,7 +133,7 @@ export async function signup(prevState: unknown, formData: FormData) {
   await createSession(newUser, "default");
 
   // Redirect to dashboard
-  return redirect("/signup/verify-email");
+  return redirect("/dashboard");
 }
 
 export async function logout() {
