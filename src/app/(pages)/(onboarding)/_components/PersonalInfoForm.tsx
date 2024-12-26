@@ -235,7 +235,7 @@ export default function PersonalInfoForm({ user }: TalentPersonalInfoProps) {
             <div className="flex w-full items-center justify-between">
               <Button
                 type="submit"
-                className="py-6 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 flex items-center gap-2"
+                className="py-6 bg-main-color-200 hover:bg-main-color-500 font-semibold px-8 flex items-center gap-2"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Updating..." : "Next"} <ArrowRight size={20} />
