@@ -1,12 +1,15 @@
-// File: app/verify-email/page.tsx
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { verifyEmailAction } from "@/app/_actions/verifyEmail.action";
-// import { toast } from "react-toastify";
-// import { verifyEmailAction } from "@/actions/verifyEmailAction"; // Verify Email action
+
+// Suspense Fallback Component
+const SuspenseFallback = () => (
+  <div className="text-center text-gray-500">Verifying your email...</div>
+);
 
 const VerifyEmailPage = () => {
   const [loading, setLoading] = useState(true);
@@ -14,48 +17,59 @@ const VerifyEmailPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const verifyEmail = async () => {
-      const token = searchParams.get("token");
-      const userId = searchParams.get("id");
+  // Function to verify email
+  const verifyEmail = async (token: string | null, userId: string | null) => {
+    if (!token || !userId) {
+      setError("Invalid or missing verification parameters.");
+      setLoading(false);
+      return;
+    }
 
-      if (!token || !userId) {
-        setError("Invalid or missing verification parameters.");
-        setLoading(false);
-        return;
+    try {
+      const result = await verifyEmailAction(token, userId);
+
+      if (result.success) {
+        toast.success("Email successfully verified!");
+        setTimeout(() => {
+          router.push("/login");
+        }, 2000); // Redirect to login page after 2 seconds
+      } else {
+        setError(result.message || "Verification failed. Please try again.");
       }
+    } catch (err) {
+      setError("An error occurred during verification. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      try {
-        const result = await verifyEmailAction(token, userId);
+  // Fetch the token and userId from the URL
+  const token = searchParams.get("token");
+  const userId = searchParams.get("id");
 
-        if (result.success) {
-          toast.success("Email successfully verified!");
-          setTimeout(() => {
-            router.push("/login");
-          }, 2000); // Redirect to login page after 2 seconds
-        } else {
-          setError(result.message || "Verification failed. Please try again.");
-        }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        setError("An error occurred during verification. Please try again.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  if (!token || !userId) {
+    router.push("/signup");
+    return null; // Prevent rendering until redirection happens
+  }
 
-    verifyEmail();
-  }, [searchParams, router]);
+  // Handle verification immediately upon component mounting
+  verifyEmail(token, userId);
 
+  // Show loading state while verification is happening
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Suspense fallback={<SuspenseFallback />}>
+        <div>Verifying your email...</div>
+      </Suspense>
+    );
   }
 
+  // Show error if there's an issue
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-red-500">{error}</div>;
   }
 
-  return <div>Your email is being verified...</div>;
+  return null; // Prevent showing content until the verification is complete
 };
 
 export default VerifyEmailPage;
