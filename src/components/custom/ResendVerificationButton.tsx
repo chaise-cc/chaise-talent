@@ -1,35 +1,43 @@
-// File: components/ResendVerificationClient.tsx
+// File: src/components/custom/ResendVerificationClient.tsx
 
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { resendVerificationLink } from "@/utils/emails/resendVerificationLink";
 import { Button } from "@/components/ui/button";
+import { resendVerificationLink } from "@/utils/emails/resendVerificationLink";
+import { ResendVerificationResponse } from "@/types";
 
-interface ResendVerificationClientProps {
-  userId: string;
-}
+export default function ResendVerificationClient() {
+  const searchParams = useSearchParams();
+  const userId = searchParams.get("userId");
 
-export default function ResendVerificationClient({
-  userId,
-}: ResendVerificationClientProps) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isResending, setIsResending] = useState(false);
 
+  if (!userId) {
+    return <p className="text-red-500">User ID is missing from the URL.</p>;
+  }
+
   const handleResendVerification = async () => {
     try {
-      setErrorMessage(null); // Clear any previous error
-      setSuccessMessage(null); // Clear previous success message
+      setErrorMessage(null);
+      setSuccessMessage(null);
       setIsResending(true);
 
-      // Call the resendVerificationLink function
-      const response = await resendVerificationLink(userId);
+      const response: ResendVerificationResponse = await resendVerificationLink(
+        userId
+      );
 
       if (response.success) {
-        setSuccessMessage("Verification link sent!");
+        setSuccessMessage(
+          response.message || "Verification link resent successfully!"
+        );
       } else {
-        setErrorMessage("Failed to resend verification link.");
+        setErrorMessage(
+          response.message || "Failed to resend verification link."
+        );
       }
     } catch (error) {
       setErrorMessage(
@@ -41,15 +49,13 @@ export default function ResendVerificationClient({
   };
 
   return (
-    <div className="mt-4">
+    <div>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       {successMessage && <p className="text-green-500">{successMessage}</p>}
-
       <Button
         className="mt-4 px-4 py-2 rounded"
         onClick={handleResendVerification}
-        // disabled={isResending}
-        disabled
+        disabled={isResending}
       >
         {isResending ? "Resending..." : "Resend Verification Link"}
       </Button>
