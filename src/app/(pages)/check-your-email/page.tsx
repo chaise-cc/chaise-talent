@@ -56,6 +56,7 @@ export default function CheckYourEmailPage() {
 
   return (
     <div className="max-w-lg mx-auto w-full py-4">
+      {/* Display Suspense fallback for any other async operations */}
       <Suspense fallback={<SuspenseFallback />}>
         <h1 className="text-2xl font-bold">Check Your Email</h1>
         <p>
@@ -69,8 +70,7 @@ export default function CheckYourEmailPage() {
           <Button
             className="mt-4 px-4 py-2 rounded"
             onClick={handleResendVerification}
-            // disabled={isResending}
-            disabled
+            disabled={isResending}
           >
             {isResending ? "Resending..." : "Resend Verification Link"}
           </Button>
