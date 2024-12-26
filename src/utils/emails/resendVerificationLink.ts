@@ -35,8 +35,6 @@ export async function resendVerificationLink(userId: string) {
     return { success: true };
   } catch (error) {
     console.error("Error resending verification email:", error);
-    throw new Error(
-      error.message || "An unexpected error occurred. Please try again later."
-    );
+    throw new Error("An unexpected error occurred. Please try again later.");
   }
 }
