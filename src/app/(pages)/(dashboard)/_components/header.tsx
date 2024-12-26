@@ -34,6 +34,8 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
   const [isOpen, setIsOpen] = useState(false);
   const { notifications } = useNotifications();
 
+  console.log(user);
+
   return (
     <header className="px-4 h-16 w-full sticky top-0 z-50 bg-gray-50 gap-4 flex items-center justify-between">
       <div className="flex justify-start w-full h-full gap-4 bgwhi md:gap-8 items-center">
@@ -83,15 +85,14 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="text-gray-900">
               <div className="flex flex-col relative md:max-w-[300px] p-4 w-full gap-4 justify-center items-center">
-                <div className="img-container size-20 md:size-24 rounded-full overflow-hidden">
+                <div className="img-container shadow-sm size-20 md:size-24 rounded-full overflow-hidden">
                   <Image
                     src={user.avatar ? user.avatar : AVATAR_FEMALE}
                     width={120}
                     height={120}
                     quality={100}
-                    priority={false}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover "
                   />
                 </div>
 

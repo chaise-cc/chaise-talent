@@ -54,10 +54,13 @@ export async function login(prevState: unknown, formData: FormData) {
       role: user.accounts[0]?.type || "guest", // Assuming `accounts[0]` holds the user role
       firstName: user.firstname || "", // Example of additional data
       lastName: user.lastname || "", // Example of additional data
-      phoneNumber: user.phone,
-      avatar: "",
-      gender: "",
-      accounts: user.accounts,
+      phoneNumber: user.phone || "",
+      avatar: user.avatar || "",
+      gender: user.gender || "",
+      dateOfBirth: user.dateOfBirth || "",
+      country: user.country || "",
+      language: user.language || "",
+      accounts: user.accounts || "",
       // Add other user attributes you might need
     };
 

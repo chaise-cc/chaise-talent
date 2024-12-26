@@ -27,10 +27,10 @@ export type User = {
   lastName: string;
   gender: string;
   email: string;
-  dateOfBirth?: string;
+  dateOfBirth: string;
   phoneNumber: string;
-  preferredLanguage?: string;
-  country?: string;
+  language: string;
+  country: string;
   accounts: {
     type: string;
     isOnboarded: boolean;
