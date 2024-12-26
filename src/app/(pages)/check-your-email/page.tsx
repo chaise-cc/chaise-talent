@@ -4,12 +4,12 @@ import ResendVerificationClient from "@/components/custom/ResendVerificationButt
 import { redirect } from "next/navigation";
 // import ResendVerificationClient from "@/components/ResendVerificationClient";
 
-export default function CheckYourEmailPage({
+export default async function CheckYourEmailPage({
   searchParams,
 }: {
-  searchParams: { userId?: string };
+  searchParams: { userId: string };
 }) {
-  const userId = searchParams?.userId;
+  const userId = searchParams.userId;
 
   // Redirect if no userId is provided
   if (!userId) {
