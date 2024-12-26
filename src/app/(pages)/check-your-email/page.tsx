@@ -2,14 +2,19 @@
 
 import ResendVerificationClient from "@/components/custom/ResendVerificationButton";
 import { redirect } from "next/navigation";
-// import ResendVerificationClient from "@/components/ResendVerificationClient";
+import { Suspense } from "react";
+
+// Suspense Fallback Component
+const SuspenseFallback = () => (
+  <div className="text-center text-gray-500">Loading actions...</div>
+);
 
 export default async function CheckYourEmailPage({
   searchParams,
 }: {
-  searchParams: { userId: string };
+  searchParams: { userId?: string };
 }) {
-  const userId = searchParams.userId;
+  const userId = searchParams?.userId;
 
   // Redirect if no userId is provided
   if (!userId) {
@@ -23,7 +28,10 @@ export default async function CheckYourEmailPage({
         We&apos;ve sent a verification link to your email. Please check your
         inbox and click the link to verify your account.
       </p>
-      <ResendVerificationClient userId={userId} />
+      <Suspense fallback={<SuspenseFallback />}>
+        {/* Render client component for resending the verification email */}
+        <ResendVerificationClient userId={userId} />
+      </Suspense>
     </div>
   );
 }
