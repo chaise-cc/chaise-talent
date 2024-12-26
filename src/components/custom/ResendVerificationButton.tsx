@@ -53,9 +53,11 @@ export default function ResendVerificationClient() {
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       {successMessage && <p className="text-green-500">{successMessage}</p>}
       <Button
-        className="mt-4 px-4 py-2 rounded"
+        size={"sm"}
+        className="mt-4 text-sm px-4 py-2 rounded"
         onClick={handleResendVerification}
-        disabled={isResending}
+        // disabled={isResending}
+        disabled
       >
         {isResending ? "Resending..." : "Resend Verification Link"}
       </Button>
