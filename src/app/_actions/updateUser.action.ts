@@ -84,6 +84,7 @@ export async function updateUser(
       country: updatedUser.country || fields.country,
       avatar: updatedUser.avatar || cloudinaryRes?.secure_url,
       accounts: updatedUser.accounts || [{ isOnboarded: true, type: "talent" }],
+      emailIsVerified: updatedUser.emailIsVerified,
     };
     // Update the session cookie
     await createSession(updatedSession, updatedSession.accounts[0].type);

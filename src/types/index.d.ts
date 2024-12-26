@@ -27,6 +27,7 @@ export type User = {
   lastName: string;
   gender: string;
   email: string;
+  emailIsVerified: string;
   dateOfBirth: string;
   phoneNumber: string;
   language: string;

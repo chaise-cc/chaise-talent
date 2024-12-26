@@ -58,6 +58,7 @@ export async function login(prevState: unknown, formData: FormData) {
       avatar: user.avatar || "",
       gender: user.gender || "",
       dateOfBirth: user.dateOfBirth || "",
+      emailIsVerified: user.emailIsVerified || false,
       country: user.country || "",
       language: user.language || "",
       accounts: user.accounts || "",
