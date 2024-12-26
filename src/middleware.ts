@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
 
   // If no session and not on an auth page, redirect to login with redirectUrl
   if (!session && !isAuthPage) {
-    const loginUrl = new URL("/auth/login", request.url);
+    const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirectUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest) {
 
     // Redirect to login if session data is incomplete
     if (!user || !activeRole) {
-      const loginUrl = new URL("/auth/login", request.url);
+      const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("redirectUrl", pathname);
       return NextResponse.redirect(loginUrl);
     }

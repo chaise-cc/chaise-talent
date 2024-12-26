@@ -57,7 +57,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       await logoutAction(); // Call the logout function from auth.actions
       setCurrentUser(null);
       setStatus(null);
-      // window.location.href = "/auth/login"; // Redirect to login page after logout
+      // window.location.href = "/login"; // Redirect to login page after logout
     } catch (error) {
       console.error("Failed to log out:", error);
     }

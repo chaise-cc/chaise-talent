@@ -16,7 +16,7 @@ const LogoutButton = () => {
       });
 
       if (response.ok) {
-        router.push("/auth/login"); // Redirect to login page
+        router.push("/login"); // Redirect to login page
       } else {
         console.error("Logout failed:", await response.json());
         setIsLoggingOut(false);

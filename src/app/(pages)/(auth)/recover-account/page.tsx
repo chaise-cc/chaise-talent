@@ -10,7 +10,7 @@ export default function RecoverAccountPage() {
       <RecoverAccountForm />
       <div className="grid place-items-center text-gray-700 text-sm gap-2 my-4 ">
         <div className="space-x-4 divide-x-2">
-          <Link href="/auth/login" className="font-semibold text-sm underline">
+          <Link href="/login" className="font-semibold text-sm underline">
             Login
           </Link>
           <Link

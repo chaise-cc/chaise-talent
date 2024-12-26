@@ -10,7 +10,7 @@ export default async function OnboardingLayout({
 }>) {
   const { user, activeRole } = await getUserAndRole();
 
-  if (!activeRole || !user) redirect("/auth/login");
+  if (!activeRole || !user) redirect("/login");
 
   return (
     <div className="">

@@ -221,3 +221,17 @@ type SessionPayload = {
   activeRole: string;
   expiresAt: Date;
 };
+
+interface ResendVerificationSuccessResponse {
+  success: true;
+  message?: string; // Success message indicating link sent
+}
+
+interface ResendVerificationErrorResponse {
+  success: false;
+  message?: string; // Error message indicating what went wrong
+}
+
+type ResendVerificationResponse =
+  | ResendVerificationSuccessResponse
+  | ResendVerificationErrorResponse;

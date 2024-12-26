@@ -10,6 +10,7 @@ const signupSchema = z.object({
     .string()
     .min(2, { message: "Last Name must be at least 2 characters" })
     .trim(),
+  accountType: z.string(),
   email: z.string().email({ message: "Invalid email address" }).trim(),
   password: z
     .string()

@@ -6,7 +6,7 @@ import GetStartedScreen from "../../_components/GetStartedScreen";
 export default async function TalentOnboardingPage() {
   const { activeRole } = await getUserAndRole();
 
-  if (activeRole !== "talent") return redirect("/auth/login");
+  if (activeRole !== "talent") return redirect("/login");
 
   return <GetStartedScreen />;
 }

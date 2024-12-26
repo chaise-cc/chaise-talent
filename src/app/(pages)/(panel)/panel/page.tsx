@@ -10,7 +10,7 @@ export default async function HomePage() {
 
   // Redirect based on active role
   if (!activeRole) {
-    return redirect("/auth/login");
+    return redirect("/login");
   }
   return (
     <div>

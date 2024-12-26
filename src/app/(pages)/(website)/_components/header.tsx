@@ -85,7 +85,7 @@ export default function Header({ user, activeRole }: HeaderProps) {
               {!user ? (
                 <ul className="flex space-x-4 ml-5 shrink-0 items-center">
                   <li>
-                    <Link href="/auth/login" className="font-bold">
+                    <Link href="/login" className="font-bold">
                       Login
                     </Link>
                   </li>
