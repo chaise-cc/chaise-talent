@@ -84,7 +84,7 @@ export default function PersonalInfoForm({ user }: TalentPersonalInfoProps) {
   };
 
   return (
-    <div className="container">
+    <div className="container w-full max-w-5xl">
       <form onSubmit={handleSubmit} className="space-y-8 w-full">
         <div className="flex flex-col w-full gap-10">
           <div className="flex flex-col gap-1">

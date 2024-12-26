@@ -28,30 +28,6 @@ const AvatarUpload = ({ avatarUrl = "" }: AvatarUploadProps) => {
 
       setPreviewUrl(newPreviewUrl);
     }
-    uploadAvatar(event);
-  };
-
-  const uploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      if (!event.target.files || event.target.files.length === 0) {
-        throw new Error("You must select an image to upload.");
-      }
-      // Placeholder for upload logic
-      console.log("Uploading avatar...");
-    } catch (error) {
-      handleError(error);
-    }
-  };
-
-  const handleError = (error: unknown) => {
-    // Safely narrow down the type of error
-    if (error instanceof Error) {
-      console.error("Error:", error.message);
-      alert(`Upload failed: ${error.message}`);
-    } else {
-      console.error("Unexpected error:", error);
-      alert("An unexpected error occurred during upload.");
-    }
   };
 
   const removePreview = () => {
