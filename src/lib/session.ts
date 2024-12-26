@@ -21,12 +21,6 @@ export async function createSession(
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const session: SessionPayload = { user, expiresAt, activeRole };
 
-  // Store OTP-related data (if applicable)
-  if (user.verificationToken && user.otpExpiry) {
-    session.user.verificationToken = user.verificationToken;
-    session.user.otpExpiry = user.otpExpiry;
-  }
-
   const encryptedSession = await encrypt(session);
   const cookiesStore = await cookies();
 

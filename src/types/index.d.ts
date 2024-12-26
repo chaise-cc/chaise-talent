@@ -36,11 +36,6 @@ export type User = {
     isOnboarded: boolean;
   }[];
   avatar: string;
-  identityIsVerified: boolean;
-  emailIsVerified: boolean;
-  phoneIsVerified: boolean;
-  verificationToken: string;
-  otpExpiry?: number;
 };
 
 interface talentReview {

@@ -1,9 +1,10 @@
 "use server";
 
-import users from "@/data/mocks/users";
 import { createSession, deleteSession } from "@/lib/session";
+import { getExistingUserByEmail } from "@/utils/pb/getExistingUserByEmail";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+// import { getExistingUserByEmail } from "@/lib/pockethostApi";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).trim(),
@@ -14,11 +15,8 @@ const loginSchema = z.object({
 });
 
 export async function login(prevState: unknown, formData: FormData) {
-  // Convert FormData to an object
   const formDataObj = Object.fromEntries(formData);
   const result = loginSchema.safeParse(formDataObj);
-
-  console.log(prevState);
 
   // Validate form data
   if (!result.success) {
@@ -30,29 +28,56 @@ export async function login(prevState: unknown, formData: FormData) {
 
   const { email, password } = result.data;
 
-  // Locate the user
-  const user = users.find((u) => u.email === email && password === "12345678");
+  try {
+    // Get the user from PocketBase
+    const user = await getExistingUserByEmail(email);
 
-  if (!user) {
+    if (!user) {
+      return {
+        success: false,
+        errors: { email: ["Invalid email or password"] },
+      };
+    }
+
+    // Assuming the password is stored in plaintext (adjust if using hashed passwords)
+    if (user.password !== password) {
+      return {
+        success: false,
+        errors: { email: ["Invalid email or password"] },
+      };
+    }
+
+    // Define the session data
+    const sessionData = {
+      id: user.id,
+      email: user.email,
+      role: user.accounts[0]?.type || "guest", // Assuming `accounts[0]` holds the user role
+      firstName: user.firstname || "", // Example of additional data
+      lastName: user.lastname || "", // Example of additional data
+      phoneNumber: user.phone,
+      avatar: "",
+      gender: "",
+      accounts: user.accounts,
+      // Add other user attributes you might need
+    };
+
+    const roleToSet = user.accounts[0]?.type || "guest";
+    // Create the session
+    await createSession(sessionData, roleToSet);
+
+    return {
+      success: true,
+      user,
+    };
+  } catch (error) {
+    console.error("Login error:", error);
     return {
       success: false,
       errors: {
-        email: ["Invalid email or password"],
+        email: ["An unexpected error occurred. Please try again later."],
       },
     };
   }
-
-  // Determine the role to set in the session
-  const roleToSet = user.accounts[0]?.type || "guest";
-
-  // Create a session with the active role
-  await createSession(user, roleToSet);
-
-  // Return response object with redirectUrl or default based on role
-  return {
-    success: true,
-    user,
-  };
 }
 
 export async function logout() {

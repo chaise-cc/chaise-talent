@@ -12,7 +12,7 @@ const SuspenseFallback = () => (
 export default async function CheckYourEmailPage() {
   return (
     <Modal className="md:max-w-lg h-max w-full p-8">
-      <div className="py-4 space-y-4 flex flex-col justify-center">
+      <div className="p-8 space-y-4 flex flex-col justify-center">
         <h1 className="text-2xl font-bold">Check Your Email</h1>
         <p>
           We&apos;ve sent a verification link to your email.
