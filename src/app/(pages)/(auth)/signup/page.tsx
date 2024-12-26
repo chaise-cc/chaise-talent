@@ -2,7 +2,7 @@
 
 import FormHeader from "@/components/custom/FormHeader";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import SignupForm from "../_components/SignUpForm";
 
 export default function SignUp() {
@@ -13,7 +13,9 @@ export default function SignUp() {
         description="You'll be up and running in 5 minutes"
       />
 
-      <SignupForm />
+      <Suspense fallback="loading...">
+        <SignupForm />
+      </Suspense>
 
       <div className="grid place-items-center text-sm gap-2 my-4 ">
         <p>
