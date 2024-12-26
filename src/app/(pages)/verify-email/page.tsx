@@ -12,7 +12,7 @@ const SuspenseFallback = () => (
 export default async function VerifyEmailPage({
   searchParams,
 }: {
-  searchParams?: {
+  searchParams: {
     token: string;
     id: string;
   };
