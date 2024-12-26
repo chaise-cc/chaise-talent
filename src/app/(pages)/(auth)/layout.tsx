@@ -13,7 +13,7 @@ export default function AuthenticationLayout({
 }) {
   return (
     <Modal className="w-[90%] max-w-5xl">
-      <div className="w-full h-screen md:overflow-hidden">
+      <div className="w-full ">
         <div className="h-full flex w-full">
           <div className="md:w-[50%] h-full bg-main-color-50 hidden md:inline-block">
             <div className=" mx-auto pt-8 flex flex-col gap-10 h-full">

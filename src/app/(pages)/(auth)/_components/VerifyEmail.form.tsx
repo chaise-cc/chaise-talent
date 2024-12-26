@@ -65,7 +65,7 @@ const VerifyEmailForm = ({ user, token }: VerifyEmailFormProps) => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 flex flex-col items-center">
       <div className="mt-8 space-y-8">
         {/* OTP Input */}
         <OTPInput

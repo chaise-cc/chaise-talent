@@ -26,6 +26,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "framer-motion": "^11.15.0",
+    "he": "^1.2.0",
     "iconsax-react": "^0.0.8",
     "input-otp": "^1.4.1",
     "jose": "^5.9.6",
@@ -36,6 +37,7 @@
     "next-transition-router": "^0.2.6",
     "nextjs-toploader": "^3.7.15",
     "nodemailer": "^6.9.16",
+    "pocketbase": "^0.24.0",
     "react": "^19.0.0",
     "react-day-picker": "8.10.1",
     "react-dom": "^19.0.0",
@@ -50,6 +52,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/he": "^1.2.3",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",

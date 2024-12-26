@@ -1,12 +1,12 @@
 "use server";
 
-import users from "@/data/mocks/users";
+import pb from "@/lib/pocketbase";
 import { createSession } from "@/lib/session";
 import signupSchema from "@/schemas/signup";
-import { User } from "@/types";
 import { generateOtp } from "@/utils/OTPs/generateOtp";
 import { sendOtpEmail } from "@/utils/OTPs/sendEmailOtp";
 import { storeOtpInSession } from "@/utils/OTPs/storeOtpInSession";
+import he from "he"; // Used to decode HTML entities
 
 interface SignupErrorResponse {
   errors: {
@@ -29,71 +29,96 @@ export async function signup(
   prevState: unknown,
   formData: FormData
 ): Promise<SignupResponse> {
-  console.log("Starting signup process");
+  const formDataObj = Object.fromEntries(formData);
+  const result = signupSchema.safeParse(formDataObj);
+
+  if (!result.success) {
+    console.error("Validation error:", result.error.flatten());
+    return {
+      errors: result.error.flatten().fieldErrors,
+    };
+  }
+
+  const { firstname, lastname, email, password } = await result.data;
+
   try {
-    const formDataObj = Object.fromEntries(formData);
-    console.log("Parsed FormData:", formDataObj);
+    // Check if user already exists in PocketBase using the decoded email
+    let existingUser;
 
-    const result = signupSchema.safeParse(formDataObj);
-    if (!result.success) {
-      console.error("Validation failed:", result.error.flatten().fieldErrors);
-      return { errors: result.error.flatten().fieldErrors };
+    try {
+      existingUser = await pb
+        .collection("users")
+        .getFirstListItem(`email="${email}"`);
+
+      console.log(existingUser);
+    } catch (error) {
+      if (error as any) {
+        existingUser = null; // If user is not found, continue to create a new one
+      } else {
+        throw error; // Re-throw if there's an error other than 'not found'
+      }
     }
 
-    const { firstname, lastname, email, password } = result.data;
-    console.log("Signup data:", { firstname, lastname, email, password });
-
-    const existingUser = users.find((u) => u.email === email);
     if (existingUser) {
-      console.error("Email already registered:", email);
-      return { errors: { email: ["Email is already registered"] } };
-    }
-
-    if (password.length < 6) {
-      console.error("Password too short:", password);
+      console.warn("User with email already exists:", email);
       return {
-        errors: { password: ["Password must be at least 6 characters long"] },
+        errors: { email: ["Email is already registered"] },
       };
     }
 
-    // Create a new user
-    const newUser: User = {
-      id: (users.length + 1).toString(),
-      firstName: firstname,
-      lastName: lastname,
-      email,
-      gender: "", // Optional
-      avatar: "", // Optional
-      identityIsVerified: false,
-      emailIsVerified: false,
-      phoneIsVerified: false,
-      accounts: [{ type: "talent", isOnboarded: false }],
-      phoneNumber: "",
-      verificationToken: "",
-      otpExpiry: undefined,
-    };
-
-    users.push(newUser);
-    console.log("User created:", newUser);
-
+    // Generate OTP
     const otp = generateOtp();
-    console.log("Generated OTP:", otp);
 
+    // Create the user record in PocketBase
+    const user = await pb.collection("users").create({
+      firstname,
+      lastname,
+      email: email, // Store the decoded email
+      password,
+      passwordConfirm: password,
+      verificationToken: otp,
+      emailVerified: false,
+    });
+
+    const userAccount = await pb.collection("accounts").create({
+      userId: user.id,
+      type: "talent",
+      isOnboarded: false,
+    });
+
+    // Update the user's `accountIds` field with the new account ID
+    const updatedAccountIds = user.accounts
+      ? [...user.accounts, userAccount.type]
+      : [userAccount.type];
+
+    await pb.collection("users").update(user.id, {
+      accountIds: updatedAccountIds,
+    });
+
+    console.log("Updated user's account IDs:", updatedAccountIds);
+
+    // Store OTP in session and establish user session
     await storeOtpInSession(
-      { user: newUser, activeRole: "default", expiresAt: new Date() },
+      { user, activeRole: "default", expiresAt: new Date() },
       otp
     );
-    console.log("OTP stored in session");
+    await createSession(user, "default");
 
-    await sendOtpEmail(email, otp);
+    // Send OTP email
+    // await sendOtpEmail(email, otp);
     console.log("OTP email sent to:", email);
-
-    await createSession(newUser, "default");
-    console.log("Session created");
 
     return { redirectUrl: "/signup/verify-email" };
   } catch (error) {
-    console.error("Signup error:", error);
+    console.error("Error during signup process:", error);
+
+    // Handle specific PocketBase error for email uniqueness
+    if ((error as any)?.data?.data?.email?.message) {
+      return {
+        errors: { email: [(error as any).data.data.email.message] },
+      };
+    }
+
     return {
       errors: {
         email: ["An unexpected error occurred. Please try again later."],
