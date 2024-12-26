@@ -1,16 +1,15 @@
-// File: app/check-your-email/page.tsx
+// File: src/app/(pages)/check-your-email/page.tsx
 
 import ResendVerificationClient from "@/components/custom/ResendVerificationButton";
 import { redirect } from "next/navigation";
+// import ResendVerificationClient from "@/components/ResendVerificationClient";
 
-interface CheckYourEmailPageProps {
-  searchParams: { userId?: string };
-}
-
-export default async function CheckYourEmailPage({
+export default function CheckYourEmailPage({
   searchParams,
-}: CheckYourEmailPageProps) {
-  const { userId } = searchParams;
+}: {
+  searchParams: { userId?: string };
+}) {
+  const userId = searchParams?.userId;
 
   // Redirect if no userId is provided
   if (!userId) {
