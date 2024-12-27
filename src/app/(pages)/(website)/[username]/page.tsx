@@ -4,33 +4,35 @@ import { Location } from "iconsax-react";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
 
-export default async function TalentProflePage({
-  params,
-}: {
-  params: { username: string };
+export default async function TalentProfilePage(props: {
+  params: Promise<{ username: string }>;
 }) {
+  // Await the params since it's a Promise
+  const { username: encodedUsername } = await props.params;
+
   const processTalentId = (talentId: string) =>
     decodeURIComponent(talentId).replace(/^@/, ""); // Automatically remove @ if present
 
-  const p = await params;
+  if (!decodeURIComponent(encodedUsername).startsWith("@")) {
+    return redirect("/"); // Redirect to homepage if username does not start with "@"
+  }
 
-  if (!decodeURIComponent(p.username).startsWith("@")) return redirect("/");
-  const talentId = processTalentId(p.username);
+  const talentId = processTalentId(encodedUsername);
 
   if (!talentId) {
     return notFound(); // Show 404 if user not found
   }
 
   const cleanTalentId = (id: string) =>
-    id.startsWith("@")
-      ? id.slice(1).toLocaleLowerCase()
-      : id.toLocaleLowerCase();
+    id.startsWith("@") ? id.slice(1).toLowerCase() : id.toLowerCase();
 
   const username = cleanTalentId(talentId);
 
   const user = await getTalentByUsername(username);
 
-  if (!user) return redirect("/404");
+  if (!user) {
+    return notFound(); // Show 404 if talent is not found
+  }
 
   return (
     <main className="py-2">
@@ -62,5 +64,3 @@ export default async function TalentProflePage({
     </main>
   );
 }
-
-// Mocked database function
