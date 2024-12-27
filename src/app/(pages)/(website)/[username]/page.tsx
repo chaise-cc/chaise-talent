@@ -3,6 +3,7 @@ import { getTalentByUsername } from "@/utils/pb/getTalentByUsername";
 import { Location } from "iconsax-react";
 import Image from "next/image";
 import { notFound, redirect } from "next/navigation";
+import MainLayout from "../_components/mainLayout";
 
 export default async function TalentProfilePage(props: {
   params: Promise<{ username: string }>;
@@ -35,7 +36,7 @@ export default async function TalentProfilePage(props: {
   }
 
   return (
-    <main className="py-2">
+    <MainLayout>
       <section className="container flex flex-col gap-4">
         <Image
           height={400}
@@ -61,6 +62,6 @@ export default async function TalentProfilePage(props: {
           </div>
         </div>
       </section>
-    </main>
+    </MainLayout>
   );
 }

@@ -11,14 +11,18 @@ import { User } from "@/types";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchBarComponent from "./SearchBar";
 import { MdOpenInNew } from "react-icons/md";
 import NotificationIcon from "@/components/icons/Notification.icon";
 import { useNotifications } from "@/app/_providers/notification.provider";
 import { ChevronDown, Heart } from "lucide-react";
-// import LinkItem from "./MobileLinkItem";
+import servicesCategories from "@/data/services-categories";
+
 import { DESKTOP_NAV_LINK_ITEMS } from "@/data/menuCategories";
+import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { usePathname } from "next/navigation";
 // import { usePathname } from "next/navigation";
 
 type HeaderProps = {
@@ -29,12 +33,74 @@ type HeaderProps = {
 export default function Header({ user, activeRole }: HeaderProps) {
   const [, setIsOpen] = useState(false);
   const { notifications } = useNotifications();
-  // const currentPath = usePathname();
+  const currentPath = usePathname();
+  const [showCategories, setShowCategories] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  const heroHeight = 600;
+
+  useEffect(() => {
+    if (currentPath === "/") {
+      const handleScroll = () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > heroHeight) {
+          setShowCategories(true);
+        } else {
+          setShowCategories(false);
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [currentPath, heroHeight]);
+
+  const checkScrollPosition = () => {
+    if (scrollAreaRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollAreaRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
+    }
+  };
+
+  const scrollLeft = () => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollBy({
+        left: -200,
+        behavior: "smooth",
+      });
+      setTimeout(checkScrollPosition, 300); // Check position after scrolling
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollBy({
+        left: 200,
+        behavior: "smooth",
+      });
+      setTimeout(checkScrollPosition, 300); // Check position after scrolling
+    }
+  };
+
+  useEffect(() => {
+    checkScrollPosition(); // Check position on initial render
+  }, []);
 
   return (
-    <header className="my-5 hidden md:flex">
+    <header
+      className={`hidden z-50  fixed top-0 h-auto w-full bg-white md:flex flex-col 
+       ${currentPath === "/" ? "pt-4" : "pt-4 pb-0"}
+    `}
+    >
       <div className="container w-full">
-        <div className="flex w-full rounded-full bg-gray-100 border justify-between items-center gap-4 py-5 pl-6 pr-4">
+        <div className="flex w-full rounded-full h-[72px] bg-gray-100 border justify-between items-center gap-4 py-5 pl-6 pr-4">
           {/* Logo and Navigation Links */}
           <div className="flex gap-4 items-center">
             <Link
@@ -79,7 +145,7 @@ export default function Header({ user, activeRole }: HeaderProps) {
           {/* User Actions */}
           <nav className="flex gap-4 items-center">
             <div className="flex gap-6 items-center">
-              <SearchBarComponent />
+              {showCategories && <SearchBarComponent />}
 
               {!user ? (
                 <ul className="flex space-x-6 ml-5 shrink-0 items-center">
@@ -152,6 +218,46 @@ export default function Header({ user, activeRole }: HeaderProps) {
           </nav>
         </div>
       </div>
+
+      {currentPath !== "/" || showCategories ? (
+        <div className="navigate-categories relative w-full container flex gap-4 justify-between items-center">
+          <ArrowLeft2
+            color={!canScrollLeft ? "gray" : "black"}
+            size="28"
+            className={`text-gray-700 cursor-pointer ${
+              !canScrollLeft && "opacity-50 cursor-not-allowed"
+            }`}
+            onClick={scrollLeft}
+          />
+
+          <ScrollArea className="w-full py-2" ref={scrollAreaRef}>
+            <div className="w-full flex relative z-40 gap-4 md:gap-6 py-2 justify-center">
+              {servicesCategories.map((service, index) => (
+                <Link
+                  shallow={true}
+                  key={index}
+                  className="text-sm whitespace-nowrap"
+                  href={`/cgr/${service.slug}`}
+                >
+                  {service.name}
+                </Link>
+              ))}
+            </div>
+
+            <ScrollBar orientation="horizontal" className="-mb-1.5" />
+          </ScrollArea>
+
+          <ArrowRight2
+            size="28"
+            color={!canScrollLeft ? "gray" : "black"}
+            className={`text-gray-700 cursor-pointer ${
+              !canScrollRight && "opacity-50 cursor-not-allowed"
+            }`}
+            onClick={scrollRight}
+            // disabled={!canScrollRight}
+          />
+        </div>
+      ) : null}
     </header>
   );
 }
