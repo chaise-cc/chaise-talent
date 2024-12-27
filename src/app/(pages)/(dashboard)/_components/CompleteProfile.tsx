@@ -6,18 +6,18 @@ import { ArrowRight, TickCircle, CloseSquare } from "iconsax-react";
 export default function CompleteProfile() {
   const steps = [
     {
-      label: "Create your first service",
-      href: "/dashboard/profile",
+      label: "Create a service profile",
+      href: "/dashboard/services/new",
       completed: false,
     },
     {
       label: "Add your work experience",
-      href: "/dashboard/profile",
+      href: "/dashboard/settings?tab=profile",
       completed: false,
     },
     {
-      label: "Set up your payment method",
-      href: "/dashboard/profile",
+      label: "Setup withdrawal method",
+      href: "/dashboard/settings?tab=withdrawals",
       completed: false,
     },
   ];

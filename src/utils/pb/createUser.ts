@@ -13,7 +13,7 @@ export async function createUser(data: {
 }) {
   try {
     const user = await pb.collection("users").create(data);
-    console.log("User created successfully:", user);
+
     return user;
   } catch (error) {
     console.error("Error creating user:", error);

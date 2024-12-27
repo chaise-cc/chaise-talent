@@ -24,7 +24,7 @@ export default async function HomePage() {
             <div className="border rounded-xl flex gap-4 h-full justify-between flex-col p-4 w-full">
               <h2 className="font-medium text-sm">Earnings</h2>
 
-              <h3 className="font-bold text-2xl">$1550</h3>
+              <h3 className="font-bold text-2xl">$0</h3>
 
               <small>
                 <span className="text-green-500">10%</span> increase

@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User } from "@/types";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
-import { PiQuestionMark } from "react-icons/pi";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -33,14 +32,14 @@ export default function Header({ user, activeRole }: HeaderProps) {
   // const currentPath = usePathname();
 
   return (
-    <header className="my-4 hidden md:flex">
+    <header className="my-5 hidden md:flex">
       <div className="container w-full">
-        <div className="flex w-full rounded-full bg-gray-50 justify-between items-center gap-4 py-4 pl-6 pr-4 shadow-sm">
+        <div className="flex w-full rounded-full bg-gray-100 border justify-between items-center gap-4 py-5 pl-6 pr-4">
           {/* Logo and Navigation Links */}
-          <div className="flex gap-8 items-center">
+          <div className="flex gap-4 items-center">
             <Link
               href="/"
-              className="logo mr-4 flex items-center h-6 font-semibold"
+              className="logo mr-4 flex items-center h-6 p font-semibold"
             >
               <Image
                 src="/images/chaise-yellow.png"
@@ -48,7 +47,7 @@ export default function Header({ user, activeRole }: HeaderProps) {
                 height={32}
                 width={82}
                 loading="lazy"
-                className="h-full object-cover"
+                className="h-[90%] w-auto object-cover"
               />
             </Link>
 
@@ -79,11 +78,11 @@ export default function Header({ user, activeRole }: HeaderProps) {
 
           {/* User Actions */}
           <nav className="flex gap-4 items-center">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-6 items-center">
               <SearchBarComponent />
 
               {!user ? (
-                <ul className="flex space-x-4 ml-5 shrink-0 items-center">
+                <ul className="flex space-x-6 ml-5 shrink-0 items-center">
                   <li>
                     <Link href="/login" className="font-bold">
                       Login
@@ -92,16 +91,14 @@ export default function Header({ user, activeRole }: HeaderProps) {
                   <li>
                     <Link
                       href="/signup"
-                      className="bg-main-color-500 px-4 py-3 rounded-full text-main-color-900 font-semibold"
+                      className="bg-main-color-500 px-6 py-4 rounded-full text-main-color-900 font-semibold"
                     >
                       Join for Free
                     </Link>
                   </li>
                 </ul>
               ) : (
-                <div className="flex gap-6 items-center">
-                  <PiQuestionMark size={24} className="text-4xl shrink-0" />
-
+                <div className="flex gap-8 items-center">
                   {activeRole === "client" && (
                     <Heart className="text-red-500" />
                   )}

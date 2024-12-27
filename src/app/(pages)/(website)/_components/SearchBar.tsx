@@ -56,7 +56,7 @@ export default function SearchBarComponent() {
               name="q"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search"
+              placeholder="What are you lookign for"
               aria-label="Search"
               className="w-full px-4 pl-12 py-2  rounded-md focus:outline-none"
             />

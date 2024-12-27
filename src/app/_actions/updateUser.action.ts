@@ -4,8 +4,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { Readable } from "stream";
 import pb from "@/lib/pocketbase";
-import { createSession } from "@/lib/session";
-import { User } from "@/types";
 
 // Cloudinary Configuration
 cloudinary.config({
@@ -70,24 +68,6 @@ export async function updateUser(
       avatar: cloudinaryRes?.secure_url,
       accounts: [{ isOnboarded: true, type: "talent" }],
     });
-
-    // Explicitly map the fields to match the User type
-    const updatedSession: User = {
-      id: updatedUser.id,
-      firstName: updatedUser.firstName || fields.firstName,
-      lastName: updatedUser.lastName || fields.lastName,
-      gender: updatedUser.gender || fields.gender,
-      email: updatedUser.email, // Ensure email exists in `updatedUser`
-      dateOfBirth: updatedUser.dateOfBirth || fields.dateOfBirth,
-      phoneNumber: updatedUser.phoneNumber || "",
-      language: updatedUser.language || fields.language,
-      country: updatedUser.country || fields.country,
-      avatar: updatedUser.avatar || cloudinaryRes?.secure_url,
-      accounts: updatedUser.accounts || [{ isOnboarded: true, type: "talent" }],
-      emailIsVerified: updatedUser.emailIsVerified,
-    };
-    // Update the session cookie
-    await createSession(updatedSession, updatedSession.accounts[0].type);
 
     return updatedUser;
   } catch (error) {

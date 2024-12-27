@@ -9,9 +9,20 @@ const AvatarInput = ({
   onRemove,
 }: {
   previewUrl: string | undefined;
-  onFileChange: () => void;
+  onFileChange: (file: File | null) => void;
   onRemove: () => void;
 }) => {
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.size > 1024 * 1024) {
+        alert("File size must be less than 1MB.");
+        return;
+      }
+      onFileChange(file);
+    }
+  };
+
   return (
     <>
       <div className="talent-avatar mx-auto mb-2 h-32 w-32 md:h-44 md:w-44 border-2 relative border-black bg-gray-100 border-dotted rounded-full">
@@ -26,17 +37,17 @@ const AvatarInput = ({
             />
             <div
               className="absolute bottom-1 md:bottom-2 h-7 md:h-8 w-7 md:w-8 grid place-items-center right-1 md:right-2 upload-button z-50 bg-main-color-500 text-white rounded-full cursor-pointer"
-              onClick={onFileChange}
+              onClick={() => document.getElementById("fileInput")?.click()}
               aria-label="Edit Avatar"
             >
               <Edit2 color="black" size={14} />
             </div>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center h-full">
+          <div className="flex flex-col items-center justify-center h-full bg-black opacity-80">
             <div
               className="absolute bottom-1 md:bottom-2 h-7 w-7 md:h-8 md:w-8 grid place-items-center right-1 md:right-2 upload-button z-50 bg-main-color-500 text-white rounded-full cursor-pointer"
-              onClick={onFileChange}
+              onClick={() => document.getElementById("fileInput")?.click()}
               aria-label="Upload Avatar"
             >
               <Plus className="text-base md:text-xl" size={20} />
@@ -46,7 +57,14 @@ const AvatarInput = ({
             </p>
           </div>
         )}
-      </div>{" "}
+      </div>
+      <input
+        id="fileInput"
+        type="file"
+        style={{ display: "none" }}
+        accept="image/*"
+        onChange={handleFileSelect}
+      />
       {previewUrl && (
         <div className="flex w-max mb-4 mx-auto gap-4">
           <Button
@@ -61,7 +79,7 @@ const AvatarInput = ({
           <Button
             type="button"
             className="flex bg-green-500 text-white hover:bg-green-100 border border-transparent hover:border-green-500 hover:text-black py-4 font-semibold text-sm mx-auto w-max mb-4 pr-3 leading-none"
-            onClick={onFileChange}
+            onClick={() => document.getElementById("fileInput")?.click()}
             aria-label="Upload Another Avatar"
           >
             Upload another
