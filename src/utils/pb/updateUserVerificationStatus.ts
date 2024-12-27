@@ -1,6 +1,3 @@
-// File: utils/pb/updateUserVerificationTimeStamp.ts
-// import { pb } from "@/utils/pbClient"; // Assuming you're using PocketBase
-
 import pb from "@/lib/pocketbase";
 
 export async function updateUserVerificationStatus(userId: string) {

@@ -15,7 +15,6 @@ export async function sendOtpEmail(email: string, otp: string): Promise<void> {
     subject: "Your Email Verification OTP",
     text: `Your OTP for email verification is: ${otp}`,
   };
-  console.log("sd");
 
   await transporter.sendMail(mailOptions);
 }

@@ -34,8 +34,6 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
   const [isOpen, setIsOpen] = useState(false);
   const { notifications } = useNotifications();
 
-  console.log(user);
-
   return (
     <header className="px-4 h-16 w-full sticky top-0 z-50 bg-gray-50 gap-4 flex items-center justify-between">
       <div className="flex justify-start w-full h-full gap-4 bgwhi md:gap-8 items-center">
