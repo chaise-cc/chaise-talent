@@ -50,7 +50,7 @@ export default async function TalentProfilePage(props: {
             <Avatar size="extra-large" src={user.avatar} />
 
             <div className="flex flex-col justify-center items-center gap-1">
-              <h2 className="text-lg font-semibold">
+              <h2 className="text-lg font-semibold capitalize">
                 {user.firstname} {user.lastname}
               </h2>
 
