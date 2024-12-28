@@ -39,6 +39,14 @@ export type User = {
   }[];
   avatar: string;
 };
+type Talent = {
+  id: string;
+  firstname: string;
+  lastname: string;
+  username: string;
+  avatar: string;
+  country: string;
+};
 
 interface talentReview {
   talent: string;
