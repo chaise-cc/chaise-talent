@@ -35,7 +35,7 @@ const AvatarInput = ({
 
   return (
     <>
-      <div className="talent-avatar mx-auto mb-2 h-32 w-32 md:h-44 md:w-44 border-2 relative border-black bg-gray-100 border-dotted rounded-full">
+      <div className="talent-avatar mx-auto mb-2 h-32 w-32 md:h-44 md:w-44 border-2 relative overflow-hidden border-black bg-gray-100 border-dotted rounded-full">
         {previewUrl ? (
           <div className="relative h-full">
             <Image
@@ -47,7 +47,7 @@ const AvatarInput = ({
             />
             <div
               className="absolute bottom-1 md:bottom-2 h-7 md:h-8 w-7 md:w-8 grid place-items-center right-1 md:right-2 upload-button z-50 bg-main-color-500 text-white rounded-full cursor-pointer"
-              onClick={handleFileInputClick}
+              onClick={() => handleFileInputClick}
               aria-label="Edit Avatar"
             >
               <Edit2 color="black" size={14} />
@@ -57,7 +57,7 @@ const AvatarInput = ({
           <div className="flex flex-col items-center justify-center h-full bg-white opacity-80">
             <div
               className="absolute bottom-1 md:bottom-2 h-7 w-7 md:h-8 md:w-8 grid place-items-center right-1 md:right-2 upload-button z-50 bg-main-color-500 text-white rounded-full cursor-pointer"
-              onClick={handleFileInputClick}
+              onClick={() => handleFileInputClick}
               aria-label="Upload Avatar"
             >
               <Plus className="text-base md:text-xl" size={20} />
@@ -81,7 +81,7 @@ const AvatarInput = ({
           <Button
             type="button"
             className="flex bg-red-500 hover:bg-red-100 border border-transparent hover:border-red-500 pl-2 pr-4 text-white hover:text-black py-4 gap-1 font-semibold text-sm w-max leading-none"
-            onClick={onRemove}
+            onClick={() => onRemove}
             aria-label="Remove Avatar"
           >
             <Add className="rotate-45 text-xl" size={20} color="black" /> Remove
@@ -90,7 +90,7 @@ const AvatarInput = ({
           <Button
             type="button"
             className="flex bg-green-500 text-white hover:bg-green-100 border border-transparent hover:border-green-500 hover:text-black py-4 font-semibold text-sm mx-auto w-max mb-4 pr-3 leading-none"
-            onClick={handleFileInputClick}
+            onClick={() => handleFileInputClick}
             aria-label="Upload Another Avatar"
           >
             Upload another
