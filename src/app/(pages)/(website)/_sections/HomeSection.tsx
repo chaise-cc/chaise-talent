@@ -3,12 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Add } from "iconsax-react";
+import { motion } from "framer-motion";
 import SearchBoxHero from "../_components/HeroSearchBox";
 // import SearchBoxHero from "../SearchBox.hero";
 
 const HeroSection = () => {
   return (
-    <section className="bg-white relative h-[calc(100vh-160px)] w-full container  mx-auto py-8  flex flex-col justify-center">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ ease: "easeInOut", duration: 1 }}
+      className="bg-white relative h-[calc(100vh-160px)] w-full container  mx-auto py-8  flex flex-col justify-center"
+    >
       {/*  */}
       <div className="absolute left-0 top-0 hidden container justify-between md:flex w-full h-full z-10 flex-col">
         <div className="flex w-full justify-between">
@@ -138,7 +144,7 @@ const HeroSection = () => {
           <SearchBoxHero />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

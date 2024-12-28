@@ -3,6 +3,7 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Heart } from "iconsax-react";
 import { MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,7 +24,12 @@ export default function TopRatedTalentsSection({
   talents,
 }: TopRatedTalentsSectionProps) {
   return (
-    <section className="container py-8 my-12 md:my-24">
+    <motion.section
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ ease: "easeInOut", duration: 1 }}
+      className="container py-8 my-12 md:my-24"
+    >
       <h2 className="text-[2.3rem] md:mb-8 mb-4 font-varela text-center font-medium">
         Top Rated Freelancers
       </h2>
@@ -75,6 +81,6 @@ export default function TopRatedTalentsSection({
 
         <ScrollBar />
       </ScrollArea>
-    </section>
+    </motion.section>
   );
 }
