@@ -1,29 +1,32 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+
+import { User } from "@/types";
+
+import servicesCategories from "@/data/services-categories";
+import { DESKTOP_NAV_LINK_ITEMS } from "@/data/menuCategories";
+
+import { useNotifications } from "@/app/_providers/notification.provider";
+
 import AccountSwitcher from "@/components/custom/AccountSwitcher";
 import Avatar from "@/components/icons/Avatar.icon";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import NotificationIcon from "@/components/icons/Notification.icon";
 import {
+  DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User } from "@/types";
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
 import SearchBarComponent from "./SearchBar";
-import { MdOpenInNew } from "react-icons/md";
-import NotificationIcon from "@/components/icons/Notification.icon";
-import { useNotifications } from "@/app/_providers/notification.provider";
-import { ChevronDown, Heart } from "lucide-react";
-import servicesCategories from "@/data/services-categories";
 
-import { DESKTOP_NAV_LINK_ITEMS } from "@/data/menuCategories";
+import { ChevronDown, Heart } from "lucide-react";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { usePathname } from "next/navigation";
-// import { usePathname } from "next/navigation";
+import { MdOpenInNew } from "react-icons/md";
 
 type HeaderProps = {
   user?: User | null;
@@ -62,11 +65,10 @@ export default function Header({ user, activeRole }: HeaderProps) {
   }, [currentPath, heroHeight]);
 
   const checkScrollPosition = () => {
-    if (scrollAreaRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollAreaRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
-    }
+    if (!scrollAreaRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollAreaRef.current;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
   };
 
   const scrollLeft = () => {
@@ -90,12 +92,19 @@ export default function Header({ user, activeRole }: HeaderProps) {
   };
 
   useEffect(() => {
-    checkScrollPosition(); // Check position on initial render
+    const scrollContainer = scrollAreaRef.current;
+    if (!scrollContainer) return;
+
+    scrollContainer.addEventListener("scroll", checkScrollPosition);
+    checkScrollPosition(); // Initial check
+
+    return () =>
+      scrollContainer.removeEventListener("scroll", checkScrollPosition);
   }, []);
 
   return (
     <header
-      className={`hidden z-50  fixed top-0 h-auto w-full bg-white md:flex flex-col 
+      className={`hidden z-50 text-sm  fixed top-0 h-auto w-full bg-white md:flex flex-col 
        ${currentPath === "/" ? "pt-4" : "pt-4 pb-0"}
     `}
     >
@@ -157,9 +166,9 @@ export default function Header({ user, activeRole }: HeaderProps) {
                   <li>
                     <Link
                       href="/signup"
-                      className="bg-main-color-500 px-6 py-4 rounded-full text-main-color-900 font-semibold"
+                      className="bg-main-color-500 px-7 py-3 rounded-full text-main-color-900 font-[600]"
                     >
-                      Join for Free
+                      Join for free
                     </Link>
                   </li>
                 </ul>
@@ -223,11 +232,14 @@ export default function Header({ user, activeRole }: HeaderProps) {
         <div className="navigate-categories relative w-full container flex gap-4 justify-between items-center">
           <ArrowLeft2
             color={!canScrollLeft ? "gray" : "black"}
-            size="28"
-            className={`text-gray-700 cursor-pointer ${
-              !canScrollLeft && "opacity-50 cursor-not-allowed"
+            size="24"
+            className={`text-gray-700 ${
+              !canScrollLeft
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
             }`}
-            onClick={scrollLeft}
+            onClick={canScrollLeft ? scrollLeft : undefined}
+            aria-disabled={!canScrollLeft}
           />
 
           <ScrollArea className="w-full py-2" ref={scrollAreaRef}>
@@ -248,13 +260,15 @@ export default function Header({ user, activeRole }: HeaderProps) {
           </ScrollArea>
 
           <ArrowRight2
-            size="28"
-            color={!canScrollLeft ? "gray" : "black"}
-            className={`text-gray-700 cursor-pointer ${
-              !canScrollRight && "opacity-50 cursor-not-allowed"
+            size="24"
+            color={!canScrollRight ? "gray" : "black"}
+            className={`text-gray-700 ${
+              !canScrollRight
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
             }`}
-            onClick={scrollRight}
-            // disabled={!canScrollRight}
+            onClick={canScrollRight ? scrollRight : undefined}
+            aria-disabled={!canScrollRight}
           />
         </div>
       ) : null}

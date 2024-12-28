@@ -27,7 +27,7 @@ export async function sendEmail(
 
   // Email options
   const mailOptions = {
-    from: `"Hello from Chaise" <${smtpUser}>`, // Sender address formatted correctly
+    from: `"Chaise" <${smtpUser}>`, // Sender address formatted correctly
     to, // Recipient address
     subject, // Subject line
     text: plainTextBody, // Plain text body
