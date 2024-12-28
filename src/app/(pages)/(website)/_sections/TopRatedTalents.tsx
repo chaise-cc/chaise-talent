@@ -52,8 +52,8 @@ export default function TopRatedTalentsSection({
                 />
               </div>
               <div className="flex justify-between items-center gap-2">
-                <div className="flex text-gray-700">
-                  <h2 className="font-semibold">
+                <div className="flex text-gray-700 flex-shrink-0">
+                  <h2 className="font-semibold text-ellipsis">
                     {talent.firstname} {talent.lastname}
                   </h2>
                 </div>
