@@ -1,13 +1,15 @@
+import { getAllTalents } from "@/utils/pb/getAllTalents";
 import MainLayout from "./_components/mainLayout";
 import HeroSection from "./_sections/HomeSection";
+import TopRatedTalentsSection from "./_sections/TopRatedTalents";
 
-export default function Home() {
+export default async function Home() {
+  const talents = await getAllTalents();
+
   return (
     <MainLayout>
       <HeroSection />
-      <section className="py-8 container">
-        {/* <h2>Chaise - Africa&apos;s Leading Freelance Space</h2> */}
-      </section>
+      <TopRatedTalentsSection talents={talents} />
     </MainLayout>
   );
 }

@@ -46,8 +46,8 @@ const Avatar: React.FC<AvatarProps> = ({
 }) => {
   const calculateInitials = (name?: string) => {
     if (!name) return "";
-    const [firstName, lastName] = name.split(" ");
-    return `${firstName?.charAt(0)}${lastName?.charAt(0)}`.toUpperCase();
+    const [firstname, lastname] = name.split(" ");
+    return `${firstname?.charAt(0)}${lastname?.charAt(0)}`.toUpperCase();
   };
 
   const sizeValue = sizeClasses[size].split(" ")[0].replace("w-", "");

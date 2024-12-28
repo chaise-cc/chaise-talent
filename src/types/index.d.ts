@@ -11,8 +11,8 @@ type TalentService = {
 
 export type BasicUser = {
   id: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   phone?: string;
   accounts: {
@@ -22,9 +22,10 @@ export type BasicUser = {
 };
 
 export type User = {
+  username?: string;
   id: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   gender: string;
   email: string;
   emailIsVerified: string;
@@ -138,8 +139,8 @@ type ServiceWithTalent = Omit<Service, "talentId"> & {
 };
 
 export interface RegisterUserInterface {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   phone: string;
   country: string;

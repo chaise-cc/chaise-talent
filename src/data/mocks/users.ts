@@ -1,8 +1,8 @@
 const users = [
   {
     id: "1",
-    firstName: "Paul",
-    lastName: "Ishaili C.",
+    firstname: "Paul",
+    lastname: "Ishaili C.",
     gender: "male",
     email: "paulishaili@gmail.com",
     identityIsVerified: false,
@@ -24,8 +24,8 @@ const users = [
   },
   {
     id: "2",
-    firstName: "Chibuzo",
-    lastName: "Ogbonnaya",
+    firstname: "Chibuzo",
+    lastname: "Ogbonnaya",
     gender: "male",
     email: "chibuzoogbonnaya01@gmail.com",
     identityIsVerified: false,
@@ -47,8 +47,8 @@ const users = [
   },
   {
     id: "3",
-    firstName: "Harrison",
-    lastName: "Stella Nkechinyere",
+    firstname: "Harrison",
+    lastname: "Stella Nkechinyere",
     gender: "female",
     email: "harrynkstella@gmail.com",
     identityIsVerified: false,
@@ -70,8 +70,8 @@ const users = [
   },
   {
     id: "4",
-    firstName: "Joe",
-    lastName: "Boi",
+    firstname: "Joe",
+    lastname: "Boi",
     gender: "male",
     email: "johnny_joe_boi@gmail.com",
     accounts: [
@@ -93,8 +93,8 @@ const users = [
   },
   {
     id: "5",
-    firstName: "Ozegbe",
-    lastName: "Rita",
+    firstname: "Ozegbe",
+    lastname: "Rita",
     gender: "female",
     email: "ozegberita@gmail.com",
     identityIsVerified: false,
@@ -116,8 +116,8 @@ const users = [
   },
   {
     id: "6",
-    firstName: "Favour",
-    lastName: "Oluwole-Ilori",
+    firstname: "Favour",
+    lastname: "Oluwole-Ilori",
     gender: "male",
     email: "favourilori@gmail.com",
     identityIsVerified: false,
@@ -139,8 +139,8 @@ const users = [
   },
   {
     id: "7",
-    firstName: "Ebisu",
-    lastName: "Sarah Dennis",
+    firstname: "Ebisu",
+    lastname: "Sarah Dennis",
     gender: "female",
     email: "ebisusarah@gmail.com",
     accounts: [

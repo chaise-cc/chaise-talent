@@ -19,8 +19,8 @@ const languages = Object.entries(languagesData).map(([code, details]) => ({
 type TalentPersonalInfoProps = {
   user: {
     id: string;
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     gender: string;
     dateOfBirth: string;
     country: string;
@@ -32,8 +32,8 @@ type TalentPersonalInfoProps = {
 export default function PersonalInfoForm({ user }: TalentPersonalInfoProps) {
   const [formData, setFormData] = useState({
     avatarUrl: user.avatar || "", // Assuming this is a URL or null if not provided
-    firstName: user.firstName || "",
-    lastName: user.lastName || "",
+    firstname: user.firstname || "",
+    lastname: user.lastname || "",
     gender: user.gender || "",
     dateOfBirth: user.dateOfBirth || "",
     country: user.country || "",
@@ -138,13 +138,13 @@ export default function PersonalInfoForm({ user }: TalentPersonalInfoProps) {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block font-medium">
+                <label htmlFor="firstname" className="block font-medium">
                   First Name
                 </label>
                 <input
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
+                  id="firstname"
+                  name="firstname"
+                  value={formData.firstname}
                   disabled
                   onChange={handleChange}
                   className="mt-1 py-4 border px-4 text-base rounded-xl w-full"
@@ -152,13 +152,13 @@ export default function PersonalInfoForm({ user }: TalentPersonalInfoProps) {
               </div>
 
               <div>
-                <label htmlFor="lastName" className="block font-medium">
+                <label htmlFor="lastname" className="block font-medium">
                   Last Name
                 </label>
                 <input
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
+                  id="lastname"
+                  name="lastname"
+                  value={formData.lastname}
                   disabled
                   onChange={handleChange}
                   className="mt-1 py-4 border px-4 text-base rounded-xl w-full"

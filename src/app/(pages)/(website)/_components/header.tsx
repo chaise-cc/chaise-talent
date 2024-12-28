@@ -201,13 +201,13 @@ export default function Header({ user, activeRole }: HeaderProps) {
                               src={user.avatar}
                               width={96}
                               height={96}
-                              alt={`${user.firstName} ${user.lastName}`}
+                              alt={`${user.firstname} ${user.lastname}`}
                               className="w-full h-full object-cover"
                             />
                           </div>
                           <div className="flex flex-col">
                             <h2 className="text-lg">
-                              {user.firstName} {user.lastName}
+                              {user.firstname} {user.lastname}
                             </h2>
                             <div className="flex gap-4 items-center">
                               <Badge>{activeRole}</Badge>

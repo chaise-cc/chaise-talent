@@ -13,7 +13,7 @@ export default async function HomePage() {
   return (
     <div>
       <TopNavigation
-        pageTitle={`Welcome back, ${user?.firstName || "Guest"}`}
+        pageTitle={`Welcome back, ${user?.firstname || "Guest"}`}
         pageCrumbs={[
           { text: "Here’s an overview of your Dashboard", link: "" },
         ]}

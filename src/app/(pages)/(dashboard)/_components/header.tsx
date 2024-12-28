@@ -96,7 +96,7 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
 
                 <div className="flex flex-col justify-center items-center gap-1">
                   <h2 className="text-lg">
-                    {user.firstName} {user.lastName}
+                    {user.firstname} {user.lastname}
                   </h2>
                   <Badge>{activeRole}</Badge>
                 </div>

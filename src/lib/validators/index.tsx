@@ -1,8 +1,8 @@
 import { z, ZodType } from "zod";
 
 export type SignUpProps = {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -42,8 +42,8 @@ export type UpdatePasswordsProps = {
 };
 
 export type ContactUsProps = {
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   email: string;
   message: string;
 };
@@ -83,7 +83,7 @@ const loginSchema: z.ZodType<LoginProps> = z.object({
 
 const signupSchema: z.ZodType<SignUpProps> = z
   .object({
-    firstName: z
+    firstname: z
       .string()
       .min(2, { message: "First Name is required" })
       .max(50, { message: "First Name must be less than 50 characters" })
@@ -92,7 +92,7 @@ const signupSchema: z.ZodType<SignUpProps> = z
           value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
         ).trim();
       }),
-    lastName: z
+    lastname: z
       .string()
       .min(2, { message: "Last Name is required" })
       .max(50, { message: "Last Name must be less than 50 characters" })
@@ -248,7 +248,7 @@ const updatePassWordsSchema: z.ZodType<UpdatePasswordsProps> = z
   });
 
 const contactUsSchema: z.ZodType<ContactUsProps> = z.object({
-  firstName: z
+  firstname: z
     .string()
     .min(2, { message: "First Name is required" })
     .max(50, { message: "First Name must be less than 50 characters" })
@@ -257,7 +257,7 @@ const contactUsSchema: z.ZodType<ContactUsProps> = z.object({
         value.charAt(0).toUpperCase() + value.slice(1).toLowerCase()
       ).trim();
     }),
-  lastName: z
+  lastname: z
     .string()
     .min(2, { message: "Last Name is required" })
     .max(50, { message: "Last Name must be less than 50 characters" })

@@ -15,8 +15,8 @@ cloudinary.config({
 export async function updateUser(
   id: string,
   fields: {
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     gender: string;
     dateOfBirth: string;
     country: string;
@@ -28,8 +28,8 @@ export async function updateUser(
 
   // Validate required fields
   const requiredFields = [
-    "firstName",
-    "lastName",
+    "firstname",
+    "lastname",
     "gender",
     "dateOfBirth",
     "country",

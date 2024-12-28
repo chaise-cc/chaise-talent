@@ -52,8 +52,8 @@ export async function login(prevState: unknown, formData: FormData) {
       id: user.id,
       email: user.email,
       role: user.accounts[0]?.type || "guest", // Assuming `accounts[0]` holds the user role
-      firstName: user.firstname || "", // Example of additional data
-      lastName: user.lastname || "", // Example of additional data
+      firstname: user.firstname || "", // Example of additional data
+      lastname: user.lastname || "", // Example of additional data
       phoneNumber: user.phone || "",
       avatar: user.avatar || "",
       gender: user.gender || "",

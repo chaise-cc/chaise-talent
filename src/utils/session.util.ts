@@ -10,8 +10,8 @@ export function isUser(
     "user" in data &&
     typeof (data as any).user === "object" &&
     (data as any).user !== null &&
-    "firstName" in (data as any).user &&
-    "lastName" in (data as any).user &&
+    "firstname" in (data as any).user &&
+    "lastname" in (data as any).user &&
     "email" in (data as any).user &&
     "activeRole" in (data as any)
   );

@@ -5,8 +5,8 @@ import { clientSchema } from "./client.zod";
 
 export const userSchema = z
   .object({
-    firstName: z.string(),
-    lastName: z.string(),
+    firstname: z.string(),
+    lastname: z.string(),
     email: z.string().email(),
     activeRole: z.enum(["talent", "client", "admin"]),
     accounts: z.array(z.string()),
@@ -27,8 +27,8 @@ export const userSchema = z
   );
 
 export const userRegistrationSchema = z.object({
-  firstName: z.string().min(3, "First name is required"),
-  lastName: z.string().min(3, "Last name is required"),
+  firstname: z.string().min(3, "First name is required"),
+  lastname: z.string().min(3, "Last name is required"),
   email: z
     .string()
     .email("Invalid email address")
