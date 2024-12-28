@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner"; // Import toast from Sonner
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/custom/PasswordInput";
@@ -13,54 +13,50 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
-  const [pending, setPending] = useState(false); // For managing form state
-  const [errors, setErrors] = useState<{
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState<{
     email?: string[];
     password?: string[];
   }>({});
+  const [formValues, setFormValues] = useState({ email: "", password: "" });
+
   const searchParams = useSearchParams();
   const redirectUrl = searchParams.get("redirectUrl");
   const router = useRouter();
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setPending(true); // Indicate loading
-    setErrors({}); // Clear previous errors
+    setIsSubmitting(true);
+    setFormErrors({});
 
     const formData = new FormData(e.currentTarget);
 
     try {
       const response = await login(undefined, formData);
       if (response.success) {
-        if (redirectUrl) {
-          router.push(redirectUrl);
-        } else {
-          // Handle default redirection (e.g., based on user role)
-          router.push("/dashboard");
-        }
         toast.success("Login successful! 🎉");
+        router.push(redirectUrl || "/dashboard");
       } else if (response.errors) {
-        // Display toast for the first available error message
-        const errorMessage =
+        const firstError =
           response.errors.email?.[0] ||
           response.errors.password?.[0] ||
           "Login failed.";
-        toast.error(errorMessage);
-
-        // Set field-specific errors to state for form validation feedback
-        setErrors(response.errors);
+        toast.error(firstError);
+        setFormErrors(response.errors);
       }
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(
-          error.message ||
-            "An unexpected error occurred. Please try again later."
-        );
-      } else {
-        toast.error("An unexpected error occurred. Please try again later.");
-      }
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred. Please try again.";
+      toast.error(errorMessage);
     } finally {
-      setPending(false); // Reset pending state
+      setIsSubmitting(false);
     }
   };
 
@@ -69,66 +65,85 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       className="space-y-6 max-w-lg mx-auto w-full py-4"
     >
-      {/* Email Field */}
-      <EmailField errors={errors.email} pending={pending} />
-
-      {/* Password Field */}
-      <PasswordField errors={errors.password} pending={pending} />
-
-      {/* Options */}
-      <div className="flex mt-2 justify-between items-center">
+      <EmailField
+        value={formValues.email}
+        errors={formErrors.email}
+        onChange={handleInputChange}
+        disabled={isSubmitting}
+      />
+      <PasswordField
+        value={formValues.password}
+        errors={formErrors.password}
+        onChange={handleInputChange}
+        disabled={isSubmitting}
+      />
+      <div className="flex justify-between items-center mt-2">
         <div />
         <Link href="/recover-account" className="font-bold text-sm underline">
           Recover password
         </Link>
       </div>
-
-      {/* Submit Button */}
-      <SubmitButton pending={pending} />
+      <SubmitButton isSubmitting={isSubmitting} />
     </form>
   );
 }
 
-const PasswordField = ({
+function EmailField({
+  value,
   errors,
-  pending,
+  onChange,
+  disabled,
 }: {
+  value: string;
   errors?: string[];
-  pending: boolean;
-}) => (
-  <FieldContainer label="Password" id="password" errors={errors}>
-    <PasswordInput
-      className="text-base py-3"
-      id="password"
-      name="password"
-      autoComplete="current-password"
-      placeholder="Enter Password"
-      required
-      minLength={6}
-      disabled={pending}
-    />
-  </FieldContainer>
-);
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled: boolean;
+}) {
+  return (
+    <FieldContainer label="Email" id="email" errors={errors}>
+      <Input
+        type="email"
+        name="email"
+        placeholder="Email address"
+        value={value}
+        onChange={onChange}
+        required
+        minLength={6}
+        disabled={disabled}
+        className="text-base py-3"
+      />
+    </FieldContainer>
+  );
+}
 
-const EmailField = ({
+function PasswordField({
+  value,
   errors,
-  pending,
+  onChange,
+  disabled,
 }: {
+  value: string;
   errors?: string[];
-  pending: boolean;
-}) => (
-  <FieldContainer label="Email" id="email" errors={errors}>
-    <Input
-      className="text-base py-3"
-      type="email"
-      placeholder="Email address"
-      name="email"
-      required
-      minLength={6}
-      disabled={pending}
-    />
-  </FieldContainer>
-);
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled: boolean;
+}) {
+  return (
+    <FieldContainer label="Password" id="password" errors={errors}>
+      <PasswordInput
+        name="password"
+        id="password"
+        placeholder="Enter Password"
+        value={value}
+        onChange={onChange}
+        required
+        minLength={6}
+        autoComplete="current-password"
+        disabled={disabled}
+        className="text-base py-3"
+      />
+    </FieldContainer>
+  );
+}
 
 function FieldContainer({
   label,
@@ -142,34 +157,32 @@ function FieldContainer({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-start space-y-1">
-      <Label className="font-semibold text-base" htmlFor={id}>
+    <div className="flex flex-col space-y-1">
+      <Label htmlFor={id} className="font-semibold text-base">
         {label}
       </Label>
       {children}
       {errors && (
-        <p className="text-red-500 mt-1 text-sm" aria-live="polite">
-          {errors.join(", ")}
-        </p>
+        <p className="text-red-500 mt-1 text-sm">{errors.join(", ")}</p>
       )}
     </div>
   );
 }
 
-function SubmitButton({ pending }: { pending: boolean }) {
+function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
   return (
     <Button
       type="submit"
-      className="text-base w-full font-bold border border-transparent hover:border-main-color-500 hover:bg-transparent py-3 text-gray-700 bg-main-color-500"
-      disabled={pending}
+      disabled={isSubmitting}
+      className="w-full py-3 text-base font-bold bg-main-color-500 text-gray-700 border border-transparent hover:bg-transparent hover:border-main-color-500"
     >
-      {pending ? (
+      {isSubmitting ? (
         <>
           Logging in <Loader2 size={18} className="animate-spin ml-2" />
         </>
       ) : (
         <>
-          Login <ArrowRight size={20} color="black" className="ml-2" />
+          Login <ArrowRight size={20} className="ml-2" />
         </>
       )}
     </Button>
