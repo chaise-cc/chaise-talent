@@ -4,10 +4,9 @@ import pb from "@/lib/pocketbase";
 import { Talent } from "@/types";
 
 /**
- * Fetches all users who have an account type of "talent".
+ * Fetches all users who are onboarded and have an account type of "talent".
  * @returns An array of talent user records.
  */
-
 export async function getAllTalents(): Promise<Talent[]> {
   try {
     // Fetch all users from the "users" collection
@@ -15,14 +14,22 @@ export async function getAllTalents(): Promise<Talent[]> {
       $autoCancel: false, // Optional: prevent auto-cancel for multiple requests
     });
 
-    // Transform records into the expected Talent structure
-    const talents: Talent[] = users.map((record) => ({
-      id: record.id,
-      firstname: record.firstname ?? "Unknown",
-      lastname: record.lastname ?? "Unknown",
-      username: record.username ?? "unknown",
-      avatar: record.avatar ?? "/default-avatar.png", // Fallback avatar
-      country: record.country ?? "Unknown",
+    // Filter for users who have an account with type "talent" and isOnboarded is true
+    const filteredUsers = users.filter((user) =>
+      user.accounts?.some(
+        (account: { type: string; isOnboarded: boolean }) =>
+          account.type === "talent" && account.isOnboarded === true
+      )
+    );
+
+    // Transform filtered records into the expected Talent structure
+    const talents: Talent[] = filteredUsers.map((user) => ({
+      id: user.id,
+      firstname: user.firstname ?? "Unknown",
+      lastname: user.lastname ?? "Unknown",
+      username: user.username ?? "unknown",
+      avatar: user.avatar ?? "/default-avatar.png", // Fallback avatar
+      country: user.country ?? "Unknown",
     }));
 
     return talents; // Return the filtered list of talent users
