@@ -110,16 +110,16 @@ const DesktopSideBar: FC<DesktopDashboardSideBarProps> = ({
         } md:w-64 shrink-0 hidden md:flex h-screen flex-col pb-8 duration-300 transition-all`}
       >
         <div className="flex w-full items-center justify-between px-4">
-          <Image
-            height={80}
-            width={200}
-            className="h-5 px-4 my-[22px] w-max  object-contain"
-            alt="Chaise Logo"
-            src={"/images/chaise-yellow.png"}
-          />
           <Link href={"/"}>
-            <MdOpenInNew className="text-xl" />
+            <Image
+              height={80}
+              width={200}
+              className="h-5 px-4 my-[22px] w-max  object-contain"
+              alt="Chaise Logo"
+              src={"/images/chaise-yellow.png"}
+            />
           </Link>
+          <MdOpenInNew className="text-xl" />
         </div>
 
         <div className="pb-4">
