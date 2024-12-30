@@ -49,8 +49,6 @@ export default function ProfileUpdatePageClient({ user }: { user: any }) {
     { platform: string; handle: string }[]
   >(user.social_accounts || []);
 
-  const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://example.com";
-
   const handleSave = async () => {
     if (bio.length < 150 || bio.length > 2000) {
       alert("Bio must be between 150 and 2000 characters.");
@@ -178,7 +176,7 @@ export default function ProfileUpdatePageClient({ user }: { user: any }) {
             <p className="text-sm text-gray-500 mt-1">
               Your profile URL will look like: <br />
               <strong className="text-gray-800">
-                {baseURL + "/~/" + username}
+                {"https://chaise.cc" + "/~/" + username}
               </strong>
             </p>
             {isAvailable === false && (

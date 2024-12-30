@@ -66,7 +66,7 @@ export async function login(prevState: unknown, formData: FormData) {
     };
 
     const roleToSet = user.accounts[0]?.type || "guest";
-    // Create the session
+
     await createSession(sessionData, roleToSet);
 
     return {
