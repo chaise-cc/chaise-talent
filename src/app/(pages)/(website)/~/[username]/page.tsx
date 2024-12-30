@@ -20,12 +20,10 @@ type Service = {
   description: string;
 };
 
-export default async function TalentProfilePage({
-  params,
-}: {
-  params: { username: string };
+export default async function TalentProfilePage(props: {
+  params: Promise<{ username: string; serviceId: string }>;
 }) {
-  const { username } = params;
+  const { username } = await props.params;
 
   // Fetch user and services concurrently
   const [user, services] = await Promise.all([
