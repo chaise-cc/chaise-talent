@@ -35,7 +35,7 @@ const AvatarInput = ({
 
   return (
     <>
-      <div className="talent-avatar mx-auto mb-2 h-32 w-32 md:h-44 md:w-44 border-2 relative overflow-hidden border-black bg-gray-100 border-dotted rounded-full">
+      <div className="talent-avatar mx-auto mb-2 h-32 w-32 md:h-44 md:w-44 border-2 relative  border-black bg-gray-100 border-dotted rounded-full">
         {previewUrl ? (
           <div className="relative h-full">
             <Image
