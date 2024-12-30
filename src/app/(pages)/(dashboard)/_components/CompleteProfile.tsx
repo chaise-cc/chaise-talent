@@ -7,7 +7,7 @@ export default function CompleteProfile() {
   const steps = [
     {
       label: "Update your profile",
-      href: "/dashboard/services/new",
+      href: "/dashboard/update",
       completed: false,
     },
     {
