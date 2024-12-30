@@ -11,7 +11,7 @@ import { useState } from "react";
 
 // Helper function to detect if the device is an iPhone
 const GetStartedPage = () => {
-  const [onboardAs, setOnboardAs] = useState("");
+  const [onboardAs, setOnboardAs] = useState("talent");
 
   // Handle category selection
   const handleOnboardAs = (value: string) => {
@@ -43,7 +43,7 @@ const GetStartedPage = () => {
           className="flex flex-col gap-4  w-full !text-sm md:!text-base"
         >
           <Label className="p-6 rounded-xl border w-full font-medium border-gray-300 bg-white flex gap-4 items-center">
-            <RadioGroupItem value="client" className="" />
+            <RadioGroupItem disabled value="client" className="" />
             I&apos;m hiring for a project
           </Label>
 

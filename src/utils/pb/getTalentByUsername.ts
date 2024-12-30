@@ -2,38 +2,39 @@
 
 import pb from "@/lib/pocketbase";
 
-/**
- * Fetches a talent user by their username.
- * @param username - The username to search for.
- * @returns The talent user record or null if not found.
- */
-export async function getTalentByUsername(username: string) {
+type User = {
+  id: string;
+  avatar: string;
+  firstname: string;
+  lastname: string;
+  country: string;
+  bio: string;
+};
+
+export async function getTalentByUsername(
+  username: string
+): Promise<User | null> {
+  if (!username) {
+    throw new Error("Username is required");
+  }
+
   try {
-    // Fetch users matching the username
-    const users = await pb.collection("users").getFullList({
-      filter: `username = "${username}"`,
-      $autoCancel: false,
-    });
+    const record = await pb
+      .collection("users")
+      .getFirstListItem(`username = '${username}'`);
 
-    // Find a user with an account type "talent"
-    const talentUser = users.find((user) =>
-      user.accounts?.some(
-        (account: { type: string }) => account.type === "talent"
-      )
-    );
-
-    return talentUser || null; // Return the first matching talent user or null
+    // Map RecordModel to User type
+    return {
+      id: record.id,
+      avatar: record.avatar, // Ensure these fields exist in your PocketBase collection
+      firstname: record.firstname,
+      lastname: record.lastname,
+      country: record.country,
+      bio: record.bio,
+    };
   } catch (error) {
-    if (error instanceof Error) {
-      // Handle known error type
-      console.error("Error fetching talent by username:", error.message);
-      throw new Error(
-        "Failed to fetch talent by username. Please try again later."
-      );
-    } else {
-      // Handle unknown error type
-      console.error("Unknown error occurred:", error);
-      throw new Error("An unknown error occurred. Please try again later.");
-    }
+    console.log(error);
+
+    return null;
   }
 }

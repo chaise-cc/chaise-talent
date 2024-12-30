@@ -20,25 +20,27 @@ export async function middleware(request: NextRequest) {
   const isOnboardingPage = pathname.startsWith("/onboarding");
   const session = token ? await decrypt(token) : null;
 
-  // If no session and not on an auth page, redirect to login with redirectUrl
+  // Handle Talent URL
+  if (pathname == "/~") {
+    return NextResponse.redirect("/"); // Redirect to homepage for invalid usernames
+  }
+
+  // Redirect unauthenticated users to login
   if (!session && !isAuthPage) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirectUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }
 
-  // Handle authenticated users
   if (session) {
     const { user, activeRole } = session;
 
-    // Redirect to login if session data is incomplete
     if (!user || !activeRole) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("redirectUrl", pathname);
       return NextResponse.redirect(loginUrl);
     }
 
-    // Redirect to appropriate onboarding page for non-onboarded users
     const activeAccount = user.accounts?.find(
       (acc) => acc?.type === activeRole
     );
@@ -49,22 +51,19 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL(onboardingPath, request.url));
     }
 
-    // Redirect authenticated users away from auth pages
     if (isAuthPage) {
       return NextResponse.redirect(getSafeRedirectUrl(request, "/dashboard"));
     }
 
-    // Pass session to downstream handlers (optional)
     const response = NextResponse.next();
     response.headers.set("x-user-session", JSON.stringify(session));
     return response;
   }
 
-  // Allow requests to proceed by default
-  return NextResponse.next();
+  return NextResponse.next(); // Allow other requests to proceed
 }
 
-// Apply middleware to specific routes
+// Config for applying middleware
 export const config = {
   matcher: [
     "/dashboard/:path*",
@@ -73,5 +72,6 @@ export const config = {
     "/panel/:path*",
     "/signup/verify-email",
     "/signup/verify-phone",
+    "/@:path*", // Explicitly handle @username paths
   ],
 };

@@ -59,7 +59,7 @@ export async function signup(
     const user = await createUser({
       firstname,
       lastname,
-      email,
+      email: email.toLocaleLowerCase(),
       password,
       accountType,
       emailIsVerified: false,

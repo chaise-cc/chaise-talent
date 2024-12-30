@@ -30,7 +30,7 @@ const TopNavigation = ({
       {action ? (
         action
       ) : (
-        <p className="font-[500] shrink-0 md:text-base text-gray-700 text-sm tracking-tight">
+        <p className="font-[500] hidden md:flex shrink-0 md:text-base text-gray-700 text-sm tracking-tight">
           {dayjs().format("DD MMMM, YYYY")}
         </p>
       )}

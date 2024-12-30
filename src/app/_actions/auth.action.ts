@@ -30,7 +30,7 @@ export async function login(prevState: unknown, formData: FormData) {
 
   try {
     // Get the user from PocketBase
-    const user = await getExistingUserByEmail(email);
+    const user = await getExistingUserByEmail(email.toLocaleLowerCase());
 
     if (!user) {
       return {

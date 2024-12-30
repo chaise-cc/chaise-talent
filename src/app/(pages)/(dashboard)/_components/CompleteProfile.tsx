@@ -6,15 +6,21 @@ import { ArrowRight, TickCircle, CloseSquare } from "iconsax-react";
 export default function CompleteProfile() {
   const steps = [
     {
-      label: "Create a service profile",
+      label: "Update your profile",
       href: "/dashboard/services/new",
       completed: false,
     },
     {
-      label: "Add your work experience",
+      label: "Add work experience(s)",
       href: "/dashboard/settings?tab=profile",
       completed: false,
     },
+    {
+      label: "Create your first service",
+      href: "/dashboard/services/new",
+      completed: false,
+    },
+
     {
       label: "Setup withdrawal method",
       href: "/dashboard/settings?tab=withdrawals",
@@ -27,7 +33,7 @@ export default function CompleteProfile() {
   return (
     <section className="bg-white shadow-sm drop-shadow-md rounded-xl w-full overflow-hidden">
       {/* Header Section */}
-      <div className="flex gap-2 items-center p-4 bg-gray-100 justify-between">
+      <div className="flex gap-2 items-center px-4 py-3 bg-gray-100 justify-between">
         <h2 className="text-xl font-semibold">Next Steps</h2>
         <div
           className={`h-10 w-10 flex items-center text-sm font-medium justify-center rounded-full ${
@@ -50,7 +56,7 @@ export default function CompleteProfile() {
           <Link
             key={index}
             href={step.href}
-            className={`flex justify-between py-4 leading-none items-center border-b border-gray-300 ${
+            className={`flex justify-between py-3.5 leading-none items-center border-b border-gray-300 ${
               step.completed ? "text-main-color-500" : "hover:text-blue-500"
             }`}
           >

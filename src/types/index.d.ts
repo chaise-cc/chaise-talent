@@ -52,6 +52,12 @@ interface talentReview {
   talent: string;
   reviews: talentServiceReview[];
 }
+type Service = {
+  id: string;
+  name: string;
+  description: string;
+  talentId: string;
+};
 
 export type ServiceCategory = {
   id: string;
