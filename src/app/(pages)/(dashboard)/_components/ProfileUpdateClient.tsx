@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Button } from "@/components/ui/button";
-import pb from "@/lib/pocketbase";
 import TopNavigation from "./top-navigation";
+import { updateProfile } from "@/app/_actions/updateProfile.action";
 
 const countryCodes = [
   { code: "+1", label: "United States", flag: "🇺🇸" },
@@ -49,6 +49,8 @@ export default function ProfileUpdatePageClient({ user }: { user: any }) {
     { platform: string; handle: string }[]
   >(user.social_accounts || []);
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   const handleSave = async () => {
     if (bio.length < 150 || bio.length > 2000) {
       alert("Bio must be between 150 and 2000 characters.");
@@ -60,21 +62,25 @@ export default function ProfileUpdatePageClient({ user }: { user: any }) {
       return;
     }
 
-    const data = {
-      bio,
-      username,
-      phoneNumber: `${selectedCode} ${phoneNumber}`,
-      social_accounts: selectedPlatforms,
-    };
-
     setSaving(true);
 
     try {
-      await pb.collection("users").update(user.id, data);
-      alert("Profile updated successfully!");
+      const response = await updateProfile({
+        id: user.id,
+        bio,
+        username,
+        phoneNumber: `${selectedCode} ${phoneNumber}`,
+        social_accounts: selectedPlatforms,
+      });
+
+      if (response.success) {
+        alert("Profile updated successfully!");
+      } else {
+        alert("Failed to update profile. Please try again.");
+      }
     } catch (error) {
-      console.error("Error saving profile:", error);
-      alert("There was an error saving your profile.");
+      console.error(error);
+      alert("An error occurred while updating your profile.");
     } finally {
       setSaving(false);
     }
@@ -176,7 +182,7 @@ export default function ProfileUpdatePageClient({ user }: { user: any }) {
             <p className="text-sm text-gray-500 mt-1">
               Your profile URL will look like: <br />
               <strong className="text-gray-800">
-                {"https://chaise.cc" + "/~/" + username}
+                {baseUrl + "/~/" + username}
               </strong>
             </p>
             {isAvailable === false && (
