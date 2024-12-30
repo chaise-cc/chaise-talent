@@ -71,7 +71,7 @@ const AvatarInput = ({
         ref={fileInputRef}
         id="fileInput"
         type="file"
-        style={{ display: "none" }}
+        // style={{ display: "none" }}
         accept="image/*"
         onChange={handleFileSelect}
       />
