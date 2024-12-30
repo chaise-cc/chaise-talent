@@ -124,6 +124,7 @@ export default function PersonalInfoForm({ user }: TalentPersonalInfoProps) {
                 previewUrl={previewUrl}
                 onFileChange={handleFileInputClick}
                 onRemove={removePreview}
+                fileInputRef={fileInputRef}
               />
               <input
                 type="file"

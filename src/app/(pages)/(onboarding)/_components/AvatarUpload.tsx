@@ -2,19 +2,19 @@ import { Button } from "@/components/ui/button";
 import { Add, Edit2 } from "iconsax-react";
 import { Plus } from "lucide-react";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React from "react";
 
 const AvatarInput = ({
   previewUrl,
   onFileChange,
   onRemove,
+  fileInputRef, // Prop from parent
 }: {
   previewUrl: string | undefined;
   onFileChange: (file: File | null) => void;
   onRemove: () => void;
+  fileInputRef: React.RefObject<HTMLInputElement | null>; // Accept ref as a prop
 }) => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault(); // Prevent any default behavior
     const file = event.target.files?.[0];
