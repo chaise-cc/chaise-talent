@@ -72,7 +72,7 @@ export default function TopRatedTalentsSection({
               {talent.username && (
                 <Link
                   className="text-xs text-main-color-500 underline flex -mt-1"
-                  href={`/@${talent.username}`}
+                  href={`/~/${talent.username}`}
                 >
                   View profile
                 </Link>

@@ -54,14 +54,17 @@ export async function login(prevState: unknown, formData: FormData) {
       role: user.accounts[0]?.type || "guest", // Assuming `accounts[0]` holds the user role
       firstname: user.firstname || "", // Example of additional data
       lastname: user.lastname || "", // Example of additional data
-      phoneNumber: user.phone || "",
+      phoneNumber: user.phoneNumber || "",
+      username: user.username || "",
       avatar: user.avatar || "",
       gender: user.gender || "",
       dateOfBirth: user.dateOfBirth || "",
       emailIsVerified: user.emailIsVerified || false,
       country: user.country || "",
+      social_accounts: user.social_accounts || [],
       language: user.language || "",
-      accounts: user.accounts || "",
+      accounts: user.accounts || [],
+      bio: user.bio || "",
       // Add other user attributes you might need
     };
 

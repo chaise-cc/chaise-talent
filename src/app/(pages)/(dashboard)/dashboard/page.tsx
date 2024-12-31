@@ -4,6 +4,7 @@ import TopNavigation from "../_components/top-navigation";
 import getUserAndRole from "@/utils/getUserAndRole";
 import CompleteProfile from "../_components/CompleteProfile";
 import DashboardCalendar from "../_components/DashboardCalendar";
+import PublicURLComponent from "../_components/PublicURLComponent";
 
 export default async function HomePage() {
   const { user } = await getUserAndRole();
@@ -19,7 +20,7 @@ export default async function HomePage() {
         ]}
       />
       <main className="flex w-full justify-between">
-        <div className=" flex flex-col gap-8 w-full">
+        <div className=" flex flex-col gap-4 w-full">
           <div className="flex w-full gap-4">
             <div className="border rounded-xl flex gap-4 h-full justify-between flex-col p-4 w-full">
               <h2 className="font-medium text-sm">Earnings</h2>
@@ -54,7 +55,9 @@ export default async function HomePage() {
 
         {/*  */}
         <div className="md:w-[35%] px-4 max-w-sm hidden flex-shrink-0 md:block">
-          <CompleteProfile />
+          <PublicURLComponent user={user} />
+
+          <CompleteProfile user={user} />
 
           {/*  */}
           <DashboardCalendar />
