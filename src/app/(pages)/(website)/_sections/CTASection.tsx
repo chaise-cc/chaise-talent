@@ -14,7 +14,7 @@ const CTASection = () => {
       <div className="py-12 md:py-[6rem] px-4 md:px-6 bg-main-color-500 text-gray-900">
         <div className="!max-w-4xl container mx-auto text-center gap-8 grid place-items-center py-16">
           <h1 className="md:text-5xl text-3xl font-medium">
-            EMBRACE THE FREELANCE REVOLUTION TODAY!
+            Ready to get the best there is?
           </h1>
           <p className="px-9 text-lg">
             Work with the largest network of independent professionals and get

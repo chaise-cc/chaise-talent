@@ -47,7 +47,7 @@ export default function PublicURLComponent({ user }: PublicURLComponentProps) {
   if (!user.username) return null;
 
   return (
-    <div className="overflow-hidden rounded-xl">
+    <div className="overflow-hidden pb-2 border-b">
       <h2 className="font-semibold text-lg text-gray-700">Public URL</h2>
       <div className="py-2">
         <div className="flex w-full items-center justify-between rounded-xl">

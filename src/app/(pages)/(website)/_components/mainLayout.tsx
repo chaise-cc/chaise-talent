@@ -12,7 +12,9 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   return (
     <main
-      className={`md:pt-28 min-h-screen  ${currentPath !== "/" && "md:mt-14"}`}
+      className={`md:pt-28 min-h-screen  ${
+        currentPath !== "/" && !currentPath.includes("/blog") && "md:mt-14"
+      }`}
     >
       {children}
     </main>

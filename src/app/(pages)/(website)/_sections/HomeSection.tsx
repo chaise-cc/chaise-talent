@@ -13,7 +13,7 @@ const HeroSection = () => {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 1 }}
-      className="bg-white relative h-[calc(100vh-160px)] w-full container  mx-auto py-8  flex flex-col justify-center"
+      className="bg-white relative h-[calc(100vh-160px)] max-h-[600px] w-full container  mx-auto py-8  flex flex-col justify-center"
     >
       {/*  */}
       <div className="absolute left-0 top-0 hidden container justify-between md:flex w-full h-full z-10 flex-col">

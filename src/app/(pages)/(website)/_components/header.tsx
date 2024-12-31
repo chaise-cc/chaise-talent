@@ -104,14 +104,18 @@ export default function Header({ user, activeRole }: HeaderProps) {
 
   return (
     <header
-      className={`hidden z-50 text-sm  fixed top-0 h-auto w-full bg-white md:flex flex-col 
-       ${currentPath === "/" ? "pt-4" : "pt-4 pb-0"}
+      className={`hidden z-50  fixed top-0 h-auto w-full bg-white md:flex flex-col 
+       ${
+         currentPath === "/" && !currentPath.includes("/blog")
+           ? "pt-4"
+           : "pt-4 pb-0"
+       }
     `}
     >
       <div className="container w-full">
         <div className="flex w-full rounded-full h-[72px] bg-gray-100 border justify-between items-center gap-4 py-5 pl-6 pr-4">
           {/* Logo and Navigation Links */}
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 leading-none items-center">
             <Link
               href="/"
               className="logo mr-4 flex items-center h-6 p font-semibold"
@@ -122,7 +126,7 @@ export default function Header({ user, activeRole }: HeaderProps) {
                 height={32}
                 width={82}
                 loading="lazy"
-                className="h-[90%] w-auto object-cover"
+                className="h-[95%] w-auto object-cover"
               />
             </Link>
 
@@ -228,7 +232,8 @@ export default function Header({ user, activeRole }: HeaderProps) {
         </div>
       </div>
 
-      {currentPath !== "/" || showCategories ? (
+      {(currentPath !== "/" && !currentPath.includes("/blog")) ||
+      showCategories ? (
         <div className="navigate-categories relative w-full container flex gap-4 justify-between items-center">
           <ArrowLeft2
             color={!canScrollLeft ? "gray" : "black"}

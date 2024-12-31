@@ -76,13 +76,15 @@ export type SubServiceCategories = {
 
 // Define the props interface
 interface BlogCardProps {
-  imageSrc: string;
-  imageAlt: string;
-  tag: string;
-  date: string;
-  title: string;
-  description: string;
-  slug: string;
+  blog: {
+    id: string;
+    imageSrc: string;
+    coverImage: string;
+    tags: string[];
+    date: string;
+    title: string;
+    description: string;
+  };
   fullWidth?: boolean;
 }
 

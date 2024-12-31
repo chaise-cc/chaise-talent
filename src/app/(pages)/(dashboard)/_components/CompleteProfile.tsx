@@ -36,10 +36,10 @@ export default function CompleteProfile({ user }: CompleteProfileProps) {
   const completedSteps = steps.filter((step) => step.completed).length;
 
   return (
-    <section className="bg-white border-t w-full overflow-hidden">
+    <section className="bg-white w-full overflow-hidden">
       {/* Header Section */}
-      <div className="flex gap-2 items-center justify-between">
-        <h2 className="text-xl font-semibold py-4">Next Steps</h2>
+      <div className="flex gap-2 items-center  justify-between">
+        <h2 className="text-xl font-semibold ">Next Steps</h2>
         <div
           className={`h-10 w-10 flex items-center text-sm font-medium justify-center rounded-full ${
             completedSteps === steps.length
