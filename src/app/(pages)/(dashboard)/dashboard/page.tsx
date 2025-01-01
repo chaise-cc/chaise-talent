@@ -55,12 +55,7 @@ export default async function HomePage() {
 
   return (
     <div>
-      <TopNavigation
-        pageTitle={`Welcome back, ${user.firstname}`}
-        pageCrumbs={[
-          { text: "Here’s an overview of your Dashboard", link: "" },
-        ]}
-      />
+      <TopNavigation pageTitle={`Welcome back, ${user.firstname}`} />
       <main className="flex w-full justify-between">
         {/* Left Section */}
         <div className="flex flex-col gap-4 w-full">
@@ -89,33 +84,33 @@ export default async function HomePage() {
 
           {/* Metrics Section */}
           <div className="flex gap-4">
-            <div className="w-full border rounded-xl p-4 flex flex-col justify-between">
+            <div className="w-full border rounded-xl p-4 gap-4 flex flex-col justify-between">
               <h2 className="text-sm font-medium">Earnings</h2>
               <h3 className="text-2xl font-bold">$0</h3>
               <small>
-                <span className="text-green-500">10%</span> increase
+                <span className="text-green-500">0%</span> increase
               </small>
             </div>
-            <div className="w-full border rounded-xl p-4 flex flex-col justify-between">
+            <div className="w-full border rounded-xl p-4 gap-4 flex flex-col justify-between">
               <h2 className="text-sm font-medium">Projects completed</h2>
-              <h3 className="text-2xl font-bold">3</h3>
+              <h3 className="text-2xl font-bold">0</h3>
               <small>
-                <span className="text-green-500">10%</span> increase
+                <span className="text-green-500">0%</span> increase
               </small>
             </div>
           </div>
 
           {/* Profile Metrics */}
-          <div className="border rounded-xl p-4 flex flex-col gap-2">
-            <h2 className="text-lg font-medium">Profile metrics</h2>
-            <h3 className="text-2xl font-medium">
+          <div className="border rounded-xl p-4 flex flex-col gap-4">
+            <h2 className="font-medium">Profile metrics</h2>
+            <h3 className="text-xl font-medium">
               <span>0</span>&nbsp;profile views
             </h3>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="hidden md:flex flex-col gap-4 px-4 lg:max-w-md flex-shrink-0">
+        <div className="hidden md:flex flex-col gap-4 px-4 w-full lg:max-w-md flex-shrink-0">
           <PublicURLComponent user={user} />
           <CompleteProfile user={user} />
           <DashboardCalendar />

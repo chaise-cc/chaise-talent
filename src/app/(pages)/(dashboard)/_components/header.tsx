@@ -49,7 +49,9 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
         </div>
       </div>
 
-      <AccountSwitcher activeRole={activeRole} />
+      <div className="hidden md:flex">
+        <AccountSwitcher activeRole={activeRole} />
+      </div>
 
       <div className="flex items-center shrink-0 gap-4 ml-4 md:gap-8 justify-end">
         <div className="flex items-center gap-4 md:gap-8">
@@ -109,6 +111,10 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
                     <Usss size="14" color="black" variant="Outline" /> Profile
                     Setting
                   </Link>
+                </div>
+
+                <div className="md:hidden flex">
+                  <AccountSwitcher activeRole={activeRole} />
                 </div>
               </div>
             </DropdownMenuContent>
