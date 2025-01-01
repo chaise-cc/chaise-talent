@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, TickCircle, CloseSquare } from "iconsax-react";
+import { ArrowRight, TickCircle } from "iconsax-react";
+import { steps } from "@/data/local.index";
 
 type CompleteProfileProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,55 +10,18 @@ type CompleteProfileProps = {
 };
 
 export default function CompleteProfile({ user }: CompleteProfileProps) {
-  const steps = [
-    {
-      label: "Update your profile",
-      href: "/dashboard/update",
-      completed: user.username && user?.social_accounts.length >= 1 && user.bio,
-    },
-    {
-      label: "Add work experience(s)",
-      href: "/dashboard/settings?tab=profile",
-      completed: false,
-    },
-    {
-      label: "Create your first service",
-      href: "/dashboard/services/new",
-      completed: false,
-    },
-
-    {
-      label: "Setup withdrawal method",
-      href: "/dashboard/settings?tab=withdrawals",
-      completed: false,
-    },
-  ];
-
-  const completedSteps = steps.filter((step) => step.completed).length;
+  const updateSteps = steps(user);
 
   return (
     <section className="bg-white w-full overflow-hidden">
       {/* Header Section */}
       <div className="flex gap-2 items-center  justify-between">
         <h2 className="text-xl font-semibold ">Next Steps</h2>
-        <div
-          className={`h-10 w-10 flex items-center text-sm font-medium justify-center rounded-full ${
-            completedSteps === steps.length
-              ? "bg-green-500 text-white"
-              : "border-4 border-l-main-color-300 text-gray-700"
-          }`}
-        >
-          {completedSteps === steps.length ? (
-            <CloseSquare size={24} color="white" />
-          ) : (
-            `${completedSteps}/${steps.length}`
-          )}
-        </div>
       </div>
 
       {/* Steps Section */}
       <div className="flex flex-col gap-2 text-gray-600">
-        {steps.map((step, index) => (
+        {updateSteps.map((step, index) => (
           <Link
             key={index}
             href={step.href}
