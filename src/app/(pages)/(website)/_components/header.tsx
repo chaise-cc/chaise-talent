@@ -104,7 +104,7 @@ export default function Header({ user, activeRole }: HeaderProps) {
 
   return (
     <header
-      className={`hidden z-50  fixed top-0 h-auto w-full bg-white md:flex flex-col 
+      className={`hidden z-50 fixed top-0 h-auto w-full bg-white md:flex flex-col 
        ${
          currentPath === "/" && !currentPath.includes("/blog")
            ? "pt-4"
