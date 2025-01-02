@@ -1,3 +1,5 @@
+"use server";
+
 import React from "react";
 import TopNavigation from "../_components/top-navigation";
 import getUserAndRole from "@/utils/getUserAndRole";

@@ -11,6 +11,7 @@ import "./_styles/index.scss";
 
 import getUserAndRole from "@/utils/getUserAndRole";
 import { isMobile } from "@/utils/checkDeviceIsMobile";
+import { Toaster } from "@/components/ui/sonner";
 
 export default async function TalentDashboardLayout({
   children,
@@ -46,6 +47,8 @@ export default async function TalentDashboardLayout({
           <NotificationSidebar />
           <main className="p-4 w-full">{children}</main>
           {deviceIsMobile && <MobileNavbarDashboard />}
+
+          <Toaster richColors position="top-right" />
         </LayoutTransition>
       </div>
     </div>

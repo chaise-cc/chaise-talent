@@ -13,6 +13,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Button } from "@/components/ui/button";
 import TopNavigation from "./top-navigation";
 import { updateProfile } from "@/app/_actions/updateProfile.action";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const countryCodes = [
   { code: "+1", label: "United States", flag: "🇺🇸" },
@@ -38,7 +40,7 @@ export default function ProfileUpdatePageClient({ user }: { user: any }) {
   const [saving, setSaving] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
-
+  const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState<string>(
     user.phoneNumber?.split(" ")[1] || ""
   );
@@ -74,7 +76,8 @@ export default function ProfileUpdatePageClient({ user }: { user: any }) {
       });
 
       if (response.success) {
-        alert("Profile updated successfully!");
+        toast.success("Profile updated successfully!");
+        router.push("/dashboard");
       } else {
         alert("Failed to update profile. Please try again.");
       }
