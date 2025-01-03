@@ -1,3 +1,5 @@
+"use server";
+
 import MainLayout from "@/app/(pages)/(website)/_components/mainLayout";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import pb from "@/lib/pocketbase";
