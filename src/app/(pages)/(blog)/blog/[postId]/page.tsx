@@ -69,13 +69,13 @@ export default async function BlogPostPage(props: {
 
           <ScrollBar orientation="horizontal" className="-mb-1" />
         </ScrollArea>
-        <div className="blogpost-header text-center flex flex-col gap-8">
+        <div className="blogpost-header text-center w-full max-w-7xl mx-auto flex flex-col gap-8">
           <h2 className="text-2xl font-varela md:text-4xl">{post.title}</h2>
           <Image
             src={post.coverImage}
             height={500}
             width={1200}
-            className="w-full max-w-[990px] h-72 md:h-[400px] mx-auto object-cover rounded-xl"
+            className="w-full overflow-hidden h-72 md:h-[468px] mx-auto object-cover rounded-xl"
             alt="Blog image"
           />
         </div>
@@ -83,7 +83,7 @@ export default async function BlogPostPage(props: {
 
       <section
         style={{ fontSize: "16px" }}
-        className="container prose py-4 md:py-8 w-full !max-w-7xl mx-auto"
+        className="prose py-4 px-0 md:py-8 w-full !max-w-7xl mx-auto !pb-24 "
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></section>
     </MainLayout>

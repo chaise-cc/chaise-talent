@@ -5,7 +5,9 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import getAllPosts from "@/app/_actions/posts/index.action";
 
 export default async function ExploreBlogSection() {
-  const allPosts = await getAllPosts();
+  const allPosts = (await getAllPosts()).sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
   console.log(allPosts);
 
   return (

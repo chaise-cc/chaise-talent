@@ -15,6 +15,7 @@ export default async function getAllPosts() {
       date: post.date || "",
       title: post.title || "",
       description: post.description || "",
+      createdAt: post.createdAt || "",
     }));
 
     return formattedPosts;
