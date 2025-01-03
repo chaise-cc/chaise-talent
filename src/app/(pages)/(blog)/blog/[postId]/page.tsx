@@ -82,7 +82,8 @@ export default async function BlogPostPage(props: {
       </section>
 
       <section
-        className="container prose prose-xl py-4 md:py-8 w-full !max-w-7xl mx-auto"
+        style={{ fontSize: "16px" }}
+        className="container prose py-4 md:py-8 w-full !max-w-7xl mx-auto"
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></section>
     </MainLayout>
