@@ -52,6 +52,11 @@ export default async function BlogPostPage(props: {
           />
         </div>
       </section>
+
+      <section
+        className="container py-4 md:py-8 w-full !max-w-6xl first-letter:text-3xl first-letter:font-bold mx-auto"
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      ></section>
     </MainLayout>
   );
 }
