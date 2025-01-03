@@ -18,11 +18,11 @@ export async function generateMetadata(props: {
 
   return {
     title: post.title,
-    description: post.summary || "Read this insightful blog post.",
+    description: post.description || "Read this insightful blog post.",
     openGraph: {
       title: post.title,
       description:
-        post.summary || "Discover more insights in our latest blog post.",
+        post.description || "Discover more insights in our latest blog post.",
       images: [
         {
           url: post.coverImage,
