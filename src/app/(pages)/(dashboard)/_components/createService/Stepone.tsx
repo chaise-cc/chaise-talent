@@ -6,14 +6,13 @@ import { Label } from "@/components/ui/label";
 import { ArrowRight } from "lucide-react";
 import TagInput from "@/components/custom/TagInput";
 import { ServiceFormData } from "@/types";
-// import TagInput from "./TagInput";
 
 export default function CreateServiceStepOne({
   onSaveDraft,
   onNextStep,
 }: {
-  onSaveDraft: (formData: ServiceFormData) => void;
-  onNextStep: (formData: ServiceFormData) => void;
+  onSaveDraft: (formData: Partial<ServiceFormData>) => void;
+  onNextStep: (formData: Partial<ServiceFormData>) => void;
 }) {
   const [formData, setFormData] = useState<ServiceFormData>({
     name: "",
@@ -40,16 +39,20 @@ export default function CreateServiceStepOne({
       }));
     };
 
+  const handleNext = () => {
+    onNextStep(formData);
+  };
+
+  const handleSave = () => {
+    onSaveDraft(formData);
+  };
+
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-lg">Step 1: Overview</h2>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onSaveDraft(formData)}
-        >
+        <Button variant="outline" size="sm" onClick={handleSave}>
           Save to Draft
         </Button>
       </div>
@@ -85,7 +88,7 @@ export default function CreateServiceStepOne({
             <input
               type="text"
               className="py-3 px-4 border rounded-md"
-              placeholder="Select a subCategory"
+              placeholder="Select a subcategory"
               value={formData.subCategory}
               onChange={handleInputChange("subCategory")}
             />
@@ -124,7 +127,7 @@ export default function CreateServiceStepOne({
       {/* Next Button */}
       <Button
         className="ml-auto rounded-full px-8 py-4 flex items-center gap-2"
-        onClick={() => onNextStep(formData)}
+        onClick={handleNext}
       >
         Next <ArrowRight />
       </Button>

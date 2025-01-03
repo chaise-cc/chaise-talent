@@ -9,18 +9,27 @@ import { ServiceFormData } from "@/types";
 
 export default function CreateServiceScreen() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState<ServiceFormData>({
+    name: "",
+    category: "",
+    subCategory: "",
+    jobTitles: [],
+    keywords: [],
+  });
 
-  const handleNextStep = (formData: ServiceFormData) => {
-    console.log("Form data for step", currentStep, formData);
-    if (currentStep < 4) setCurrentStep(currentStep + 1);
+  const handleNextStep = (data: Partial<ServiceFormData>) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+    if (currentStep < 4) setCurrentStep((prev) => prev + 1);
   };
 
   const handleBackStep = () => {
-    if (currentStep > 1) setCurrentStep(currentStep - 1);
+    if (currentStep > 1) setCurrentStep((prev) => prev - 1);
   };
 
-  const handleSaveDraft = (formData: ServiceFormData) => {
-    console.log("Draft saved:", formData);
+  const handleSaveDraft = (data: Partial<ServiceFormData>) => {
+    const draftData = { ...formData, ...data };
+    console.log("Draft saved:", draftData);
+    // Optionally save the draft to a server or local storage
   };
 
   const renderStep = () => {
@@ -59,6 +68,7 @@ export default function CreateServiceScreen() {
     <div className="flex flex-col text-gray-700 gap-6 max-w-4xl my-8 mx-auto w-full p-8 rounded-xl border bg-white">
       {renderStep()}
 
+      {/* Step Indicators */}
       <div className="flex justify-center mt-4 gap-2">
         {Array.from({ length: 4 }, (_, index) => (
           <div
