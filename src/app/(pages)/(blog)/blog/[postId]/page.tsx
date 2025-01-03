@@ -35,9 +35,9 @@ export async function generateMetadata(props: {
 }
 
 export default async function BlogPostPage(props: {
-  params: { postId: string };
+  params: Promise<{ postId: string }>;
 }) {
-  const { postId } = props.params;
+  const { postId } = await props.params;
 
   const post = await pb.collection("posts").getOne(postId);
 
