@@ -21,7 +21,7 @@ const GetStartedPage = () => {
   return (
     <Modal className="w-full h-max md:max-w-3xl">
       <div className="p-8 flex flex-col h-full items-center w-full justify-center">
-        <Link href={"/"} className="mb-12">
+        <Link href={"/"} className="mb-12 outline-none hover:outline-none">
           <Image
             quality={100}
             src="/images/chaise-yellow.png"
@@ -59,9 +59,9 @@ const GetStartedPage = () => {
         >
           <Button
             disabled={!onboardAs}
-            className="rounded-full leading-none flex gap-2"
+            className="rounded-full py-6 font-semibold px-8 leading-none flex gap-2"
           >
-            Continue <ArrowRight size={16} />
+            Continue <ArrowRight size={24} color="black" />
           </Button>
         </Link>
       </div>

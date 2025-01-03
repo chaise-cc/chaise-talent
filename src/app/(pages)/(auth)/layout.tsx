@@ -18,7 +18,7 @@ export default function AuthenticationLayout({
           <div className="md:w-[50%] h-full bg-main-color-50 hidden md:inline-block">
             <div className=" mx-auto pt-8 flex flex-col gap-10 h-full">
               <div className="flex h-full overflow-hidden flex-col items-center gap-2">
-                <Link href={"/"}>
+                <Link href={"/"} className="outline-none hover:outline-none">
                   <Image
                     quality={100}
                     src="/images/chaise-black.png"
@@ -26,7 +26,7 @@ export default function AuthenticationLayout({
                     height={48}
                     width={200}
                     loading="lazy"
-                    className=" h-8 w-20 object-cover"
+                    className="outline-none h-8 w-20 object-cover"
                   />
                 </Link>
 

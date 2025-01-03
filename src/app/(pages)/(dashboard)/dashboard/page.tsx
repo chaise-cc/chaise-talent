@@ -16,7 +16,7 @@ type CircularProgressProps = {
 };
 
 const CircularProgress: React.FC<CircularProgressProps> = ({ percentage }) => (
-  <div className="relative w-20 h-20 md:w-36 md:h-36">
+  <div className="relative w-20 shrink-0 h-20 md:w-36 md:h-36">
     <svg className="w-full h-full" viewBox="0 0 36 36">
       <circle
         cx="18"

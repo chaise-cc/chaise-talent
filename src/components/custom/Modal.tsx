@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 interface ModalProps {
@@ -9,25 +9,25 @@ interface ModalProps {
 }
 
 export function Modal({ children, className }: ModalProps) {
-  const router = useRouter();
+  // const router = useRouter();
   const dialogRef = useRef<React.ElementRef<"dialog">>(null);
 
   useEffect(() => {
     dialogRef.current?.showModal();
   }, []);
 
-  const closeModal = (e: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
-    if (e.target === dialogRef.current) {
-      router.back();
-    }
-  };
+  // const closeModal = (e: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
+  //   if (e.target === dialogRef.current) {
+  //     router.back();
+  //   }
+  // };
 
   return (
     <dialog
       ref={dialogRef}
-      onClick={closeModal}
-      onClose={router.back}
-      className={`backdrop:bg-black/60 rounded-3xl  backdrop:backdrop-blur-sm h-full max-h-[90vh]  ${
+      // onClick={closeModal}
+      // onClose={router.back}
+      className={`backdrop:bg-black/60 rounded-3xl backdrop:backdrop-blur-sm h-full max-h-[90vh]  ${
         className || ""
       }`}
       style={{

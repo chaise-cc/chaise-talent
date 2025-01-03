@@ -1,17 +1,17 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
+import CreateServiceStepone from "./createService/Stepone";
+import CreateServiceStepThree from "./createService/StepThree";
+import CreateServiceStepTwo from "./createService/StepTwo";
 
 export default function CreateServiceScreen() {
   return (
-    <div className="w-full max-w-4xl mx-auto shadow-sm rounded-xl">
+    <div className="flex flex-col text-gray-700 gap-6 max-w-4xl my-8 mx-auto w-full p-8 rounded-xl border bg-white">
       {/*  */}
-      <div className="flex justify-between items-center">
-        <h2></h2>
-        <p>Step 1</p>
-        <div className="">
-          <Button>ds</Button>
-        </div>
-      </div>
+
+      <CreateServiceStepone />
+
+      <CreateServiceStepTwo />
+
+      <CreateServiceStepThree />
     </div>
   );
 }
