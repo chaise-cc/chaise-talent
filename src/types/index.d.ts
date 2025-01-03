@@ -248,3 +248,29 @@ interface ResendVerificationErrorResponse {
 type ResendVerificationResponse =
   | ResendVerificationSuccessResponse
   | ResendVerificationErrorResponse;
+
+type ServiceFormData = {
+  name?: string;
+  category?: string;
+  subCategory?: string;
+  description?: string;
+  jobTitles: string[];
+  keywords: string[];
+  images?: File[];
+  skills?: string[];
+  tools?: string[];
+  pricing?: {
+    plan: "milestone" | "fixed";
+    price?: number;
+    deliveryTime?: {
+      value: number;
+      unit: "hour" | "day" | "week" | "month" | "year";
+    };
+    milestones?: Array<{
+      description: string;
+      duration: string;
+      amount: number;
+    }>;
+  };
+  additionalNote?: string;
+};

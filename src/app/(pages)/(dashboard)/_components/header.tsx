@@ -61,7 +61,7 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
 
         <div className="flex gap-6 items-center">
           <div className="md:block hidden font-semibold">
-            <LevelRating level={2} />
+            <LevelRating level={1} />
           </div>
 
           <DropdownMenu onOpenChange={(open) => setIsOpen(open)}>
