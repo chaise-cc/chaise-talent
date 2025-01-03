@@ -6,35 +6,63 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
-export default async function BlogPostPage(props: {
-  params: Promise<{ postId: string }>;
+export async function generateMetadata({
+  params,
+}: {
+  params: { postId: string };
 }) {
-  const { postId } = await props.params;
+  const postId = params.postId;
+  const post = await pb.collection("posts").getOne(postId);
+
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.summary || "Read this insightful blog post.",
+    openGraph: {
+      title: post.title,
+      description:
+        post.summary || "Discover more insights in our latest blog post.",
+      images: [
+        {
+          url: post.coverImage,
+          width: 1200,
+          height: 628,
+          alt: post.title,
+        },
+      ],
+      type: "article",
+    },
+  };
+}
+
+export default async function BlogPostPage(props: {
+  params: { postId: string };
+}) {
+  const { postId } = props.params;
 
   const post = await pb.collection("posts").getOne(postId);
 
   if (!post) return redirect("/blog");
-
-  console.log(post);
 
   return (
     <MainLayout>
       <section className="container py-4 md:py-8">
         <ScrollArea className="w-full text-center flex mb-4 justify-center items-center">
           <div className="flex gap-4 mx-auto w-max pb-2">
-            <Link href={"/blog/1"} className=" shrink-0">
+            <Link href={"/blog/1"} className="shrink-0">
               All
             </Link>
             <Link href={"/blog/1"} className="text-main-color-500 shrink-0">
               Freelancer Tips
             </Link>
-            <Link href={"/blog/1"} className=" shrink-0">
+            <Link href={"/blog/1"} className="shrink-0">
               AI & Machine Learning
             </Link>
-            <Link href={"/blog/1"} className=" shrink-0">
+            <Link href={"/blog/1"} className="shrink-0">
               Tech Tools & Resources
             </Link>
-            <Link href={"/blog/1"} className=" shrink-0">
+            <Link href={"/blog/1"} className="shrink-0">
               Innovation
             </Link>
           </div>
