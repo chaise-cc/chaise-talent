@@ -6,12 +6,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { postId: string };
+export async function generateMetadata(props: {
+  params: Promise<{ postId: string }>;
 }) {
-  const postId = params.postId;
+  const { postId } = await props.params;
   const post = await pb.collection("posts").getOne(postId);
 
   if (!post) return {};
