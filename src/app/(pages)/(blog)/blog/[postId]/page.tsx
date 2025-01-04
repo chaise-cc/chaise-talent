@@ -84,16 +84,16 @@ export default async function BlogPostPage(props: {
 
       <section
         style={{ fontSize: "16px" }}
-        className="prose py-4 px-0 md:py-8 w-full !max-w-6xl mx-auto !pb-12"
+        className="prose py-4 md:px-0 px-8 md:py-8 w-full !max-w-6xl mx-auto !pb-12"
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></section>
 
-      <section className="mx-auto pb-24 pt-12 border-t !max-w-6xl">
+      <section className="mx-auto px-8 md:px-0 pb-24 pt-12 border-t !max-w-6xl">
         <h2 className="mb-4 text-xl font-bold">Tags</h2>
 
         {post.tags.map((tag: string, index: number) => (
           <span className="italic" key={index}>
-            #{tag}
+            #{tag}&nbsp;
           </span>
         ))}
       </section>
