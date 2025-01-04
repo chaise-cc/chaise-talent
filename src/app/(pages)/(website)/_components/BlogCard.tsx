@@ -9,7 +9,7 @@ const BlogCard = ({ blog, fullWidth }: BlogCardProps) => {
   return (
     <div
       className={`flex flex-col shrink-0 w-full ${
-        !fullWidth && "max-w-[280px]"
+        !fullWidth && "max-w-[240px] md:max-w-[280px]"
       } sm:max-w-[380px] gap-2 md:gap-3 p-2`}
     >
       <div className="card-header flex flex-col gap-2">
@@ -18,7 +18,7 @@ const BlogCard = ({ blog, fullWidth }: BlogCardProps) => {
           width={400}
           alt={blog.title}
           src={blog.coverImage}
-          className="object-cover h-44 md:h-52 w-full rounded-xl mb-2"
+          className="object-cover h-48 md:h-52 w-full rounded-xl mb-2"
         />
         <div className="flex justify-between items-center text-xs">
           <p className="tag uppercase font-[500] text-main-color-500 leading-none">
