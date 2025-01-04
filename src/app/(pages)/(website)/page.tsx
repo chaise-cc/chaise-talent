@@ -6,6 +6,7 @@ import { Talent } from "@/types";
 import ExclusiveBenefitsSection from "./_sections/ExclusiveBenefitsSection";
 import CTASection from "./_sections/CTASection";
 import ExploreBlogSection from "./_sections/ExploreBlogSection";
+import ExploreCategoriesSection from "./_sections/ExploreCategoriesSection";
 
 export default async function Home() {
   const talents: Talent[] = await getAllTalents();
@@ -14,6 +15,7 @@ export default async function Home() {
     <MainLayout>
       <div className="flex flex-col gap-4">
         <HeroSection />
+        <ExploreCategoriesSection />
         <TopRatedTalentsSection talents={talents} />
         <ExclusiveBenefitsSection />
         <ExploreBlogSection />

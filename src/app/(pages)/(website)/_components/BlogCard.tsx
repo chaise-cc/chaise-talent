@@ -9,7 +9,7 @@ const BlogCard = ({ blog, fullWidth }: BlogCardProps) => {
   return (
     <div
       className={`flex flex-col shrink-0 w-full ${
-        !fullWidth && "max-w-[240px] md:max-w-[280px]"
+        !fullWidth && "max-w-[280px]"
       } sm:max-w-[380px] gap-2 md:gap-3 p-2`}
     >
       <div className="card-header flex flex-col gap-2">
