@@ -1,15 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import BlogCard from "../_components/BlogCard";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import getAllPosts from "@/app/_actions/posts/index.action";
+
+import BlogsCard from "../_components/blogsCard";
 
 export default async function ExploreBlogSection() {
-  const allPosts = (await getAllPosts()).sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
-  console.log(allPosts);
-
   return (
     <section className="container pb-12">
       <h1 className="mb-4 md:mb-12 text-center text-2xl md:text-4xl font-varela">
@@ -27,14 +21,7 @@ export default async function ExploreBlogSection() {
         </span>
       </h1>
 
-      <ScrollArea className="w-full pb-3">
-        <div className="flex md:gap-4 w-full">
-          {allPosts.map((blog) => (
-            <BlogCard key={blog.id} blog={blog} fullWidth={true} />
-          ))}
-        </div>
-        <ScrollBar orientation="horizontal" className="-mb-1.5 " />
-      </ScrollArea>
+      <BlogsCard />
     </section>
   );
 }

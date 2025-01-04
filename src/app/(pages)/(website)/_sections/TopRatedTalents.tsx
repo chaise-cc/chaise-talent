@@ -34,7 +34,7 @@ export default function TopRatedTalentsSection({
         Top Rated Freelancers
       </h2>
 
-      <ScrollArea>
+      <ScrollArea className="pb-3">
         <div className="flex gap-8 w-full">
           {talents.map((talent) => (
             <div

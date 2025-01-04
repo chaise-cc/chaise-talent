@@ -1,5 +1,6 @@
 "use server";
 
+import BlogsCard from "@/app/(pages)/(website)/_components/blogsCard";
 import MainLayout from "@/app/(pages)/(website)/_components/mainLayout";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import pb from "@/lib/pocketbase";
@@ -69,7 +70,7 @@ export default async function BlogPostPage(props: {
 
           <ScrollBar orientation="horizontal" className="-mb-1" />
         </ScrollArea>
-        <div className="blogpost-header text-center w-full max-w-7xl mx-auto flex flex-col gap-8">
+        <div className="blogpost-header text-center w-full max-w-6xl mx-auto flex flex-col gap-8">
           <h2 className="text-2xl font-varela md:text-4xl">{post.title}</h2>
           <Image
             src={post.coverImage}
@@ -83,9 +84,29 @@ export default async function BlogPostPage(props: {
 
       <section
         style={{ fontSize: "16px" }}
-        className="prose py-4 px-0 md:py-8 w-full !max-w-7xl mx-auto !pb-24 "
+        className="prose py-4 px-0 md:py-8 w-full !max-w-6xl mx-auto !pb-12"
         dangerouslySetInnerHTML={{ __html: post.content }}
       ></section>
+
+      <section className="mx-auto pb-24 pt-12 border-t !max-w-6xl">
+        <h2 className="mb-4 text-xl font-bold">Tags</h2>
+
+        {post.tags.map((tag: string, index: number) => (
+          <span className="italic" key={index}>
+            #{tag}
+          </span>
+        ))}
+      </section>
+
+      <section className="container pb-32">
+        <div className="border-t pt-12">
+          <h2 className="mb-4 md:mb-12 font-medium text-center text-2xl md:text-4xl font-varela">
+            Read more posts
+          </h2>
+
+          <BlogsCard />
+        </div>
+      </section>
     </MainLayout>
   );
 }

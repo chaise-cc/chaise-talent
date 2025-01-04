@@ -35,7 +35,7 @@ const BlogCard = ({ blog, fullWidth }: BlogCardProps) => {
         href={`/blog/${blog.id}`}
         className="flex gap-1 w-max items-center text-main-color-500 font-[500]"
       >
-        Read more <ArrowRight size={24} />
+        Read more <ArrowRight size={24} color="orange" />
       </Link>
     </div>
   );
