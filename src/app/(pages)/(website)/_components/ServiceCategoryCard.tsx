@@ -13,13 +13,14 @@ export interface ServiceCategoryCardProps {
 const ServiceCategoryCard = ({
   name,
   imgsrc,
-  slug,
+  // slug,
   skillsNo,
   rating,
 }: ServiceCategoryCardProps) => {
   return (
     <Link
-      href={`/services/${slug}`}
+      href={`/#`}
+      onClick={() => alert("Update coming soon!!")}
       className="category-card relative w-full flex flex-col bg-white rounded-lg md:rounded-xl hover:scale-[103%] overflow-hidden shadow-sm  duration-300 md:px-1 md:py-2 transition-all hover:cursor-pointer varela-round-regular"
     >
       <div className="w-full h-36 md:px-4 md:pt-4 relative p-0 mb-2 bg-gray-100 md:h-52 md:rounded-xl overflow-hidden">
