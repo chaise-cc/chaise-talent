@@ -91,11 +91,13 @@ export default async function BlogPostPage(props: {
       <section className="mx-auto px-8 md:px-0 pb-24 pt-12 border-t !max-w-6xl">
         <h2 className="mb-4 text-xl font-bold">Tags</h2>
 
-        {post.tags.map((tag: string, index: number) => (
-          <span className="italic" key={index}>
-            #{tag}&nbsp;
-          </span>
-        ))}
+        <div className="flex flex-wrap gap-4">
+          {post.tags.map((tag: string, index: number) => (
+            <span className="italic" key={index}>
+              #{tag}&nbsp;
+            </span>
+          ))}
+        </div>
       </section>
 
       <section className="container pb-32">
