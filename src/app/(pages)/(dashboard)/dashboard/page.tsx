@@ -112,7 +112,7 @@ export default async function HomePage() {
         </div>
 
         {/* Right Section */}
-        <div className="hidden md:flex flex-col gap-4 px-4 w-full lg:max-w-md flex-shrink-0">
+        <div className="hidden md:flex flex-col gap-4 px-4 w-full lg:max-w-sm flex-shrink-0">
           <PublicURLComponent user={user} />
           <CompleteProfile user={user} />
           <DashboardCalendar />
