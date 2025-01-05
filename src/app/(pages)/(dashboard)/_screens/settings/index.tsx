@@ -9,6 +9,7 @@ import TabsContainer from "@/components/custom/TabsContainer";
 import TabItem from "@/components/custom/TabItem";
 import ProfileSettings from "../../_screens/settings/ProfileSettings";
 import { User } from "@/types";
+import WithdrawalSetting from "./WithdrawalSetting";
 
 type SettingsScreenProps = {
   user: User;
@@ -24,7 +25,7 @@ const SettingsScreen = ({ user }: SettingsScreenProps) => {
     {
       name: "Withdrawal Methods",
       slug: "withdrawals",
-      component: "<WithdrawalMethodsScreen />",
+      component: <WithdrawalSetting />,
     },
     { name: "Contact Info", slug: "contact", component: "<ContactSettings />" },
     {

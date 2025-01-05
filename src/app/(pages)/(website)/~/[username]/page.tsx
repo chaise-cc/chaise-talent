@@ -54,7 +54,7 @@ export default async function TalentProfilePage(props: {
 
           <div className="flex flex-col gap-4">
             <div className="">
-              <h2 className="text-lg font-medium">Bio</h2>
+              <h2 className="text-lg font-medium">Overview</h2>
 
               <div
                 className="flex flex-col gap-2"

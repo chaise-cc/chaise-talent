@@ -66,7 +66,7 @@ export default function ProfileSettings({ user }: ProfileSettingsProps) {
                   href={`${process.env.NEXT_PUBLIC_BASE_URL}/~/${user.username}`}
                   target="_blank"
                 >
-                  <EyeIcon size={18} /> Preview my Profile
+                  <EyeIcon size={18} /> Profile preview
                 </Link>
               </Button>
             </div>

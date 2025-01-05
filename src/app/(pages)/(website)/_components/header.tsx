@@ -254,7 +254,7 @@ export default function Header({ user, activeRole }: HeaderProps) {
                   shallow={true}
                   key={index}
                   className="text-sm whitespace-nowrap"
-                  href={`/cgr/${service.slug}`}
+                  href={`/services/${service.slug}`}
                 >
                   {service.name}
                 </Link>
