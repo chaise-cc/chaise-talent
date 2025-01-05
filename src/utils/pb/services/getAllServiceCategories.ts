@@ -12,6 +12,7 @@ export default async function getAllServiceCategories() {
       name: category.name,
       illustration: category.illustration,
       description: category.description,
+      talentId: category.talentId,
     }));
   } catch (error) {
     console.error("Error fetching allServiceCategories:", error);

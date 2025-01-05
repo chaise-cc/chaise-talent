@@ -55,6 +55,7 @@ interface talentReview {
 type Service = {
   id: string;
   name: string;
+  illustration: string;
   description: string;
   talentId: string;
 };

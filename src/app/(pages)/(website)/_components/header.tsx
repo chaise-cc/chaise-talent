@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
-import { User } from "@/types";
+import { Service, User } from "@/types";
 
-import servicesCategories from "@/data/services-categories";
 import { DESKTOP_NAV_LINK_ITEMS } from "@/data/menuCategories";
 
 import { useNotifications } from "@/app/_providers/notification.provider";
@@ -31,9 +30,14 @@ import { MdOpenInNew } from "react-icons/md";
 type HeaderProps = {
   user?: User | null;
   activeRole?: string;
+  serviceCategories: Service[];
 };
 
-export default function Header({ user, activeRole }: HeaderProps) {
+export default function Header({
+  user,
+  activeRole,
+  serviceCategories,
+}: HeaderProps) {
   const [, setIsOpen] = useState(false);
   const { notifications } = useNotifications();
   const currentPath = usePathname();
@@ -249,12 +253,12 @@ export default function Header({ user, activeRole }: HeaderProps) {
 
           <ScrollArea className="w-full py-2" ref={scrollAreaRef}>
             <div className="w-full flex relative z-40 gap-4 md:gap-6 py-2 justify-center">
-              {servicesCategories.map((service, index) => (
+              {serviceCategories.map((service, index) => (
                 <Link
                   shallow={true}
                   key={index}
                   className="text-sm whitespace-nowrap"
-                  href={`/services/${service.slug}`}
+                  href={`/services/${service.id}`}
                 >
                   {service.name}
                 </Link>

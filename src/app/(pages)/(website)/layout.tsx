@@ -5,6 +5,7 @@ import SideBarProvider from "@/app/_providers/sidebar.provider";
 import WebsiteMobileHeader from "./_components/WebsiteMobileHeader";
 import SideBarWebsiteMobile from "./_components/sidebarWebsite";
 import SiteFooter from "./_components/footer";
+import getAllServiceCategories from "@/utils/pb/services/getAllServiceCategories";
 
 export default async function WebsiteLayout({
   children,
@@ -12,10 +13,15 @@ export default async function WebsiteLayout({
   children: React.ReactNode;
 }>) {
   const { user, activeRole } = await getUserAndRole();
+  const serviceCategories = await getAllServiceCategories();
 
   return (
     <SideBarProvider>
-      <Header user={user} activeRole={activeRole} />
+      <Header
+        serviceCategories={serviceCategories}
+        user={user}
+        activeRole={activeRole}
+      />
       <WebsiteMobileHeader user={user} />
       <SideBarWebsiteMobile user={user} />
 
