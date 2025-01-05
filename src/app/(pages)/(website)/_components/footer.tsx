@@ -14,7 +14,7 @@ const categories = [
     title: "Categories",
     links: servicesCategories.map((service) => ({
       name: service.name,
-      href: `/cgr/${service.slug}`,
+      href: `/services/${service.slug}`,
     })),
   },
   {

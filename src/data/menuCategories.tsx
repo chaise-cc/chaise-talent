@@ -4,7 +4,7 @@ import servicesCategories from "./services-categories";
 const transformServicesCategories = (categories: any[]) => {
   return categories.map((category) => ({
     text: category.name,
-    href: `/cgr/${category.slug}`,
+    href: `/services/${category.slug}`,
   }));
 };
 
@@ -41,10 +41,10 @@ export const MOBILE_NAV_LINK_ITEMS = [
 ];
 
 export const DESKTOP_NAV_LINK_ITEMS = [
-  { text: "Find Talents", hasChildren: true },
-  { text: "Find Works", hasChildren: true },
+  { text: "Find Talents", haschildren: "true" },
+  { text: "Find Works", haschildren: "true" },
   { text: "Chaise Pro", href: "" },
-  { text: "Explore", hasChildren: true },
+  { text: "Explore", haschildren: "true" },
 ];
 
 export const FIND_WORKS_LINK_ITEM = {

@@ -7,15 +7,17 @@ import ExclusiveBenefitsSection from "./_sections/ExclusiveBenefitsSection";
 import CTASection from "./_sections/CTASection";
 import ExploreBlogSection from "./_sections/ExploreBlogSection";
 import ExploreCategoriesSection from "./_sections/ExploreCategoriesSection";
+import getAllServiceCategories from "@/utils/pb/services/getAllServiceCategories";
 
 export default async function Home() {
   const talents: Talent[] = await getAllTalents();
+  const servicesCategories = await getAllServiceCategories();
 
   return (
     <MainLayout>
       <div className="flex flex-col gap-4">
         <HeroSection />
-        <ExploreCategoriesSection />
+        <ExploreCategoriesSection allCategories={servicesCategories} />
         <TopRatedTalentsSection talents={talents} />
         <ExclusiveBenefitsSection />
         <ExploreBlogSection />
