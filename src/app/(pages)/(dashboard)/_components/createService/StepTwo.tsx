@@ -133,13 +133,13 @@ export default function CreateServiceStepTwo({
       <div className="flex items-center justify-end gap-4 mt-4">
         <Button
           variant="outline"
-          className="gap-2 rounded-full font-semibold px-8 py-4"
+          className="gap-3 rounded-full font-semibold px-8 py-6"
           onClick={onBackStep}
         >
-          <ArrowLeft size={18} /> Back
+          <ArrowLeft size={18} color="orange" /> Back
         </Button>
         <Button
-          className="gap-2 rounded-full font-semibold px-8 py-4"
+          className="gap-3 rounded-full font-semibold px-8 py-6"
           onClick={() => onNextStep({ description, images })}
         >
           Next <ArrowRight size={18} />

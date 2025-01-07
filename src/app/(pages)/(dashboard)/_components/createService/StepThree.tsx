@@ -223,21 +223,21 @@ export default function CreateServiceStepThree({
       )}
 
       {/* Navigation Buttons */}
-      <div className="flex items-center justify-end gap-4 mt-4">
+      <div className="flex items-center justify-end gap-4 mt-8">
         <Button
           variant="outline"
-          className="gap-2 rounded-full font-semibold px-8 py-4"
+          className="gap-3 rounded-full font-semibold px-8 py-6"
           onClick={onBackStep}
         >
-          <ArrowLeft size={18} /> Back
+          <ArrowLeft size={20} color="orange" /> Back
         </Button>
         <Button
-          className="gap-2 rounded-full font-semibold px-8 py-4"
+          className="gap-3 rounded-full font-semibold px-8 py-6"
           onClick={() =>
             onNextStep({ pricingPlan, fixedPrice, deliveryTime, milestones })
           }
         >
-          Next <ArrowRight size={18} />
+          Next <ArrowRight size={20} color="black" />
         </Button>
       </div>
     </div>

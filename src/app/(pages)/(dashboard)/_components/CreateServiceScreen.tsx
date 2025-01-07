@@ -5,9 +5,15 @@ import CreateServiceStepOne from "./createService/Stepone";
 import CreateServiceStepTwo from "./createService/StepTwo";
 import CreateServiceStepThree from "./createService/StepThree";
 import CreateServiceStepFour from "./createService/StepFour";
-import { ServiceFormData } from "@/types";
+import { Service, ServiceFormData } from "@/types";
 
-export default function CreateServiceScreen() {
+type CreateServiceScreenProps = {
+  servicesCategories: Service[];
+};
+
+export default function CreateServiceScreen({
+  servicesCategories,
+}: CreateServiceScreenProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<ServiceFormData>({
     name: "",
@@ -37,6 +43,7 @@ export default function CreateServiceScreen() {
       case 1:
         return (
           <CreateServiceStepOne
+            servicesCategories={servicesCategories}
             onSaveDraft={handleSaveDraft}
             onNextStep={handleNextStep}
           />

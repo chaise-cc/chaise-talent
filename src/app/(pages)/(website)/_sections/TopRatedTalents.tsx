@@ -28,7 +28,7 @@ export default function TopRatedTalentsSection({
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ ease: "easeInOut", duration: 1 }}
-      className="container py-8 my-12 md:my-24"
+      className="container py-8 my-12 md:mt-20"
     >
       <h2 className="text-[2.3rem] md:mb-12 mb-4 font-varela text-center font-medium">
         Top Rated Freelancers
@@ -71,7 +71,7 @@ export default function TopRatedTalentsSection({
 
               {talent.username && (
                 <Link
-                  className="text-xs text-main-color-500 underline flex -mt-1"
+                  className=" text-main-color-500 underline flex"
                   href={`/~/${talent.username}`}
                 >
                   View profile
