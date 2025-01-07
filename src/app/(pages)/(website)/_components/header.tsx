@@ -30,7 +30,7 @@ import { MdOpenInNew } from "react-icons/md";
 type HeaderProps = {
   user?: User | null;
   activeRole?: string;
-  serviceCategories: Service[];
+  serviceCategories?: Service[];
 };
 
 export default function Header({
@@ -253,7 +253,7 @@ export default function Header({
 
           <ScrollArea className="w-full py-2" ref={scrollAreaRef}>
             <div className="w-full flex relative z-40 gap-4 md:gap-6 py-2 justify-center">
-              {serviceCategories.map((service, index) => (
+              {serviceCategories?.map((service, index) => (
                 <Link
                   shallow={true}
                   key={index}
