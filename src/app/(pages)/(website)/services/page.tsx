@@ -2,6 +2,7 @@ import React from "react";
 import MainLayout from "../_components/mainLayout";
 import getAllServiceCategories from "@/utils/pb/services/getAllServiceCategories";
 import ServiceCategoryCard from "../_components/ServiceCategoryCard";
+import CTASection from "../_sections/CTASection";
 
 export default async function ServicesPage() {
   const allServiceCategories = await getAllServiceCategories();
@@ -26,6 +27,8 @@ export default async function ServicesPage() {
           </div>
         </div>
       </section>
+
+      <CTASection />
     </MainLayout>
   );
 }

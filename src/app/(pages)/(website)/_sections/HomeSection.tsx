@@ -85,8 +85,8 @@ const HeroSection = () => {
           </h2>
           <div className="flex mx-auto text-gray-700 max-w-sm px-4 md:max-w-3xl sora-regular md:text-lg flex-col justify-center items-center">
             <p className="text-lg">
-              You&apos;re few steps away from the best talents and
-              opportunities.
+              You&apos;re a few steps away from the best talents and
+              opportunities Africa has to offer.
             </p>
           </div>
         </div>
