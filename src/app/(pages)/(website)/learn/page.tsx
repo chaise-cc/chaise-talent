@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import SearchBoxHero from "../_components/HeroSearchBox";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import StarRating from "@/components/icons/StarRating.icon";
 
 const courseCategories = [
   {
@@ -41,6 +42,21 @@ const courseCategories = [
   {
     name: "IT Support and Administration",
     icon: "/images/icons/maintenance.png",
+  },
+];
+
+const courses = [
+  {
+    thumbnail: "/images/thumbnails/aws-certified-cloud-practitioner.jpg",
+    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
+    name: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
+    instructor: {
+      name: "Andrew Brown",
+      profession: "Developer and Lead Instructor",
+    },
+    rating: 3.9,
+    students: 231869,
+    price: { currency: "USD", amount: 19.99 },
   },
 ];
 
@@ -126,16 +142,39 @@ export default function LearnPage() {
             </p>
           </div>
 
-          <div className="grid gap-2 md:gap-8 grid-cols-2 md:grid-cols-4 py-8 ">
-            {courseCategories.map((category, index) => (
+          <div className="grid gap-2 md:gap-8 grid-cols-2 md:grid-cols-3 py-8 ">
+            {courses.map((course, index) => (
               <div
-                className="p-4 bg-gray-50 flex justify-between flex-col gap-2"
+                className="p-4 bg-gray-50 rounded-xl flex justify-between flex-col gap-2 md:gap-4 "
                 key={index}
               >
-                <Image src={category.icon} alt="" width={32} height={32} />
-                <h3 className="text-sm font-medium line-clamp-2 text-ellipsis">
-                  {category.name}
-                </h3>
+                <Image
+                  src={course.thumbnail}
+                  alt=""
+                  width={480}
+                  height={320}
+                  className=""
+                />
+
+                <div className="flex flex-col gap-2">
+                  <Image
+                    src={course.platform.icon}
+                    alt=""
+                    width={200}
+                    height={200}
+                    className="h-3 w-max object-contain "
+                  />
+                  <h3 className=" line-clamp-2 text-ellipsis">{course.name}</h3>
+                </div>
+
+                <p className="text-xs text-gray-500">
+                  {course.instructor.name}, {course.instructor.profession}
+                </p>
+
+                <div className="flex items-center gap-4">
+                  <StarRating rating={course.rating} /> {course.rating}
+                  <span>{course.students}</span>
+                </div>
               </div>
             ))}
           </div>
