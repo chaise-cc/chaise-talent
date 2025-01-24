@@ -53,7 +53,7 @@ export default function WebsiteMobileHeader({
             height={32}
             width={82}
             priority
-            className={"h-6 w-auto object-cover"}
+            className={"h-5 w-auto object-cover"}
           />
         </Link>
 

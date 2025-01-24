@@ -70,6 +70,7 @@ export const FIND_WORKS_LINK_ITEM = {
 
 export const FIND_TALENTS_LINK_ITEM = {
   text: "Find Talents",
+  isLast: false,
   children: [
     {
       title: "Categories",
@@ -88,25 +89,27 @@ export const FIND_TALENTS_LINK_ITEM = {
 
 export const EXPLORE = {
   text: "Explore",
+  isLast: false,
+
   children: [
     {
       href: "",
-      title: "Works made on Chaise",
+      text: "Works made on Chaise",
       desp: "Discover inspiring works made on chaise",
     },
     {
-      href: "",
-      title: "Chaise Learn",
+      slug: "/learn",
+      text: "Chaise Learn",
       desp: "Learn how Chaise works",
     },
     {
       href: "/blog",
-      title: "Blog",
+      text: "Blog",
       desp: "Get access to latest news, information and community stories",
     },
     {
       href: "",
-      title: "Reviews",
+      text: "Reviews",
       desp: "Learn what people have to say about us",
     },
   ],

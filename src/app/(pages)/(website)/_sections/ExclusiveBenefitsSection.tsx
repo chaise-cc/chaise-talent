@@ -18,7 +18,7 @@ const ExclusiveBenefitsSection = () => {
       <div className="container h-full pb-12">
         <div className="flex flex-col  h-full gap-4 md:gap-12 relative items-center">
           <div className="flex flex-col text-center ">
-            <h1 className="mb-2 md:mb-4 text-2xl md:text-4xl varela-round-regular">
+            <h1 className="mb-2 md:mb-4 text-3xl md:text-4xl varela-round-regular">
               Exclusive benefits just for&nbsp;{" "}
               <span className="relative text-main-color-500">
                 you
@@ -32,7 +32,7 @@ const ExclusiveBenefitsSection = () => {
                 </div>
               </span>
             </h1>
-            <p>
+            <p className="py-1">
               Discover the exclusive features designed to enhance your needs
             </p>
           </div>

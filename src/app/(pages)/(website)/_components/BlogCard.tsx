@@ -27,13 +27,13 @@ const BlogCard = ({ blog, fullWidth }: BlogCardProps) => {
           <p className="date leading-none">{blog.date}</p>
         </div>
       </div>
-      <h2 className="md:text-lg text-base font-sans leading-6 font-semibold line-clamp-2">
+      <h2 className="md:text-lg text-base leading-6 font-bold line-clamp-2">
         {blog.title}
       </h2>
       <p className="line-clamp-3 text-sm md:text-base">{blog.description}</p>
       <Link
         href={`/blog/${blog.id}`}
-        className="flex gap-1 w-max items-center text-main-color-500 font-[500]"
+        className="flex gap-1 w-max items-center text-sm md:text-base text-main-color-500 font-[500]"
       >
         Read more <ArrowRight size={24} color="orange" />
       </Link>

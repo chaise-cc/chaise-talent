@@ -64,7 +64,7 @@ const HeroSection = () => {
       <div className="relative z-20 mx-auto max-w-4xl w-full flex flex-col justify-center items-center gap-4 md:gap-5">
         <div className="text-center flex flex-col gap-4">
           <h2
-            className="xl:text-7xl font-varela md:text-6xl text-5xl"
+            className="xl:text-7xl font-varela md:text-6xl text-4xl"
             style={{ lineHeight: 1.2 }}
           >
             Work with&nbsp;
@@ -84,7 +84,7 @@ const HeroSection = () => {
             Top Talents
           </h2>
           <div className="flex mx-auto text-gray-700 max-w-sm px-4 md:max-w-3xl sora-regular md:text-lg flex-col justify-center items-center">
-            <p className="text-lg">
+            <p className="md:text-lg text-base">
               You&apos;re a few steps away from the best talents and
               opportunities Africa has to offer.
             </p>

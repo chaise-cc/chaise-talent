@@ -100,6 +100,7 @@ const SiteFooter = () => {
                   }`}
                 >
                   <ArrowDown2
+                    color="gray"
                     size="20"
                     variant="Outline"
                     className="text-gray-700"
@@ -144,7 +145,7 @@ const SiteFooter = () => {
         <div className="flex pt-4 pb-8 justify-center items-center">
           <div className="flex w-full sm:flex-row flex-col justify-between items-center gap-4">
             <p className="font-black text-sm opacity-65">
-              &copy; 2024 &reg; La Chaise Innovations
+              &copy; 2025 &reg; La Chaise Innovations
             </p>
             <div className="flex flex-row gap-1.5 h-max text-center md:text-start md:justify-start justify-center sm:gap-6 items-center flex-wrap">
               <Link className="text-xs md:text-sm" href="/">
