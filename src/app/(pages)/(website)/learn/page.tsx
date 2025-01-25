@@ -3,12 +3,12 @@
 import React from "react";
 import MainLayout from "../_components/mainLayout";
 
-//
 import { motion } from "framer-motion";
 import SearchBoxHero from "../_components/HeroSearchBox";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import StarRating from "@/components/icons/StarRating.icon";
+import formatCurrency from "@/app/helpers/currencyFormatter";
+import { FaStar } from "react-icons/fa6";
 
 const courseCategories = [
   {
@@ -32,7 +32,7 @@ const courseCategories = [
     icon: "/images/icons/ux.png",
   },
   {
-    name: "Artificial Intelligence and MAchine Learning",
+    name: "Artificial Intelligence and Machine Learning",
     icon: "/images/icons/artificial-intelligence.png",
   },
   {
@@ -47,8 +47,8 @@ const courseCategories = [
 
 const courses = [
   {
-    thumbnail: "/images/thumbnails/aws-certified-cloud-practitioner.jpg",
-    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
+    thumbnail: "/images/thumbnails/courses/course-1.png",
+    platform: { name: "coursera", icon: "/images/icons/udemy.png" },
     name: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
     instructor: {
       name: "Andrew Brown",
@@ -57,6 +57,18 @@ const courses = [
     rating: 3.9,
     students: 231869,
     price: { currency: "USD", amount: 19.99 },
+  },
+  {
+    thumbnail: "/images/thumbnails/courses/course-2.png",
+    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
+    name: "100 Days of Code: The Complete Python Pro Bootcamp",
+    instructor: {
+      name: "Dr. Angela Yu",
+      profession: "Developer and Lead Instructor",
+    },
+    rating: 3.9,
+    students: 231869,
+    price: { currency: "NGN", amount: 48950 },
   },
 ];
 
@@ -67,9 +79,21 @@ export default function LearnPage() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ ease: "easeInOut", duration: 1 }}
-        className="bg-gradient-to-b from-[#F7C164] to-[#B57300] text-white relative h-[calc(100vh-160px)] max-h-[600px] w-full container  mx-auto py-8 flex flex-col justify-center"
+        className="bg-gradient-to-b from-[#F7C164] to-[#B57300] text-white relative h-[calc(100vh-160px)] max-h-[600px] w-full container mx-auto py-8 flex flex-col justify-center"
       >
-        <div className="w-full flex flex-col justify-center items-center gap-4 max-w-4xl mx-auto">
+        <div className="w-full flex flex-col justify-center items-center gap-4 md:gap-8 max-w-4xl mx-auto">
+          <div className="flex gap-0.5 items-center">
+            <Image
+              src={"/images/chaise-white.png"}
+              alt=""
+              height={48}
+              width={80}
+              quality={100}
+              className="h-8 w-max object-contain"
+            />
+            <span className="text-2xl font-varela">Learn</span>
+          </div>
+
           <h2 className="text-center text-3xl md:text-5xl font-medium">
             Explore More Than 5,000 Courses across Trusted Platforms
           </h2>
@@ -78,9 +102,52 @@ export default function LearnPage() {
             <SearchBoxHero />
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col justify-center items-center text-center gap-4">
             <p className="md:text-lg text-gray-300">Supported by:</p>
-            <div className="flex gap-4 items-center"></div>
+            <div className="gap-8 flex grayscale flex-wrap items-center">
+              <Image
+                src={"/images/icons/coursera.png"}
+                alt=""
+                width={240}
+                height={120}
+                className="h-3 w-auto object-contain"
+              />
+              <Image
+                src={"/images/icons/udemy.png"}
+                alt=""
+                width={240}
+                height={120}
+                className="h-6 w-auto object-contain"
+              />
+              <Image
+                src={"/images/icons/edx.png"}
+                alt=""
+                width={240}
+                height={120}
+                className="h-6 w-auto object-contain"
+              />
+              <Image
+                src={"/images/icons/skillshare.png"}
+                alt=""
+                width={240}
+                height={120}
+                className="h-6 w-auto object-contain"
+              />
+              <Image
+                src={"/images/icons/moodle.png"}
+                alt=""
+                width={240}
+                height={120}
+                className="h-5 w-auto object-contain"
+              />
+              <Image
+                src={"/images/icons/khan_academy.png"}
+                alt=""
+                width={240}
+                height={120}
+                className="h-5 w-auto object-contain"
+              />
+            </div>
           </div>
         </div>
       </motion.section>
@@ -95,7 +162,7 @@ export default function LearnPage() {
       >
         <div className="container">
           <div className="flex flex-col gap-2 justify-center items-center text-center">
-            <h2 className="text-2xl md:text-4xl font-medium">
+            <h2 className="text-2xl md:text-4xl font-semibold">
               Explore by Categories
             </h2>
             <p className="md:text-base max-w-xl text-sm text-gray-500">
@@ -131,7 +198,7 @@ export default function LearnPage() {
       >
         <div className="container">
           <div className="flex flex-col gap-2 justify-center items-center text-center">
-            <h2 className="text-2xl md:text-4xl font-medium">
+            <h2 className="text-2xl md:text-4xl font-semibold">
               Trending Courses
             </h2>
             <p className="md:text-base max-w-2xl text-sm text-gray-500">
@@ -145,15 +212,15 @@ export default function LearnPage() {
           <div className="grid gap-2 md:gap-8 grid-cols-2 md:grid-cols-3 py-8 ">
             {courses.map((course, index) => (
               <div
-                className="p-4 bg-gray-50 rounded-xl flex justify-between flex-col gap-2 md:gap-4 "
+                className="p-4 bg-gray-50 shadow-sm max-w-sm drop-shadow-sm rounded-xl flex justify-between flex-col gap-3"
                 key={index}
               >
                 <Image
                   src={course.thumbnail}
                   alt=""
-                  width={480}
-                  height={320}
-                  className=""
+                  width={720}
+                  height={580}
+                  className="h-48 md:h-52 w-full object-cover rounded-lg"
                 />
 
                 <div className="flex flex-col gap-2">
@@ -171,12 +238,27 @@ export default function LearnPage() {
                   {course.instructor.name}, {course.instructor.profession}
                 </p>
 
-                <div className="flex items-center gap-4">
-                  <StarRating rating={course.rating} /> {course.rating}
-                  <span>{course.students}</span>
+                <div className="flex items-center gap-4 leading-none">
+                  <span className="flex items-center  gap-2 leading-none text-main-color-500">
+                    {course.rating}{" "}
+                    <FaStar size={18} className="leading-none -mt-1" />
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    ({course.students})
+                  </span>
                 </div>
+
+                <h3 className="font-bold">
+                  {formatCurrency(course.price.currency, course.price.amount)}
+                </h3>
               </div>
             ))}
+          </div>
+
+          <div className="p-1 rounded-full bg-main-color-500 w-max mt-8 mx-auto">
+            <Button className="bg-main-color-500 rounded-full border-2 px-8 py-5 border-white">
+              Join for free
+            </Button>
           </div>
         </div>
       </motion.section>
@@ -235,42 +317,42 @@ export default function LearnPage() {
                 alt=""
                 width={240}
                 height={120}
-                className="h-5 bg- w-auto object-contain"
+                className="h-5 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/udemy.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-10 bg- w-auto object-contain"
+                className="h-10 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/edx.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-10 bg- w-auto object-contain"
+                className="h-10 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/skillshare.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-12 bg- w-auto object-contain"
+                className="h-12 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/moodle.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-8 bg- w-auto object-contain"
+                className="h-8 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/khan_academy.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-8 bg- w-auto object-contain"
+                className="h-8 w-auto object-contain"
               />
             </div>
           </div>
