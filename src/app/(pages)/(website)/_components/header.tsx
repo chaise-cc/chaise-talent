@@ -141,10 +141,12 @@ export default function Header({
                 {DESKTOP_NAV_LINK_ITEMS.map((item) => (
                   <Link
                     href={"/"}
+                    className="font-medium"
                     key={item.text}
                     {...item}
-                    // isActive={true}
-                  />
+                  >
+                    {item.text}
+                  </Link>
                 ))}
               </ul>
             ) : activeRole === "talent" ? (

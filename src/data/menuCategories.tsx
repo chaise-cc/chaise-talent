@@ -43,7 +43,7 @@ export const MOBILE_NAV_LINK_ITEMS = [
 export const DESKTOP_NAV_LINK_ITEMS = [
   { text: "Find Talents", haschildren: "true" },
   { text: "Find Works", haschildren: "true" },
-  { text: "Chaise Pro", href: "" },
+  { text: "Chaise Learn", href: "/learn" },
   { text: "Explore", haschildren: "true" },
 ];
 

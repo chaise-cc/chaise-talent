@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import formatCurrency from "@/app/helpers/currencyFormatter";
 import { FaStar } from "react-icons/fa6";
+import Link from "next/link";
 
 const courseCategories = [
   {
@@ -70,6 +71,54 @@ const courses = [
     students: 231869,
     price: { currency: "NGN", amount: 48950 },
   },
+  {
+    thumbnail: "/images/thumbnails/courses/course-1.png",
+    platform: { name: "coursera", icon: "/images/icons/udemy.png" },
+    name: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
+    instructor: {
+      name: "Andrew Brown",
+      profession: "Developer and Lead Instructor",
+    },
+    rating: 3.9,
+    students: 231869,
+    price: { currency: "USD", amount: 198.99 },
+  },
+  {
+    thumbnail: "/images/thumbnails/courses/course-2.png",
+    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
+    name: "100 Days of Code: The Complete Python Pro Bootcamp",
+    instructor: {
+      name: "Dr. Angela Yu",
+      profession: "Developer and Lead Instructor",
+    },
+    rating: 3.9,
+    students: 231869,
+    price: { currency: "NGN", amount: 18900 },
+  },
+  {
+    thumbnail: "/images/thumbnails/courses/course-1.png",
+    platform: { name: "coursera", icon: "/images/icons/udemy.png" },
+    name: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
+    instructor: {
+      name: "Andrew Brown",
+      profession: "Developer and Lead Instructor",
+    },
+    rating: 3.9,
+    students: 231869,
+    price: { currency: "USD", amount: 19.0 },
+  },
+  {
+    thumbnail: "/images/thumbnails/courses/course-2.png",
+    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
+    name: "100 Days of Code: The Complete Python Pro Bootcamp",
+    instructor: {
+      name: "Dr. Angela Yu",
+      profession: "Developer and Lead Instructor",
+    },
+    rating: 3.9,
+    students: 231869,
+    price: { currency: "NGN", amount: 48950 },
+  },
 ];
 
 export default function LearnPage() {
@@ -104,7 +153,7 @@ export default function LearnPage() {
 
           <div className="flex flex-col justify-center items-center text-center gap-4">
             <p className="md:text-lg text-gray-300">Supported by:</p>
-            <div className="gap-8 flex grayscale flex-wrap items-center">
+            <div className="gap-x-8 gap-y-4 flex justify-center grayscale flex-wrap items-center">
               <Image
                 src={"/images/icons/coursera.png"}
                 alt=""
@@ -211,8 +260,9 @@ export default function LearnPage() {
 
           <div className="grid gap-2 md:gap-8 grid-cols-2 md:grid-cols-3 py-8 ">
             {courses.map((course, index) => (
-              <div
-                className="p-4 bg-gray-50 shadow-sm max-w-sm drop-shadow-sm rounded-xl flex justify-between flex-col gap-3"
+              <Link
+                href={"/learn/courses/1"}
+                className="md:p-4 bg-gray-50 shadow-sm max-w-sm drop-shadow-sm rounded-xl flex justify-between flex-col gap-3"
                 key={index}
               >
                 <Image
@@ -220,38 +270,42 @@ export default function LearnPage() {
                   alt=""
                   width={720}
                   height={580}
-                  className="h-48 md:h-52 w-full object-cover rounded-lg"
+                  className="h-44 md:h-52 w-full object-cover rounded-lg"
                 />
 
-                <div className="flex flex-col gap-2">
-                  <Image
-                    src={course.platform.icon}
-                    alt=""
-                    width={200}
-                    height={200}
-                    className="h-3 w-max object-contain "
-                  />
-                  <h3 className=" line-clamp-2 text-ellipsis">{course.name}</h3>
+                <div className="flex flex-col gap-3 px-2 pb-2 md:px-0 md:pb-0">
+                  <div className="flex flex-col gap-2">
+                    <Image
+                      src={course.platform.icon}
+                      alt=""
+                      width={200}
+                      height={200}
+                      className="h-3 w-max object-contain "
+                    />
+                    <h3 className="line-clamp-2 text-ellipsis">
+                      {course.name}
+                    </h3>
+                  </div>
+
+                  <p className="text-xs text-gray-500">
+                    {course.instructor.name}, {course.instructor.profession}
+                  </p>
+
+                  <div className="flex items-center gap-4 leading-none">
+                    <span className="flex items-center  gap-2 leading-none text-main-color-500">
+                      {course.rating}{" "}
+                      <FaStar size={18} className="leading-none -mt-1" />
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      ({course.students})
+                    </span>
+                  </div>
+
+                  <h3 className="font-bold text-sm md:text-base">
+                    {formatCurrency(course.price.currency, course.price.amount)}
+                  </h3>
                 </div>
-
-                <p className="text-xs text-gray-500">
-                  {course.instructor.name}, {course.instructor.profession}
-                </p>
-
-                <div className="flex items-center gap-4 leading-none">
-                  <span className="flex items-center  gap-2 leading-none text-main-color-500">
-                    {course.rating}{" "}
-                    <FaStar size={18} className="leading-none -mt-1" />
-                  </span>
-                  <span className="text-sm text-gray-500">
-                    ({course.students})
-                  </span>
-                </div>
-
-                <h3 className="font-bold">
-                  {formatCurrency(course.price.currency, course.price.amount)}
-                </h3>
-              </div>
+              </Link>
             ))}
           </div>
 
