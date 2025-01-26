@@ -355,7 +355,7 @@ export default function LearnPage() {
           </div>
           <div className="bg-main-color-200 flex flex-col items-center md:flex-row gap-4 md:gap-8 text-gray-700 md:p-20 md:py-12 p-8 rounded-bl-xl rounded-br-xl">
             <div className="w-full md:max-w-md">
-              <h2 className="text-3xl md:text-5xl mb-4 font-bold">
+              <h2 className="text-2xl md:text-5xl mb-4 font-bold">
                 Who Will You Learn With?
               </h2>
               <p className="text-sm md:text-base">
@@ -365,48 +365,48 @@ export default function LearnPage() {
               </p>
             </div>
 
-            <div className="gap-8 flex flex-wrap items-center">
+            <div className="gap-x-8 gap-y-4 md:gap-8 flex flex-wrap items-center">
               <Image
                 src={"/images/icons/coursera.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-5 w-auto object-contain"
+                className="h-3 md:h-5 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/udemy.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-10 w-auto object-contain"
+                className="h-6 md:h-10 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/edx.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-10 w-auto object-contain"
+                className="h-6 md:h-10 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/skillshare.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-12 w-auto object-contain"
+                className="h-8 md:h-12 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/moodle.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-8 w-auto object-contain"
+                className="h-5 md:h-8 w-auto object-contain"
               />
               <Image
                 src={"/images/icons/khan_academy.png"}
                 alt=""
                 width={240}
                 height={120}
-                className="h-8 w-auto object-contain"
+                className="h-5 md:h-8 w-auto object-contain"
               />
             </div>
           </div>
