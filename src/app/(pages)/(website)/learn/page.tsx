@@ -270,10 +270,10 @@ export default function LearnPage() {
                   alt=""
                   width={720}
                   height={580}
-                  className="h-44 md:h-52 w-full object-cover rounded-lg"
+                  className="h-40 md:h-52 w-full object-cover rounded-lg"
                 />
 
-                <div className="flex flex-col gap-3 px-2 pb-2 md:px-0 md:pb-0">
+                <div className="flex flex-col gap-2 md:gap-3 px-2 pb-2 md:px-0 md:pb-0">
                   <div className="flex flex-col gap-2">
                     <Image
                       src={course.platform.icon}
@@ -282,7 +282,7 @@ export default function LearnPage() {
                       height={200}
                       className="h-3 w-max object-contain "
                     />
-                    <h3 className="line-clamp-2 text-ellipsis">
+                    <h3 className="line-clamp-2 text-sm md:text-base text-ellipsis">
                       {course.name}
                     </h3>
                   </div>
@@ -292,11 +292,11 @@ export default function LearnPage() {
                   </p>
 
                   <div className="flex items-center gap-4 leading-none">
-                    <span className="flex items-center  gap-2 leading-none text-main-color-500">
+                    <span className="flex items-center text-sm md:text-base  gap-2 leading-none text-main-color-500">
                       {course.rating}{" "}
-                      <FaStar size={18} className="leading-none -mt-1" />
+                      <FaStar className="leading-none -mt-1 text-sm md:text-base" />
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="md:text-sm text-xs text-gray-500">
                       ({course.students})
                     </span>
                   </div>
@@ -332,28 +332,28 @@ export default function LearnPage() {
             }}
             className="rounded-tr-xl rounded-tl-xl md:p-20 p-8 px-4 bg-cover bg-left-top bg-no-repeat"
           >
-            <div className="w-full flex flex-col justify-center md:justify-start text-center md:text-left gap-8">
-              <h2 className="text-3xl md:max-w-lg  md:text-5xl font-medium text-white">
+            <div className="w-full flex flex-col justify-center md:justify-start text-center md:text-left gap-4 md:gap-8">
+              <h2 className="text-2xl md:max-w-lg  md:text-5xl font-medium text-white">
                 Join Us and Unlock Your Full Potential.
               </h2>
-              <p className="md:max-w-xl  text-white">
+              <p className="md:max-w-xl text-sm md:text-base text-white">
                 Step into a world of limitless learning and growth. Whether
                 you&apos;re starting your journey or leveling up your skills,
                 our platform is built to empower you every step of the way.
               </p>
-              <div className="text-white">
+              <div className="text-white text-sm md:text-base">
                 <p>Expert-Led Courses</p>
                 <p>Flexible Learning</p>
                 <p>Hands-On Projects</p>
                 <p>Certifications That Matter</p>
               </div>
 
-              <Button className="rounded-full mx-auto md:mx-0 mt-4 font-bold inset-2 border bottom-2 w-max py-6 px-8 bg-white">
+              <Button className="rounded-full text-sm md:text-base mx-auto md:mx-0 mt-4 font-bold inset-2 border bottom-2 w-max py-6 px-8 bg-white">
                 Join for free
               </Button>
             </div>
           </div>
-          <div className="bg-main-color-200 flex flex-col items-center md:flex-row gap-4 md:gap-8 text-gray-700 md:p-20 md:py-12 p-8 rounded-bl-xl rounded-br-xl">
+          <div className="bg-main-color-200 flex flex-col items-center md:flex-row gap-4 md:gap-8 text-gray-700 md:p-20 md:py-12 px-4 py-8 rounded-bl-xl rounded-br-xl">
             <div className="w-full md:max-w-md">
               <h2 className="text-2xl md:text-5xl mb-4 font-bold">
                 Who Will You Learn With?
@@ -365,7 +365,7 @@ export default function LearnPage() {
               </p>
             </div>
 
-            <div className="gap-x-8 gap-y-4 md:gap-8 flex flex-wrap items-center">
+            <div className="gap-x-4 gap-y-2 md:gap-8 flex flex-wrap items-center">
               <Image
                 src={"/images/icons/coursera.png"}
                 alt=""
