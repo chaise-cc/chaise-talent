@@ -110,7 +110,9 @@ export default function Header({
     <header
       className={`hidden z-50 fixed top-0 h-auto w-full bg-white md:flex flex-col 
        ${
-         currentPath === "/" && !currentPath.includes("/blog")
+         currentPath === "/" &&
+         !currentPath.includes("/blog") &&
+         !currentPath.includes("/learn")
            ? "pt-4"
            : "pt-4 pb-0"
        }
@@ -139,10 +141,12 @@ export default function Header({
                 {DESKTOP_NAV_LINK_ITEMS.map((item) => (
                   <Link
                     href={"/"}
+                    className="font-medium"
                     key={item.text}
                     {...item}
-                    // isActive={true}
-                  />
+                  >
+                    {item.text}
+                  </Link>
                 ))}
               </ul>
             ) : activeRole === "talent" ? (
@@ -236,7 +240,9 @@ export default function Header({
         </div>
       </div>
 
-      {(currentPath !== "/" && !currentPath.includes("/blog")) ||
+      {(currentPath !== "/" &&
+        !currentPath.includes("/blog") &&
+        !currentPath.includes("/learn")) ||
       showCategories ? (
         <div className="navigate-categories relative w-full container flex gap-4 justify-between items-center">
           <ArrowLeft2

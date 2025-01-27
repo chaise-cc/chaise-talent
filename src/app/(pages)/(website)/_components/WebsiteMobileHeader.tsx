@@ -53,13 +53,13 @@ export default function WebsiteMobileHeader({
             height={32}
             width={82}
             priority
-            className={"h-6 w-auto object-cover"}
+            className={"h-5 w-auto object-cover"}
           />
         </Link>
 
         {user ? (
           <Link
-            className="bg-transparent border border-main-color-500 px-4 py-2 rounded-full font-bold text-main-color-900"
+            className="bg-transparent text-sm border border-main-color-500 px-4 py-2 rounded-full font-bold text-main-color-900"
             href="/dashboard"
           >
             Dashboard

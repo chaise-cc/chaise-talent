@@ -19,7 +19,7 @@ const ServiceCategoryCard = ({ category }: ServiceCategoryCardProps) => {
       href={`/services/${category.id}`}
       className="category-card relative w-full flex flex-col bg-white rounded-lg md:rounded-xl hover:scale-[103%] overflow-hidden shadow-sm  duration-300 md:px-1 md:py-2 transition-all hover:cursor-pointer varela-round-regular"
     >
-      <div className="w-full h-36 md:px-4 md:pt-4 relative p-0 mb-2 bg-gray-100 md:h-52 md:rounded-xl overflow-hidden">
+      <div className="w-full h-32 md:px-4 md:pt-4 relative p-0 mb-1 md:mb-2 bg-gray-100 md:h-52 md:rounded-xl overflow-hidden">
         <Image
           alt={"AI Services categories"}
           height={200}
@@ -29,8 +29,8 @@ const ServiceCategoryCard = ({ category }: ServiceCategoryCardProps) => {
           src={category.illustration}
         />
       </div>
-      <div className="md:p-4 flex flex-col gap-2 justify-between p-2 text-start">
-        <h3 className="sm:text-lg truncate text-gray-900 font-medium md:mb-1.5 mb-1">
+      <div className="md:p-4 flex flex-col gap-1 md:gap-2 justify-between p-2 text-start">
+        <h3 className="sm:text-lg text-sm truncate text-gray-900 font-medium md:mb-1.5 mb-1">
           {category.name}
         </h3>
 
@@ -41,12 +41,12 @@ const ServiceCategoryCard = ({ category }: ServiceCategoryCardProps) => {
               color="orange"
               className={"text-main-color-500 text-lg"}
             />
-            <p className="text-gray-500 text-sm leading-none md:font-semibold">
+            <p className="text-gray-500 md:text-sm text-xs leading-none md:font-semibold">
               <span>4.5</span>/5
             </p>
           </div>
 
-          <p className="text-gray-500 text-sm md:font-semibold">
+          <p className="text-gray-500 md:text-sm text-xs md:font-semibold">
             <span>300</span> skills
           </p>
         </div>

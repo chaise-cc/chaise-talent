@@ -39,6 +39,7 @@ export default async function TalentDashboardLayout({
       <DesktopSideBar />
       <div className="md:ml-64 w-full">
         <LayoutTransition
+          className="w-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

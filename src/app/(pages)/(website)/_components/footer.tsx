@@ -84,14 +84,14 @@ const SiteFooter = () => {
   return (
     <footer className="footer pt-8 sm:pt-16 border-t bg-grayish">
       <div className="pb-8 border-gray-300 container">
-        <div className="grid sm:grid-cols-2 md:grid-cols-5 sm:gap-24 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-5 sm:gap-20 gap-6">
           {categories.map((category, index) => (
             <div key={index} className="flex flex-col gap-4 sm:gap-6">
               <div
                 className="flex cursor-pointer justify-between items-center"
                 onClick={() => toggleSection(index)}
               >
-                <h2 className="font-medium leading-3 text-base md:text-lg">
+                <h2 className="font-medium leading-3 text-sm md:text-base">
                   {category.title}
                 </h2>
                 <div
@@ -100,6 +100,7 @@ const SiteFooter = () => {
                   }`}
                 >
                   <ArrowDown2
+                    color="gray"
                     size="20"
                     variant="Outline"
                     className="text-gray-700"
@@ -114,7 +115,7 @@ const SiteFooter = () => {
                 {category.links.map((link, linkIndex) => (
                   <li
                     key={linkIndex}
-                    className="text-gray-500 hover:text-gray-700"
+                    className="text-gray-500 text-sm hover:text-gray-700"
                   >
                     <a href={link.href}>{link.name}</a>
                   </li>
@@ -132,7 +133,7 @@ const SiteFooter = () => {
 
             <div className="flex gap-8 items-center text-sm">
               <div className="flex gap-1 items-center">
-                <Global variant="Outline" size={20} /> English
+                <Global color="gray" variant="Outline" size={18} /> English
               </div>
               <div className="flex gap-1 items-center">
                 <Global size={20} variant="Outline" /> USD
@@ -142,9 +143,9 @@ const SiteFooter = () => {
         </div>
 
         <div className="flex pt-4 pb-8 justify-center items-center">
-          <div className="flex w-full sm:flex-row flex-col justify-between items-center gap-4">
-            <p className="font-black text-sm opacity-65">
-              &copy; 2024 &reg; La Chaise Innovations
+          <div className="flex w-full sm:flex-row flex-col justify-between items-center gap-3 md:gap-4">
+            <p className="font-black text-xs md:text-sm opacity-65">
+              &copy; 2025 &reg; La Chaise Innovations
             </p>
             <div className="flex flex-row gap-1.5 h-max text-center md:text-start md:justify-start justify-center sm:gap-6 items-center flex-wrap">
               <Link className="text-xs md:text-sm" href="/">

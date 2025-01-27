@@ -12,7 +12,7 @@ export default async function BlogsCard() {
     <ScrollArea className="w-full pb-3">
       <div className="flex md:gap-4 w-full">
         {allPosts.map((blog) => (
-          <BlogCard key={blog.id} blog={blog} fullWidth={true} />
+          <BlogCard key={blog.id} blog={blog} />
         ))}
       </div>
       <ScrollBar orientation="horizontal" className="-mb-1.5 " />
