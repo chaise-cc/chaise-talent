@@ -66,7 +66,7 @@ export default function SignupForm() {
       if (error instanceof Error) {
         toast.error(
           error.message ||
-            "An unexpected error occurred. Please try again later."
+          "An unexpected error occurred. Please try again later."
         );
       } else {
         toast.error("An unexpected error occurred. Please try again later.");
