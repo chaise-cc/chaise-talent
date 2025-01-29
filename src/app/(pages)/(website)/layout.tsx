@@ -22,6 +22,7 @@ export default async function WebsiteLayout({
         user={user}
         activeRole={activeRole}
       />
+
       <WebsiteMobileHeader user={user} />
       <SideBarWebsiteMobile user={user} />
 

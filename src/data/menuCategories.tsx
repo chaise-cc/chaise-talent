@@ -53,7 +53,9 @@ export const FIND_WORKS_LINK_ITEM = {
     {
       href: "",
       title: "Ways to earn",
-      desp: ["Learn about all the different opportunities chaise have for you"],
+      desp: [
+        "Learn about all the different opportunities chaise have for you to earn",
+      ],
     },
     {
       href: "",

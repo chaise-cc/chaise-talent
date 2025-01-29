@@ -1,13 +1,45 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Add } from "iconsax-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SearchBoxHero from "../_components/HeroSearchBox";
 // import SearchBoxHero from "../SearchBox.hero";
 
 const HeroSection = () => {
+  const images = [
+    "/images/hero-testimonials/1.png",
+    "/images/hero-testimonials/2.png",
+    "/images/hero-testimonials/3.png",
+    "/images/hero-testimonials/4.png",
+  ];
+
+  const [imageOneIndex, setImageOneIndex] = useState(0);
+  const [imageTwoIndex, setImageTwoIndex] = useState(1);
+  const [imageThreeIndex, setImageThreeIndex] = useState(2);
+  const [imageFourIndex, setImageFourIndex] = useState(3);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setImageOneIndex((prevIndex) =>
+        prevIndex == images.length - 1 ? 0 : prevIndex + 1
+      );
+      setImageTwoIndex((prevIndex) =>
+        prevIndex == images.length - 1 ? 0 : prevIndex + 1
+      );
+      setImageThreeIndex((prevIndex) =>
+        prevIndex == images.length - 1 ? 0 : prevIndex + 1
+      );
+      setImageFourIndex((prevIndex) =>
+        prevIndex == images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -19,43 +51,68 @@ const HeroSection = () => {
       <div className="absolute left-0 top-0 hidden container justify-between md:flex w-full h-full z-10 flex-col">
         <div className="flex w-full justify-between">
           <div className="h-28 w-40 flex justify-start relative">
-            <Image
-              src={"/images/hero-testimonials/1.png"}
-              quality={100}
-              alt="Hero testimonial 1"
-              fill
-              className="h-full w-full object-contain"
-            />
+            <AnimatePresence>
+              <motion.img
+                key={images[imageOneIndex]}
+                src={images[imageOneIndex]}
+                alt="Hero testimonial 1"
+                className="w-full h-full object-contain"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+              />
+            </AnimatePresence>
           </div>
+
           <div className="h-28 w-40 relative">
-            <Image
-              src={"/images/hero-testimonials/2.png"}
-              quality={100}
-              alt="Hero testimonial 1"
-              fill
-              className="h-full w-full object-contain"
-            />
+            <AnimatePresence>
+              <motion.img
+                key={images[imageTwoIndex]}
+                src={images[imageTwoIndex]}
+                alt="Hero testimonial 2"
+                className="w-full h-full object-contain"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+              />
+            </AnimatePresence>
           </div>
         </div>
 
         <div className="flex w-full justify-between">
           <div className="h-28 w-40 relative">
-            <Image
-              src={"/images/hero-testimonials/3.png"}
-              quality={100}
-              alt="Hero testimonial 1"
-              fill
-              className="h-full w-full object-contain"
-            />
+            <AnimatePresence>
+              <motion.img
+                key={images[imageThreeIndex]}
+                src={images[imageThreeIndex]}
+                alt="Hero testimonial 2"
+                className="w-full h-full object-contain"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+              />
+            </AnimatePresence>
           </div>
+
           <div className="h-28 w-40 relative">
-            <Image
-              src={"/images/hero-testimonials/4.png"}
+            <AnimatePresence>
+              <motion.img
+                key={images[imageFourIndex]}
+                src={images[imageFourIndex]}
+                alt="Hero testimonial 2"
+                className="w-full h-full object-contain"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2.5, ease: "easeOut", delay: 0.3 }}
+              />
+            </AnimatePresence>
+            {/* <Image
+              src={images[imageFourIndex]}
               quality={100}
               alt="Hero testimonial 1"
               fill
               className="h-full w-full object-contain"
-            />
+            /> */}
           </div>
         </div>
       </div>

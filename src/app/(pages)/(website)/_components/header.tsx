@@ -16,6 +16,7 @@ import Avatar from "@/components/icons/Avatar.icon";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import NotificationIcon from "@/components/icons/Notification.icon";
+import HeaderDropdown from "./headerdropdown";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,6 +45,7 @@ export default function Header({
   const [showCategories, setShowCategories] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [itemClicked, setitemClicked] = useState("");
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const heroHeight = 600;
@@ -73,6 +75,10 @@ export default function Header({
     const { scrollLeft, scrollWidth, clientWidth } = scrollAreaRef.current;
     setCanScrollLeft(scrollLeft > 0);
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
+  };
+
+  const getCurrentItem = (item: string) => {
+    setitemClicked(itemClicked === item ? "" : item);
   };
 
   const scrollLeft = () => {
@@ -118,6 +124,15 @@ export default function Header({
        }
     `}
     >
+      {/* Navigation Links dropdwon */}
+
+      {itemClicked != "" && (
+        <HeaderDropdown
+          itemClicked={itemClicked}
+          isCategoryShowing={showCategories}
+        />
+      )}
+
       <div className="container w-full">
         <div className="flex w-full rounded-full h-[72px] bg-gray-100 border justify-between items-center gap-4 py-5 pl-6 pr-4">
           {/* Logo and Navigation Links */}
@@ -139,14 +154,21 @@ export default function Header({
             {!user ? (
               <ul className="flex gap-8 items-center">
                 {DESKTOP_NAV_LINK_ITEMS.map((item) => (
-                  <Link
-                    href={"/"}
-                    className="font-medium"
+                  <div
                     key={item.text}
-                    {...item}
+                    className={`border-0 ${
+                      itemClicked == item.text && "border-b-[1px]"
+                    } border-[#0C0C0B] w-fit pb-[2px]`}
                   >
-                    {item.text}
-                  </Link>
+                    <Link
+                      href={"/"}
+                      className="font-medium"
+                      {...item}
+                      onClick={() => getCurrentItem(item.text)}
+                    >
+                      {item.text}
+                    </Link>
+                  </div>
                 ))}
               </ul>
             ) : activeRole === "talent" ? (
