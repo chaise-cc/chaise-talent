@@ -36,7 +36,7 @@ const TalentDashboardHeader = ({ user, activeRole }: TalentDashboardHeader) => {
 
   return (
     <header className="px-4 h-16 w-full sticky top-0 z-50 bg-gray-50 gap-4 flex items-center justify-between">
-      <div className="flex justify-start w-full h-full gap-4 md:gap-8 items-center">
+      <div className="flex justify-start w-full h-full gap-4z md:gap-8 items-center">
         <div className="relative bg-white overflow-hidden bo rounded-md w-full max-w-sm">
           <div className="icon absolute left-3 top-[50%] translate-y-[-50%]">
             <SearchNormal1 size={16} color="black" />

@@ -136,31 +136,18 @@ export default function Header({
               />
             </Link>
 
-            {!user ? (
-              <ul className="flex gap-8 items-center">
-                {DESKTOP_NAV_LINK_ITEMS.map((item) => (
-                  <Link
-                    href={"/"}
-                    className="font-medium"
-                    key={item.text}
-                    {...item}
-                  >
-                    {item.text}
-                  </Link>
-                ))}
-              </ul>
-            ) : activeRole === "talent" ? (
-              <div className="flex items-center gap-8 font-medium">
-                <Link href="/dashboard/messages">Find Work</Link>
-                <Link href="/dashboard/messages">Messages</Link>
-              </div>
-            ) : (
-              <div className="flex items-center gap-8 font-medium">
-                <Link href="#">Jobs</Link>
-                <Link href="#">Talents</Link>
-                <Link href="#">Messages</Link>
-              </div>
-            )}
+            <ul className="flex gap-8 items-center">
+              {DESKTOP_NAV_LINK_ITEMS.map((item) => (
+                <Link
+                  href={"/"}
+                  className="font-medium"
+                  key={item.text}
+                  {...item}
+                >
+                  {item.text}
+                </Link>
+              ))}
+            </ul>
           </div>
 
           {/* User Actions */}
