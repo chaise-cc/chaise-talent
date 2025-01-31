@@ -275,3 +275,16 @@ type ServiceFormData = {
   };
   additionalNote?: string;
 };
+
+interface AccordionProps {
+  id: number;
+  title: string;
+  contents: ContentType[];
+}
+
+type ContentType = {
+  id: number;
+  name: string;
+  path?: string;
+  type: string;
+};

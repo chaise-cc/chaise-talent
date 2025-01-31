@@ -3,104 +3,12 @@ import React from "react";
 import MainLayout from "../../../_components/mainLayout";
 import { motion } from "framer-motion";
 import formatCurrency from "@/app/helpers/currencyFormatter";
-import { Timer } from "lucide-react";
+import { Star, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Accordion from "@/components/custom/Accordion";
-
-interface AccordionProps {
-  id: number;
-  head: string;
-  content: ContentType[];
-  itemClose: boolean;
-}
-
-type ContentType = {
-  id: number;
-  name: string;
-  path?: string;
-  type: string;
-};
+import { understanding_content_management } from "@/data/courses/understanding-content-management";
 
 export default function CoursePage() {
-  const contentList: AccordionProps[] = [
-    {
-      id: 0,
-      head: "Day 1 - Beginner - Working with Variables in Python to Manage Data",
-      content: [
-        {
-          id: 0,
-          name: "Setting up your account on Chaise",
-          path: "#",
-          type: "link",
-        },
-        {
-          id: 1,
-          name: "Getting people to notice you by upgrading your account.",
-          path: "#",
-          type: "video",
-        },
-        {
-          id: 2,
-          name: "Completing your account on how to use the gjjiui bvgrty nhugytfty nbjyftyfy g6t",
-          path: "#",
-          type: "file",
-        },
-      ],
-      itemClose: true,
-    },
-    {
-      id: 1,
-      head: "Day 2 - Beginner - Understanding Data Types and How to Manipulate Strings",
-      content: [
-        {
-          id: 0,
-          name: "Setting up your account on Chaise",
-          path: "#",
-          type: "file",
-        },
-        {
-          id: 1,
-          name: "Getting people to notice you by upgrading your account.",
-          path: "#",
-          type: "video",
-        },
-      ],
-      itemClose: true,
-    },
-    {
-      id: 2,
-      head: "Day 3 - Beginner - Control Flow and Logical Operators",
-      content: [
-        {
-          id: 0,
-          name: "Setting up your account on Chaise",
-          path: "#",
-          type: "file",
-        },
-        {
-          id: 1,
-          name: "Getting people to notice you by upgrading your account.",
-          path: "#",
-          type: "video",
-        },
-      ],
-      itemClose: true,
-    },
-    {
-      id: 3,
-      head: "Day 4 - Beginner - Randomisation and Python Lists",
-      content: [
-        {
-          id: 0,
-          name: "Setting up your account on Chaise",
-          path: "#",
-          type: "file",
-        },
-      ],
-      itemClose: true,
-    },
-  ];
-
   return (
     <MainLayout>
       <motion.section
@@ -118,6 +26,16 @@ export default function CoursePage() {
             Master Python by building 100 projects in 100 days. Learn data
             science, automation, build websites, games and apps!
           </p>
+
+          <div className="flex items-center gap-2">
+            3.9
+            <Star
+              className="-mt-1 text-yellow-400 fill-main-color-500"
+              size={16}
+            />
+            <span>(231,869 rating)</span>
+            <span>1,487,779 students</span>
+          </div>
 
           <p>
             Created by:{" "}
@@ -161,12 +79,55 @@ export default function CoursePage() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ ease: "easeInOut", duration: 1 }}
-        className="container py-8 md:py-12"
+        className="container py-8 md:py-12 flex flex-col md:flex-row gap-8 "
       >
-        <h2 className="text-xl text-gray-700 md:text-2xl font-semibold">
-          Course Content
-        </h2>
-        <Accordion contentList={contentList} />
+        <div className="w-full">
+          <h2 className="text-xl text-gray-700 md:text-2xl mb-4 md:mb-6 font-semibold">
+            Course Content
+          </h2>
+
+          <div className="flex flex-col gap-2">
+            <p className="text-sm">
+              101 sections • 592 lectures • 56h 20m total length
+            </p>
+            <Accordion contentList={understanding_content_management} />
+          </div>
+        </div>
+
+        <div className="w-full md:max-w-sm flex flex-col gap-4 shrink-0 border p-4 rounded-xl">
+          <h2 className="text-xl font-medium">
+            100 Days of Code: The Complete Python Pro Bootcamp
+          </h2>
+
+          <div className="flex text-sm items-center gap-2">
+            3.9
+            <Star
+              className="-mt-1 text-yellow-400 fill-main-color-500"
+              size={16}
+            />
+            <span>(231,869 rating)</span>
+            <span>1,487,779 students</span>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <h3 className="font-bold text-xl">
+              {formatCurrency("NGN", 10900)}
+            </h3>
+            <small className="text-red-700 flex gap-2 items-center leading-none">
+              <Timer size={20} className="text-red-600 " />{" "}
+              <span className="-mb-1">13 hours left at this price!</span>
+            </small>
+          </div>
+
+          <div className="flex items-center flex-col gap-4 mt-4 w-full">
+            <div className="p-1 rounded-full w-full bg-main-color-500">
+              <Button className="bg-main-color-500 w-full rounded-full font-semibold border-2 px-10 py-6 border-white">
+                Buy this course
+              </Button>
+            </div>
+            <span className="text-sm">Financial aid available</span>
+          </div>
+        </div>
       </motion.section>
     </MainLayout>
   );
