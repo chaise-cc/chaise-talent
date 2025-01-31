@@ -1,52 +1,64 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { ChevronUp, ChevronDown, Link, File, Video } from 'lucide-react';
-  
-const Accordion = ({ contentList }: any) => {
-    const [accordionItems, setAccordionItems] = useState(contentList)
+import { useState } from "react";
+import { ChevronUp, ChevronDown, Link, File, Video } from "lucide-react";
+import { AccordionProps } from "@/types";
 
-    const handleSwitch = (id: number, status: string) => {
-        const dataCopy = [...accordionItems]
-        dataCopy.map((i: any) => (i.itemClose = true));
+type AccordionType = { contentList: AccordionProps[] };
 
-        const itemSelected = dataCopy.find((i: any) => i.id == id )
-        const itemIndex = dataCopy.findIndex((i: any) => i.id == id)
+const Accordion = ({ contentList }: AccordionType) => {
+  const [openId, setOpenId] = useState<number | null>(null);
 
-        itemSelected.itemClose = status == "open" ? false: true;
-        dataCopy[itemIndex] = itemSelected;
+  const handleSwitch = (id: number) => {
+    setOpenId((prevId) => (prevId === id ? null : id));
+  };
 
-        setAccordionItems(dataCopy)
+  return (
+    <div className="rounded-2xl border flex flex-col overflow-hidden">
+      {contentList.map(({ id, title, contents }) => {
+        const isOpen = openId === id;
 
-    }
+        return (
+          <div key={id} className="flex flex-col border-b">
+            {/* Accordion Header */}
+            <button
+              className="flex items-center w-full bg-gray-200 p-4 text-left"
+              onClick={() => handleSwitch(id)}
+              aria-expanded={isOpen}
+            >
+              {isOpen ? (
+                <ChevronUp size={20} className="shrink-0" />
+              ) : (
+                <ChevronDown size={20} className="shrink-0" />
+              )}
+              <h2 className="font-medium text-gray-700 ml-4">{title}</h2>
+            </button>
 
-    return (
-        <div className="rounded-t-2xl border overflow-hidden">
-
-            {accordionItems.map((content: any) => 
-            <div key={content.id} className="flex flex-col">
-
-                <div className="flex bg-gray-200 p-4 border border-x-0 border-t-0 border-b-1" onClick={ () => handleSwitch(content.id, content.itemClose ? "open": "close") }>
-                    {content.itemClose ? <ChevronDown size={20}/> : <ChevronUp size={20} />}
-                    <h2 className="font-bold ms-4">{content.head}</h2>
-                </div>
-                
-                {content.itemClose == false && 
-                <div className="my-2">                    
-                    {content.content.map((list: any) => 
-                        <div key={list.id} className="flex items-center p-2">
-                        { list.type == "file" ? <File size={15}/> : list.type == "link" ? <Link size={15}/> : <Video size={15}/> } 
-                        <span className="ms-5">{list.name}</span>
-                    </div>
-                    )
-                    }
-                </div>
-                }   
-            </div>
-            )}            
-
-        </div>
-    );
+            {/* Accordion Content */}
+            {isOpen && (
+              <div className="p-2">
+                {contents.map(({ id, type, name }) => (
+                  <div
+                    key={id}
+                    className="flex shrink-0 items-center p-4 py-2 md:py-4"
+                  >
+                    {type === "file" ? (
+                      <File size={18} className="shrink-0" />
+                    ) : type === "link" ? (
+                      <Link size={18} className="shrink-0" />
+                    ) : (
+                      <Video size={18} className="shrink-0" />
+                    )}
+                    <p className="ml-5">{name}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Accordion;
