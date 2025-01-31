@@ -5,8 +5,102 @@ import { motion } from "framer-motion";
 import formatCurrency from "@/app/helpers/currencyFormatter";
 import { Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Accordion from "@/components/custom/Accordion";
+
+interface AccordionProps {
+  id: number;
+  head: string;
+  content: ContentType[];
+  itemClose: boolean;
+}
+
+type ContentType = {
+  id: number;
+  name: string;
+  path?: string;
+  type: string;
+};
 
 export default function CoursePage() {
+  const contentList: AccordionProps[] = [
+    {
+      id: 0,
+      head: "Day 1 - Beginner - Working with Variables in Python to Manage Data",
+      content: [
+        {
+          id: 0,
+          name: "Setting up your account on Chaise",
+          path: "#",
+          type: "link",
+        },
+        {
+          id: 1,
+          name: "Getting people to notice you by upgrading your account.",
+          path: "#",
+          type: "video",
+        },
+        {
+          id: 2,
+          name: "Completing your account on how to use the gjjiui bvgrty nhugytfty nbjyftyfy g6t",
+          path: "#",
+          type: "file",
+        },
+      ],
+      itemClose: true,
+    },
+    {
+      id: 1,
+      head: "Day 2 - Beginner - Understanding Data Types and How to Manipulate Strings",
+      content: [
+        {
+          id: 0,
+          name: "Setting up your account on Chaise",
+          path: "#",
+          type: "file",
+        },
+        {
+          id: 1,
+          name: "Getting people to notice you by upgrading your account.",
+          path: "#",
+          type: "video",
+        },
+      ],
+      itemClose: true,
+    },
+    {
+      id: 2,
+      head: "Day 3 - Beginner - Control Flow and Logical Operators",
+      content: [
+        {
+          id: 0,
+          name: "Setting up your account on Chaise",
+          path: "#",
+          type: "file",
+        },
+        {
+          id: 1,
+          name: "Getting people to notice you by upgrading your account.",
+          path: "#",
+          type: "video",
+        },
+      ],
+      itemClose: true,
+    },
+    {
+      id: 3,
+      head: "Day 4 - Beginner - Randomisation and Python Lists",
+      content: [
+        {
+          id: 0,
+          name: "Setting up your account on Chaise",
+          path: "#",
+          type: "file",
+        },
+      ],
+      itemClose: true,
+    },
+  ];
+
   return (
     <MainLayout>
       <motion.section
@@ -72,6 +166,7 @@ export default function CoursePage() {
         <h2 className="text-xl text-gray-700 md:text-2xl font-semibold">
           Course Content
         </h2>
+        <Accordion contentList={contentList} />
       </motion.section>
     </MainLayout>
   );

@@ -6,6 +6,7 @@ import {
   FIND_TALENTS_LINK_ITEM,
   FIND_WORKS_LINK_ITEM,
   EXPLORE,
+  DESKTOP_NAV_LINK_ITEMS,
 } from "@/data/menuCategories";
 import { ArrowRight } from "lucide-react";
 
@@ -20,9 +21,11 @@ export default function HeaderDropdown({
 }: HeaderDropdownProps) {
   return (
     <header
-      className={`z-50 absolute w-full h-[90vh] bg-[rgba(0,0,0,0.5)] ${
-        isCategoryShowing ? "top-[140px]" : "top-[90px]"
-      } ${itemClicked == EXPLORE.text && "flex flex-col items-center"} 
+      className={`z-50 absolute w-full h-[90vh] ${
+        itemClicked != "Chaise Learn" && "bg-[rgba(0,0,0,0.5)]"
+      } ${isCategoryShowing ? "top-[140px]" : "top-[90px]"} ${
+        itemClicked == EXPLORE.text && "flex flex-col items-center"
+      } 
       `}
     >
       <div
