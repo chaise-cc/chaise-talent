@@ -9,35 +9,44 @@ import SearchBoxHero from "../_components/HeroSearchBox";
 // import SearchBoxHero from "../SearchBox.hero";
 
 const HeroSection = () => {
-  const images = [
+  const upperImages = [
     "/images/hero-testimonials/1.png",
     "/images/hero-testimonials/2.png",
+  ];
+
+  const lowerImages = [
     "/images/hero-testimonials/3.png",
     "/images/hero-testimonials/4.png",
   ];
 
   const [imageOneIndex, setImageOneIndex] = useState(0);
   const [imageTwoIndex, setImageTwoIndex] = useState(1);
-  const [imageThreeIndex, setImageThreeIndex] = useState(2);
-  const [imageFourIndex, setImageFourIndex] = useState(3);
+  const [imageThreeIndex, setImageThreeIndex] = useState(0);
+  const [imageFourIndex, setImageFourIndex] = useState(1);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const upperImagesInterval = setInterval(() => {
       setImageOneIndex((prevIndex) =>
-        prevIndex == images.length - 1 ? 0 : prevIndex + 1
+        prevIndex == upperImages.length - 1 ? 0 : prevIndex + 1
       );
       setImageTwoIndex((prevIndex) =>
-        prevIndex == images.length - 1 ? 0 : prevIndex + 1
-      );
-      setImageThreeIndex((prevIndex) =>
-        prevIndex == images.length - 1 ? 0 : prevIndex + 1
-      );
-      setImageFourIndex((prevIndex) =>
-        prevIndex == images.length - 1 ? 0 : prevIndex + 1
+        prevIndex == upperImages.length - 1 ? 0 : prevIndex + 1
       );
     }, 3500);
 
-    return () => clearInterval(interval);
+    const lowerImagesInterval = setInterval(() => {
+      setImageThreeIndex((prevIndex) =>
+        prevIndex == lowerImages.length - 1 ? 0 : prevIndex + 1
+      );
+      setImageFourIndex((prevIndex) =>
+        prevIndex == lowerImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000);
+
+    return () => {
+      clearInterval(upperImagesInterval);
+      clearInterval(lowerImagesInterval);
+    };
   }, []);
 
   return (
@@ -53,8 +62,8 @@ const HeroSection = () => {
           <div className="h-28 w-40 flex justify-start relative">
             <AnimatePresence>
               <motion.img
-                key={images[imageOneIndex]}
-                src={images[imageOneIndex]}
+                key={upperImages[imageOneIndex]}
+                src={upperImages[imageOneIndex]}
                 alt="Hero testimonial 1"
                 className="w-full h-full object-contain"
                 initial={{ opacity: 0 }}
@@ -67,8 +76,8 @@ const HeroSection = () => {
           <div className="h-28 w-40 relative">
             <AnimatePresence>
               <motion.img
-                key={images[imageTwoIndex]}
-                src={images[imageTwoIndex]}
+                key={upperImages[imageTwoIndex]}
+                src={upperImages[imageTwoIndex]}
                 alt="Hero testimonial 2"
                 className="w-full h-full object-contain"
                 initial={{ opacity: 0 }}
@@ -83,8 +92,8 @@ const HeroSection = () => {
           <div className="h-28 w-40 relative">
             <AnimatePresence>
               <motion.img
-                key={images[imageThreeIndex]}
-                src={images[imageThreeIndex]}
+                key={lowerImages[imageThreeIndex]}
+                src={lowerImages[imageThreeIndex]}
                 alt="Hero testimonial 2"
                 className="w-full h-full object-contain"
                 initial={{ opacity: 0 }}
@@ -97,8 +106,8 @@ const HeroSection = () => {
           <div className="h-28 w-40 relative">
             <AnimatePresence>
               <motion.img
-                key={images[imageFourIndex]}
-                src={images[imageFourIndex]}
+                key={lowerImages[imageFourIndex]}
+                src={lowerImages[imageFourIndex]}
                 alt="Hero testimonial 2"
                 className="w-full h-full object-contain"
                 initial={{ opacity: 0 }}

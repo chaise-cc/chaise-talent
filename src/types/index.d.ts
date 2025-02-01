@@ -277,14 +277,15 @@ type ServiceFormData = {
 };
 
 interface AccordionProps {
-  id: number;
+  id: string;
   title: string;
   contents: ContentType[];
 }
 
 type ContentType = {
-  id: number;
+  id: string;
   name: string;
-  path?: string;
   type: string;
+  duration?: string | undefined;
+  icon?: string | undefined;
 };

@@ -1,14 +1,28 @@
 "use client";
-import React from "react";
+
 import MainLayout from "../../../_components/mainLayout";
 import { motion } from "framer-motion";
 import formatCurrency from "@/app/helpers/currencyFormatter";
 import { Star, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Accordion from "@/components/custom/Accordion";
-import { understanding_content_management } from "@/data/courses/understanding-content-management";
+import { courses } from "@/data/courses/understanding-content-management";
 
-export default function CoursePage() {
+export default async function CoursePage(props: {
+  params: Promise<{ courseId: number }>;
+}) {
+  const { courseId } = await props.params;
+
+  const course = courses.find((c) => c.id == courseId);
+
+  if (course == undefined) {
+    return (
+      <div className="flex justify-center items-center h-screen animate-pulse font-medium">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <MainLayout>
       <motion.section
@@ -18,9 +32,7 @@ export default function CoursePage() {
         className="bg-gradient-to-b from-[#B2B2B2] to-[#595651] text-white relative min-h-[calc(100vh-160px)] bg-no-repeat bg-cover w-full container mx-auto py-8 md:py-24 flex items-start justify-between"
       >
         <div className="w-full flex flex-col gap-4 md:gap-6 md:max-w-2xl">
-          <h2 className="text-3xl md:text-4xl">
-            100 Days of Code: The Complete Python Pro Bootcamp
-          </h2>
+          <h2 className="text-3xl md:text-4xl">{course?.title}</h2>
 
           <p>
             Master Python by building 100 projects in 100 days. Learn data
@@ -28,23 +40,25 @@ export default function CoursePage() {
           </p>
 
           <div className="flex items-center gap-2">
-            3.9
+            {course?.rating}
             <Star
               className="-mt-1 text-yellow-400 fill-main-color-500"
               size={16}
             />
             <span>(231,869 rating)</span>
-            <span>1,487,779 students</span>
+            <span>{course?.students} students</span>
           </div>
 
           <p>
             Created by:{" "}
-            <span>Dr. Angela Yu, Developer and Lead Instructor</span>
+            <span>
+              {course?.instructor.name}, {course?.instructor.profession}
+            </span>
           </p>
 
           <div className="flex flex-col gap-1">
             <h3 className="font-bold text-xl">
-              {formatCurrency("NGN", 10900)}
+              {formatCurrency(course?.price?.currency, course?.price?.amount)}
             </h3>
             <small className="text-red-300 flex gap-2 items-center leading-none">
               <Timer size={20} />{" "}
@@ -90,28 +104,26 @@ export default function CoursePage() {
             <p className="text-sm">
               101 sections • 592 lectures • 56h 20m total length
             </p>
-            <Accordion contentList={understanding_content_management} />
+            <Accordion contentList={course?.modules} />
           </div>
         </div>
 
         <div className="w-full md:max-w-sm flex flex-col gap-4 shrink-0 border p-4 rounded-xl">
-          <h2 className="text-xl font-medium">
-            100 Days of Code: The Complete Python Pro Bootcamp
-          </h2>
+          <h2 className="text-xl font-medium">{course?.title}</h2>
 
           <div className="flex text-sm items-center gap-2">
-            3.9
+            {course?.rating}
             <Star
               className="-mt-1 text-yellow-400 fill-main-color-500"
               size={16}
             />
             <span>(231,869 rating)</span>
-            <span>1,487,779 students</span>
+            <span>{course?.students} students</span>
           </div>
 
           <div className="flex flex-col gap-1">
             <h3 className="font-bold text-xl">
-              {formatCurrency("NGN", 10900)}
+              {formatCurrency(course?.price?.currency, course?.price?.amount)}
             </h3>
             <small className="text-red-700 flex gap-2 items-center leading-none">
               <Timer size={20} className="text-red-600 " />{" "}

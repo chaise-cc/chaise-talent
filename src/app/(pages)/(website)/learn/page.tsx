@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import formatCurrency from "@/app/helpers/currencyFormatter";
 import { FaStar } from "react-icons/fa6";
 import Link from "next/link";
+import { courses } from "@/data/courses/understanding-content-management";
 
 const courseCategories = [
   {
@@ -43,81 +44,6 @@ const courseCategories = [
   {
     name: "IT Support and Administration",
     icon: "/images/icons/maintenance.png",
-  },
-];
-
-const courses = [
-  {
-    thumbnail: "/images/thumbnails/courses/course-1.png",
-    platform: { name: "coursera", icon: "/images/icons/udemy.png" },
-    name: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
-    instructor: {
-      name: "Andrew Brown",
-      profession: "Developer and Lead Instructor",
-    },
-    rating: 3.9,
-    students: 231869,
-    price: { currency: "USD", amount: 19.99 },
-  },
-  {
-    thumbnail: "/images/thumbnails/courses/course-2.png",
-    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
-    name: "100 Days of Code: The Complete Python Pro Bootcamp",
-    instructor: {
-      name: "Dr. Angela Yu",
-      profession: "Developer and Lead Instructor",
-    },
-    rating: 3.9,
-    students: 231869,
-    price: { currency: "NGN", amount: 48950 },
-  },
-  {
-    thumbnail: "/images/thumbnails/courses/course-1.png",
-    platform: { name: "coursera", icon: "/images/icons/udemy.png" },
-    name: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
-    instructor: {
-      name: "Andrew Brown",
-      profession: "Developer and Lead Instructor",
-    },
-    rating: 3.9,
-    students: 231869,
-    price: { currency: "USD", amount: 198.99 },
-  },
-  {
-    thumbnail: "/images/thumbnails/courses/course-2.png",
-    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
-    name: "100 Days of Code: The Complete Python Pro Bootcamp",
-    instructor: {
-      name: "Dr. Angela Yu",
-      profession: "Developer and Lead Instructor",
-    },
-    rating: 3.9,
-    students: 231869,
-    price: { currency: "NGN", amount: 18900 },
-  },
-  {
-    thumbnail: "/images/thumbnails/courses/course-1.png",
-    platform: { name: "coursera", icon: "/images/icons/udemy.png" },
-    name: "[NEW] Ultimate AWS Certified Cloud Practitioner CLF-C02 2025",
-    instructor: {
-      name: "Andrew Brown",
-      profession: "Developer and Lead Instructor",
-    },
-    rating: 3.9,
-    students: 231869,
-    price: { currency: "USD", amount: 19.0 },
-  },
-  {
-    thumbnail: "/images/thumbnails/courses/course-2.png",
-    platform: { name: "coursera", icon: "/images/icons/coursera.png" },
-    name: "100 Days of Code: The Complete Python Pro Bootcamp",
-    instructor: {
-      name: "Dr. Angela Yu",
-      profession: "Developer and Lead Instructor",
-    },
-    rating: 3.9,
-    students: 231869,
-    price: { currency: "NGN", amount: 48950 },
   },
 ];
 
@@ -261,7 +187,7 @@ export default function LearnPage() {
           <div className="grid gap-2 md:gap-8 grid-cols-2 md:grid-cols-3 py-8 ">
             {courses.map((course, index) => (
               <Link
-                href={"/learn/courses/1"}
+                href={`/learn/courses/${course.id}`}
                 className="md:p-4 bg-gray-50 shadow-sm max-w-sm drop-shadow-sm rounded-xl flex justify-between flex-col gap-3"
                 key={index}
               >
@@ -283,7 +209,7 @@ export default function LearnPage() {
                       className="h-3 w-max object-contain "
                     />
                     <h3 className="line-clamp-2 text-sm md:text-base text-ellipsis">
-                      {course.name}
+                      {course.title}
                     </h3>
                   </div>
 
