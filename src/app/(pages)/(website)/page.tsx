@@ -8,6 +8,7 @@ import CTASection from "./_sections/CTASection";
 import ExploreBlogSection from "./_sections/ExploreBlogSection";
 import ExploreCategoriesSection from "./_sections/ExploreCategoriesSection";
 import getAllServiceCategories from "@/utils/pb/services/getAllServiceCategories";
+import ForBusinessesSection from "./_sections/ForBusinesses";
 
 export default async function Home() {
   const talents: Talent[] = await getAllTalents();
@@ -20,6 +21,7 @@ export default async function Home() {
         <ExploreCategoriesSection allCategories={servicesCategories} />
         <TopRatedTalentsSection talents={talents} />
         <ExclusiveBenefitsSection />
+        <ForBusinessesSection />
         <ExploreBlogSection />
         <CTASection />
       </div>
