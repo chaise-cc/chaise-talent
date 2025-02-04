@@ -5,7 +5,7 @@ import { MdPeopleAlt } from "react-icons/md";
 
 const ForBusinessesSection = () => {
   return (
-    <section className=" relative mt-28 md:mt-20 mb-8 py-12" id="chaise-pro">
+    <section className=" relative mt-20 md:mt-8 mb-12 py-4" id="chaise-pro">
       <div className="h-full container">
         <div className="flex flex-col md:flex-row h-full gap-4 md:gap-12 items-center">
           <h1 className="mb-2 px-8 text-2xl text-center md:hidden md:text-4xl varela-round-regular">
@@ -22,7 +22,7 @@ const ForBusinessesSection = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-            </span>{" "}
+            </span>
             turn to chaise
           </h1>
           <div className="md:w-[48%] w-full rounded-xl h-72 md:h-[520px] p-2 md:p-4 overflow-hidden">
@@ -60,14 +60,19 @@ const ForBusinessesSection = () => {
                 turn to chaise
               </h1>
               {/*  */}
-              <div className="grid gap-2 grid-cols-2 md:gap-4 md:gap-y-12 md:leading-6">
+              <div className="grid gap-x-1 gap-y-4 grid-cols-2 md:gap-4 md:gap-y-12 md:leading-6">
                 {/* <!--  --> */}
-                <div className="flex gap-4 items-start max-w-lg">
-                  <Folder size={24} className="shrink-0" />
+                <div className="flex gap-2 md:gap-4 items-start max-w-lg">
+                  <Folder size={20} className="shrink-0" />
 
                   <div className="grid gap-1 md:gap-2">
-                    <h2 className="font-semibold">Access to Diverse Talents</h2>
-                    <p className="" style={{ fontWeight: 300 }}>
+                    <h2 className="font-semibold text-sm md:text-base">
+                      Access to Diverse Talents
+                    </h2>
+                    <p
+                      className="text-sm md:text-base"
+                      style={{ fontWeight: 300 }}
+                    >
                       We have the best talents for your projects irrespective of
                       their location
                     </p>
@@ -75,12 +80,17 @@ const ForBusinessesSection = () => {
                 </div>
 
                 {/* <!--  --> */}
-                <div className="flex gap-4 items-start max-w-lg">
-                  <Edit2 size={24} className="shrink-0" />
+                <div className="flex gap-2 md:gap-4 items-start max-w-lg">
+                  <Edit2 size={20} className="shrink-0" />
 
                   <div className="grid gap-1 md:gap-2">
-                    <h2 className="font-semibold">Flexibity</h2>
-                    <p className="" style={{ fontWeight: 300 }}>
+                    <h2 className="font-semibold  text-sm md:text-base">
+                      Flexibity
+                    </h2>
+                    <p
+                      className=" text-sm md:text-base"
+                      style={{ fontWeight: 300 }}
+                    >
                       Flexibility to scale your workforce up or down based on
                       project demands.
                     </p>
@@ -88,24 +98,34 @@ const ForBusinessesSection = () => {
                 </div>
 
                 {/* <!--  --> */}
-                <div className="flex gap-4 items-start max-w-lg">
-                  <DollarCircle color="black" size={24} className="shrink-0" />
+                <div className="flex gap-2 md:gap-4 items-start max-w-lg">
+                  <DollarCircle color="black" size={20} className="shrink-0" />
 
                   <div className="grid gap-1 md:gap-2">
-                    <h2 className="font-semibold">Cost-Effective Solutions</h2>
-                    <p className="" style={{ fontWeight: 300 }}>
+                    <h2 className="font-semibold text-sm md:text-base">
+                      Cost-Effective Solutions
+                    </h2>
+                    <p
+                      className=" text-sm md:text-base"
+                      style={{ fontWeight: 300 }}
+                    >
                       Competitive pricing for high-quality work
                     </p>
                   </div>
                 </div>
 
                 {/* <!--  --> */}
-                <div className="flex gap-4 items-start max-w-lg">
-                  <MdPeopleAlt size={24} className="shrink-0" />
+                <div className="flex gap-2 md:gap-4 items-start max-w-lg">
+                  <MdPeopleAlt size={20} className="shrink-0" />
 
                   <div className="grid gap-1 md:gap-2">
-                    <h2 className="font-semibold">Pool of talents</h2>
-                    <p className="" style={{ fontWeight: 300 }}>
+                    <h2 className="font-semibold text-sm md:text-base">
+                      Pool of talents
+                    </h2>
+                    <p
+                      className=" text-sm md:text-base"
+                      style={{ fontWeight: 300 }}
+                    >
                       Access specialized skills and expertise that may not be
                       available in-house.
                     </p>
